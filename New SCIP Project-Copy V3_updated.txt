@@ -1,0 +1,348 @@
+Everlasting Homes — Site Section Map
+Last updated: May 2026
+
+──────────────────────────────────────────
+NAV
+──────────────────────────────────────────
+Logo: EHBG logo image (file: /Logos/ehbg-logo.png) — 80px height, links to /
+Link 1: Technology → #scip-core
+Link 2: Protection → #fire-protection
+Link 3: About → #house-wireframe
+Link 4: Projects → #portfolio
+Facebook icon → https://www.facebook.com/youreverlastinghome
+Instagram icon → https://www.instagram.com/everlastinghomesgroup
+YouTube icon → https://www.youtube.com/channel/UClo9NRUNTukJqDvXSHrS5tg
+CTA Button: Consultation → opens Consultation Modal (see MODAL spec below)
+Favicon: /Logos/Favicon_EHBGlogo_16x16.png + Favicon_EHBGlogo_32x32.png
+
+──────────────────────────────────────────
+SECTION 01 — Hero  #hero
+──────────────────────────────────────────
+Eyebrow: Everlasting Homes
+H1 Line 1: Resilient Luxury Homebuilding
+H1 Line 2 (gold): Built for Strength
+Body paragraph: Your home should do more than look beautiful. It should be built to last.
+CTA Button 1 (primary): Schedule Consultation
+CTA Button 2 (ghost): Explore SCIP → #scip-technology
+Text appears at frame: (EHBG_webscroll_v3001.webp
+
+──────────────────────────────────────────
+SECTION 02 — SCIP Intro  #scip-core
+──────────────────────────────────────────
+Eyebrow: A Stronger Way to Build
+H2: Luxury Custom Homes Built With SCIP Technology
+Title (gold): Innovation Meets Resilience
+Body paragraph: Everlasting Homes uses Structural Concrete Insulated Panel technology to create high-performance homes designed for resilience, energy efficiency, and lasting comfort. The result is a home that feels refined, lives beautifully, and performs far beyond conventional construction.
+Bullet 1: Concrete Strength — Engineered panel systems designed for durability and protection.
+Bullet 2: Insulated Performance — Built for energy efficiency and indoor comfort.
+Bullet 3: Luxury Finish — Strength behind the walls, beauty in every visible detail.
+Text appears at frame: (EHBG_webscroll_v3049.webp
+
+──────────────────────────────────────────
+SECTION 03 — SCIP Technology  #scip-technology
+──────────────────────────────────────────
+Eyebrow: Engineering Excellence
+H2: SCIP Construction
+Title (gold): Structural Concrete Insulated Panel
+Graphic (centered under H2): SCIP_graphic.png
+Card 1 — Icon: Layers | Title: The Core | Body: High-density EPS for R-45 thermal efficiency.
+Card 2 — Icon: Shield | Title: The Steel | Body: Continuous mesh cage for 250MPH wind resistance.
+Card 3 — Icon: Zap | Title: The Shell | Body: High-PSI shotcrete with a 4-hour fire rating.
+Cards 1, 2, and 3 are stacked vertically on the left side of the SCIP graphic.
+Text appears at frame: (EHBG_webscroll_v3086.webp
+
+──────────────────────────────────────────
+SECTION 04 — Process  #process
+──────────────────────────────────────────
+Eyebrow: SCIP Process
+H2: How We Build Everlasting Homes
+Graphic (centered in the panel): process_graphic.png
+Step 01 — Label: Vision | Body: Site analysis and risk assessment.
+Step 02 — Label: Shell | Body: Engineering and SCIP erection.
+Step 03 — Label: Armor | Body: High-PSI shotcrete application.
+Step 04 — Label: Finish | Body: Bespoke luxury interior completion.
+CTA Button 1 (primary): Process
+Text appears at frame: (EHBG_webscroll_v3122.webp
+
+──────────────────────────────────────────
+SECTION 05 — Solution  #solution
+──────────────────────────────────────────
+Eyebrow: The SCIP Solution
+H2: The New Industry Standard
+Title: Safe & Sustainable, For Generations to Come
+Video link: https://www.youtube.com/watch?v=57Ch6CiTGgA
+Body paragraph: We use the innovative RSG 3-D light-weight, structural concrete insulated panel technology, achieving a zero-energy R20 insulation rating, to ensure our homes offer protection against natural disasters like hurricanes, tornadoes, earthquakes and fires.
+Pull quote (gold): "It's not just a home; it's a permanent investment in peace of mind."
+Text appears at frame: (EHBG_webscroll_v3172.webp
+
+──────────────────────────────────────────
+SECTION 06 — Fire Protection  #fire-protection
+──────────────────────────────────────────
+Eyebrow: Fire Protection
+H2: Fire Resistant up to 2200F
+Title (gold): 5x more durable than concrete
+Bullet 1 — Flame icon: Designed to resist fire, heat, and 5x more durable than regular concrete.
+Bullet 2 — Activity icon: Reinforced with concrete, steel mesh, and continuous insulation.
+Bullet 3 — Shield icon: SCIP shell designed to protect the home your family hopes to keep for generations.
+Text appears at frame: (EHBG_webscroll_v3196.webp
+
+──────────────────────────────────────────
+SECTION 07 — Earthquake Protection  #earthquake-protection
+──────────────────────────────────────────
+Eyebrow: Seismic Strength
+H2: Earthquake-Safe up to 9.0
+Bullet 1 — Activity icon: Reinforced structure designed to resist cracking, shifting, and separation during seismic movement.
+Bullet 2 — Layers icon: Walls, roof, and floors working together as one connected protective shell.
+Bullet 3 — Shield icon: A stronger foundation for the family, memories, and legacy meant to last for generations.
+Text appears at frame: (EHBG_webscroll_v3233.webp
+
+──────────────────────────────────────────
+SECTION 08 — Wind Protection  #wind-protection
+──────────────────────────────────────────
+Eyebrow: Extreme Wind Defense Against
+H2: 250+ MPH winds and projectile impacts.
+Bullet 1 — Wind icon: A durable envelope designed to withstand severe wind pressure and uplift forces.
+Bullet 2 — Shield icon: Reinforced walls and roof systems that help reduce weak points across the structure.
+Bullet 3 — Infinity icon: Built for the storms your family may face today, tomorrow, and decades from now.
+Text appears at frame: (EHBG_webscroll_v3274.webp
+
+──────────────────────────────────────────
+SECTION 09 — Flood Protection  #flood-protection
+──────────────────────────────────────────
+Eyebrow: Water Defense
+H2: Flood Resilience
+Bullet 1 — Droplets icon: Concrete-based construction that helps reduce water absorption, rot, and material breakdown.
+Bullet 2 — Shield icon: A stronger envelope designed to help resist moisture intrusion, mold, pests, and decay.
+Bullet 3 — Award icon: A more resilient structure for families building near coastlines, flood zones, and changing climate conditions.
+Text appears at frame: (EHBG_webscroll_v3324.webp
+
+──────────────────────────────────────────
+SECTION 10 — Layers of Protection  #layers-protection
+──────────────────────────────────────────
+Eyebrow: Proven Strength
+H2: In Any Climate
+Bullet 1 — CheckCircle2 icon: Backed by the International Code Council and approved by the Miami-Dade County Building Code, our homes exceed U.S. structural and energy standards.
+Bullet 2 — Globe icon: Over 30 years, in 20 countries, SCIP homes have endured zero damage—even in the face of CAT5 hurricanes, earthquakes, and wildfires.
+Bullet 3 — Zap icon: VRF heat pumps for HVAC, Allergen Free, Zero Energy Ready Homes.
+Cert logo strip (bottom of panel, 38px height, 6 logos):
+  1. ghba.png
+  2. resnet.jpg
+  3. energy-star.png
+  4. nahb.webp
+  5. rsg.png
+  6. zero-home.jpg
+Text appears at frame: (EHBG_webscroll_v3355.webp
+
+──────────────────────────────────────────
+SECTION 11 — About  #house-wireframe
+──────────────────────────────────────────
+Eyebrow: Everlasting Homes
+H2: Our Story
+Title (gold): Built on Precision & Integrity
+Body paragraph: Everlasting Homes Building Group was founded by experienced builders and engineering-minded leaders with backgrounds in complex construction, luxury homes, and large-scale energy-sector projects. Led by Franck Boursier and George Mock, former ExxonMobil executives, they've reimagined construction using the revolutionary SCIP technology—setting a new standard for strength, safety, and sustainability. Together, Franck and George build more than homes; they craft legacies.
+Award label (gold): Global Leader in Resilient Architecture
+Italic line: Engineering-Led. Family-Focused. Built for the Future.
+Team grid — 1 row of 3:
+  Image 1: Franck_headshot.webp | Name: Franck Boursier | Title: Partner & CEO
+  Image 2: GeorgeM_headshot.webp | Name: George Mock | Title: Partner & General Manager
+  Image 3: JullieM_headshot.webp | Name: Julie Mock | Title: Partner & Business Manager
+Text appears at frame: (EHBG_webscroll_v3393.webp
+
+──────────────────────────────────────────
+SECTION 12 — Services  #services
+──────────────────────────────────────────
+Eyebrow: Our Capabilities
+H2: Turnkey Luxury & Resilience
+Service 1: Planning & Design Coordination — Shape the home around your lifestyle, property, and long-term goals.
+Service 2: Permitting & Demolition Support — Move from site preparation to build-ready with a guided process.
+Service 3: Complete Luxury Build — Bring together structure, systems, finishes, and performance into one cohesive home.
+Text appears at frame: (EHBG_webscroll_v3430.webp
+
+──────────────────────────────────────────
+SECTION 13 — Awards  #awards
+──────────────────────────────────────────
+Eyebrow: Recognized Performance
+H2: Award-Winning Homes. Proven Building Science.
+Trust list (CheckCircle2 icon, white text):
+  • DOE Recognition
+  • RESNET HERS Performance Focus
+  • Green Builder Recognition
+  • Luxury Concrete Homebuilding Recognition
+Award seal strip (bottom of panel, 90px height, space-between, white glow):
+  1. doe-seal.png — Department of Energy Recognition
+  2. resnet-seal.png — RESNET HERS Performance
+  3. green-builder-seal.png — Green Builder Recognition
+  4. build-mag-seal.png — BUILD Magazine Recognition
+  Files located in: /public/award-seals/
+Text appears at frame: (EHBG_webscroll_v3466.webp
+
+──────────────────────────────────────────
+SECTION 14 — Portfolio  #portfolio
+──────────────────────────────────────────
+Eyebrow: Featured Projects
+H2: Proven Strength Worldwide
+Project 1 — Name: The Meyerland | Caption: Houston, TX — A flood-hardened masterpiece engineered to endure repeat catastrophic flooding.
+Project 2 — Name: West University | Caption: Houston, TX — A high-efficiency luxury estate built for a 100-year design life.
+Project 3 — Name: Coastal Fortress | Caption: Gulf Coast — A hurricane-ready retreat built on a monolithic concrete foundation for absolute coastal security.
+CTA Button: Gallery (placeholder — awaiting client photography)
+Text appears at frame: (EHBG_webscroll_v3503.webp
+
+──────────────────────────────────────────
+SECTION 15 — FAQ  #angle-house
+──────────────────────────────────────────
+Eyebrow: Before You Build
+H2: Smart Questions Before Choosing Your Homebuilder
+Subhead: Building or rebuilding is a major decision. These answers help you understand why structure, resilience, and long-term performance should be part of the conversation from the start.
+Accordion (13 items, scrollable):
+  1. Why shouldn't I rebuild the same way after a wildfire?
+     Rebuilding is a chance to come home stronger. Instead of recreating the same vulnerabilities, SCIP construction gives your family a more resilient, fire-resistant path forward from the start.
+  2. What makes an Everlasting Home different?
+     An Everlasting Home is built with more than beauty in mind. Behind the custom design is SCIP technology, created to support strength, comfort, energy efficiency, and long-term peace of mind.
+  3. Will it still look and feel like a luxury home?
+     Yes. Your home can still feel elegant, personal, and beautifully designed. SCIP strengthens the structure behind the walls while allowing room for modern architecture, custom layouts, elevated finishes, and indoor-outdoor living.
+  4. Is this only for wildfire rebuilds?
+     Not at all. Everlasting Homes is also for families building new custom homes, especially in areas where fire, earthquakes, wind, moisture, pests, or rising energy costs are part of the bigger picture.
+  5. Can I use my own architect or contractor?
+     Yes. If you already have a trusted team, Everlasting Homes can work alongside them to build the SCIP shell — including the walls, floors, and roof system — while helping strengthen the home's core structure.
+  6. Can Everlasting Homes manage the full build?
+     Yes. For homeowners who want more guidance, the turnkey option can support the full journey — from planning and permits to demolition, construction, interior design, and final delivery.
+  7. Is SCIP construction worth the investment?
+     For families thinking long-term, it can be. SCIP construction is designed to help protect against fire, energy waste, moisture, pests, maintenance concerns, and structural wear over time.
+  8. How much does it cost to build an Everlasting Home?
+     Every home is different. Pricing depends on your property, design, square footage, finish level, site conditions, and whether you need a turnkey build or a SCIP shell. A consultation is the best place to start.
+  9. Are these homes energy efficient?
+     Yes. SCIP homes are designed with insulation and concrete working together to support steady indoor comfort, better efficiency, and reduced energy waste.
+  10. How does this help protect my family?
+      It creates a stronger building envelope around the life you are building inside. Everlasting Homes are designed to help protect against fire, earthquakes, wind, moisture, mold, termites, and long-term wear.
+  11. When should I contact Everlasting Homes?
+      The earlier, the better. Reaching out before plans, permits, or builder decisions are finalized gives you more options and helps avoid costly changes later.
+  12. Do I need a turnkey build or just the SCIP shell?
+      If you want full support from start to finish, turnkey may be the best fit. If you already have a team and want to strengthen the structure, the SCIP shell may be the right path.
+  13. What is the next step?
+      Start with a consultation. The Everlasting Homes team can review your property, goals, timeline, plans, and help you understand the strongest path forward.
+Text appears at frame: (EHBG_webscroll_v3530.webp
+
+──────────────────────────────────────────
+SECTION 16 — CTA  #cta
+──────────────────────────────────────────
+Eyebrow: Begin Your Legacy
+H2: Secure Your Future Today
+Body paragraph: Wherever you are in the world, our team will design a disaster-resistant fortress of luxury tailored precisely to your site, your climate, and your vision.
+CTA Button (primary): Schedule Private Consultation → opens Consultation Modal
+Email (gold): hello@everlasting.build
+Sticky bottom-left video button: Explore the SCIP System → https://www.youtube.com/watch?v=57Ch6CiTGgA
+Text appears at frame: (EHBG_webscroll_v3576.webp
+
+──────────────────────────────────────────
+CONSULTATION MODAL (overlay, triggered by nav + CTA buttons)
+──────────────────────────────────────────
+Eyebrow: Begin Your Legacy
+H2: Schedule a Consultation
+Subhead: Tell us about your project and we'll be in touch within 24 hours.
+Form fields:
+  Row 1: Full Name* | Email Address*
+  Row 2: Phone Number | City, State
+  Row 3: Project Type (dropdown) | Timeline (dropdown)
+    Project Type options: New Custom Home / Wildfire Rebuild / SCIP Shell Only / Unsure / Exploring Options
+    Timeline options: As soon as possible / 3–6 months / 6–12 months / 1+ year / Just exploring
+  Row 4: Message (textarea, optional)
+Submit button: Submit Consultation Request
+Fallback email: hello@everlasting.build
+Success state: "Request Received — The Everlasting Homes team will reach out within 24 hours."
+Backend: Formspree (VITE_FORMSPREE_ID env variable), fallback to mailto
+
+──────────────────────────────────────────
+INFOGRAPHIC CAROUSEL  #infographics
+──────────────────────────────────────────
+Eyebrow: Performance Data
+H2: Built to Outperform
+4 slides (auto-advance 5s, manual prev/next, dot pagination):
+  Slide 1: Infographic Lower Op Costs.png
+  Slide 2: Infographic SCIP building process 2.png
+  Slide 3: Infographic house cutout black.png
+  Slide 4: Infographic_PerformanceAnalysis.jpeg
+Caption: Every metric tells the same story — SCIP construction outperforms conventional building in energy efficiency, structural resilience, and long-term value.
+
+──────────────────────────────────────────
+TESTIMONIALS  #testimonials
+──────────────────────────────────────────
+Eyebrow: What Homeowners Say
+H2: Built on Trust
+7 cards displayed in flex wrap (3 per row):
+  1. Jaime Van Mourik — Department of Energy Ready Home Program Director
+     "The homes that you build are outstanding achievements and examples of how we can move the building industry to zero."
+  2. Ayo Bello — Homeowner
+     "We were happy with his crew and the quality of work done — still happy with the house more than 6 years later."
+  3. Hugues Thevoux — Homeowner
+     "The concrete home is so solid, strong, and very energy efficient. The best house you can have in Houston."
+  4. Charles Mansour — Homeowner
+     "You never have to go behind him or manage the quality of workmanship. Five stars. Highly recommended."
+  5. Floyd & Gabriel — Homeowners
+     "We were very impressed with the professionalism and project management skills. We highly recommend Everlasting Homes."
+  6. Michelle Hong — Homeowner
+     "If you're looking to build a high quality and truly custom home, I highly recommend you consider this group."
+  7. Eric Chan — Homeowner
+     "Our new house is more than high tech — it feels safe, comfortable and healthy. We recommend Everlasting without hesitation."
+
+──────────────────────────────────────────
+MEDIA  #media
+──────────────────────────────────────────
+Eyebrow: Press & Coverage
+H2: As Seen In
+5 cards displayed in flex wrap (3 per row), each links externally:
+  1. FOX 26 Houston — February 13, 2025
+     Title: Concrete homes offer more resistance to natural disasters
+     Description: Franck Boursier, CEO of Everlasting Homes Building Group, discusses how SCIP concrete construction enhances structural durability against fires, tornadoes, hurricanes, and earthquakes.
+     URL: https://www.fox26houston.com/video/1593132
+  2. CW39 Houston
+     Title: The Technology Behind Weather-Resilient Homes
+     Description: An inside look at the innovative building technology making homes more resilient to extreme weather events across the Gulf Coast.
+     URL: https://cw39.com/weather/technology-behind-weather-resilient-homes/
+  3. TIME Magazine — 2021
+     Title: Wood and Steel Houses Keep Burning. Here's What to Build Instead.
+     Description: As wildfires intensify across the U.S., the case for concrete and fire-resistant construction grows — and builders like Everlasting Homes are leading the way.
+     URL: https://time.com/6046368/wood-steel-houses-fires/
+  4. CNN Business — 2018
+     Title: How to Build a Home That Can Survive a Disaster
+     Description: A deep dive into disaster-proof construction methods and how innovative builders are rethinking what structural resilience really means.
+     URL: https://www.cnn.com/2018/10/08/success/disaster-proof-homes/index.html
+  5. CBS News San Francisco
+     Title: Fire-Resistant and Earthquake-Safe: Rebuilding After Wildfires
+     Description: Coverage of SCIP panel wall reconstruction following devastating California wildfires — demonstrating the technology's real-world resilience.
+     URL: https://www.cbsnews.com/sanfrancisco/news/embattled-debris-removal-company-helps-rebuild-wall-destroyed-in-wildfires/
+
+──────────────────────────────────────────
+FOOTER
+──────────────────────────────────────────
+Copyright line: © 2026 Everlasting Homes Building Group | Precision Engineered Luxury | Built for the World
+
+──────────────────────────────────────────
+VERTICAL NAV DOTS (fixed right, 19 stops)
+──────────────────────────────────────────
+01. Home → #hero
+02. SCIP Intro → #scip-core
+03. Technology → #scip-technology
+04. Process → #process
+05. Solution → #solution
+06. Fire → #fire-protection
+07. Earthquake → #earthquake-protection
+08. Wind → #wind-protection
+09. Flood → #flood-protection
+10. Climate → #layers-protection
+11. About → #house-wireframe
+12. Services → #services
+13. Awards → #awards
+14. Portfolio → #portfolio
+15. FAQ → #angle-house
+16. Contact → #cta
+17. Infographics → #infographics
+18. Testimonials → #testimonials
+19. Media → #media
+
+──────────────────────────────────────────
+FIXED UI ELEMENTS
+──────────────────────────────────────────
+• Sticky bottom-left: "Explore the SCIP System" video button → YouTube
+• Scroll-to-top button (bottom-right)
+• Vertical section nav dots (right edge)
+• Consultation modal (full-screen overlay)

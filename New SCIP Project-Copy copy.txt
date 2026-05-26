@@ -1,0 +1,206 @@
+Everlasting Homes — Site Section Map
+
+NAV
+	•	Logo text: Everlasting + dot
+	•	Link 1: Technology → #scip-technology
+	•	Link 2: About → #house-wireframe
+	•	Link 3: FAQ → #angle-house
+	•	CTA Button: Consultation
+
+SECTION 01 — Hero 
+	•	Eyebrow: Everlasting Homes
+	•	H1 Line 1: Luxury Homebuilding
+	•	H1 Line 2 (gold): Built for Strength
+	•	Body paragraph: Your home should do more than look beautiful. It should be built to last.
+	•	CTA Button 1 (primary): Schedule Consultation
+	•	CTA Button 2 (ghost): Explore SCIP → #scip-technology
+	•	Text appears at frame:  (EHBG_webscroll_v3001.webp 
+
+SECTION 02 — SCIP Intro
+	•	Eyebrow: A Stronger Way to Build
+	•	H1 Line 1: Luxury Custom Homes Built With SCIP Technology
+	•	Title (gold):: Innovation Meets Resilience
+	•	Body paragraph: Everlasting Homes uses Structural Concrete Insulated Panel technology to create high-performance homes designed for resilience, energy efficiency, and lasting comfort. The result is a home that feels refined, lives beautifully, and performs far beyond conventional construction.
+	•	Bullet 1: Concrete Strength — Engineered panel systems designed for durability and protection.
+	•	Bullet 2: Insulated Performance — Built for energy efficiency and indoor comfort.
+	•	Bullet 3: Luxury Finish — Strength behind the walls, beauty in every visible detail.
+	•	Text appears at frame: (EHBG_webscroll_v3049.webp 
+
+SECTION 03 — SCIP Technology 
+	•	Eyebrow: Engineering Excellence
+	•	H2: SCIP Construction
+	•	Card 1 — Icon: Layers | Title: The Core | Body: High-density EPS for R-45 thermal efficiency.
+	•	Card 2 — Icon: Shield | Title: The Steel | Body: Continuous mesh cage for 250MPH wind resistance.
+	•	Card 3 — Icon: Zap | Title: The Shell | Body: High-PSI shotcrete with a 4-hour fire rating.
+	•	Text appears at frame: (EHBG_webscroll_v3086.webp 
+
+SECTION 04 — Process 
+	•	Eyebrow: How We Build Everlasting Homes
+	•	H2: A Clear Path From First Call to Forever Home
+	•	Step 01 — Label: Vision | Body: Site analysis and risk assessment.
+	•	Step 02 — Label: Shell | Body: Engineering and SCIP erection.
+	•	Step 03 — Label: Armor | Body: High-PSI shotcrete application.
+	•	Step 04 — Label: Finish | Body: Bespoke luxury interior completion.
+	•	Text appears at frame: (EHBG_webscroll_v3122.webp 
+
+
+	•	SECTION 05 — Solution
+	
+	•	Eyebrow: The SCIP Solution
+	•	H2: A Fortress of Luxury
+	•	Title: Safe & Sustainable
+	•	Body paragraph: Everlasting Homes specializes in SCIP construction. By replacing wood framing with a monolithic concrete and steel core, we create a continuous, air-tight envelope that is virtually impenetrable.
+	•	Pull quote (gold): "It's not just a home; it's a permanent investment in peace of mind."
+	•	Text appears at frame: (EHBG_webscroll_v3172.webp 
+
+
+
+SECTION 06 — Fire Protection 
+Eyebrow: Fire Protection
+H1): Fire Resistant up to 2200F
+Body paragraph: SCIP homes are built differently.
+Title (gold): 5x more durable than concrete
+Bullet 1 — Flame icon: Designed to resist fire, heat, and 5x more durable than regular concrete.
+Bullet 2 — Activity icon: Reinforced with concrete, steel mesh, and continuous insulation.
+Bullet 3 — Shield icon: SCIP shell designed to protect the home your family hopes to keep for generations.
+3D Visual: Fire approaches in the distance. Embers move through the air. The camera pushes toward the home as the SCIP wall shell glows subtly to show protection.
+Text appears at frame: (EHBG_webscroll_v3196.webp 
+
+
+SECTION 07 — Earthquake Protection #earthquake-protection
+Eyebrow: Seismic Strength
+H2: Earthquake-Safe up to 9.0
+Bullet 1 — Activity icon: Reinforced structure designed to resist cracking, shifting, and separation during seismic movement.
+Bullet 2 — Layers icon: Walls, roof, and floors working together as one connected protective shell.
+Bullet 3 — Shield icon: A stronger foundation for the family, memories, and legacy meant to last for generations.
+3D Visual: Ground ripple passes beneath the home. Instead of shattering, the structure flexes visually as one continuous shell. Overlay subtle stress lines distributing through the SCIP panels.
+Text appears at frame: (EHBG_webscroll_v3233.webp 
+
+
+SECTION 08 — Wind Protection #wind-protection
+Eyebrow: Extreme Wind Defense Against
+H2: 250+ MPH winds and projectile impacts. 
+Bullet 1 — Wind icon: A durable envelope designed to withstand severe wind pressure and uplift forces.
+Bullet 2 — Shield icon: Reinforced walls and roof systems that help reduce weak points across the structure.
+Bullet 3 — Infinity icon: Built for the storms your family may face today, tomorrow, and decades from now.
+3D Visual: Wind particles and debris move around the house. The camera orbits the envelope. Roof, walls, and openings light up as connected defensive zones.
+Text appears at frame: (EHBG_webscroll_v3274.webp 
+
+
+SECTION 09 — Flood Protection #flood-protection
+Eyebrow: Water Defense
+H2: Flood Resilience
+Bullet 1 — Droplet icon: Concrete-based construction that helps reduce water absorption, rot, and material breakdown.
+Bullet 2 — Shield icon: A stronger envelope designed to help resist moisture intrusion, mold, pests, and decay.
+Bullet 3 — Legacy icon: A more resilient structure for families building near coastlines, flood zones, and changing climate conditions.
+3D Visual: Water rises around the home. The camera drops low to show flood pressure against the foundation and lower walls. SCIP shell remains intact while vulnerable traditional wall materials appear as ghosted comparison layers.
+Text appears at frame: (EHBG_webscroll_v3324.webp 
+
+
+
+SECTION 10 — Layers of protection 
+	•	Eyebrow: Proven Strength
+	•	H2: In Any Climate
+	•	Bullet 1: Backed by the International Code Council and approved by the Miami-Dade County Building Code, our homes exceed U.S. structural and energy standards.
+	•	Bullet 2: Over 30 years, in 20 countries, SCIP homes have endured zero damage—even in the face of CAT5 hurricanes, earthquakes, and wildfires.
+	•	Bullet 3: VRF heat pumps for HVAC, Allergen Free, Zero Energy Ready Homes 
+	•	Text appears at frame: (EHBG_webscroll_v3355.webp 
+
+
+	•	SECTION 11 — About 
+	•	Eyebrow: Everlasting Homes
+	•	H1: Our Story
+	•	Title: Built on Precision & Integrity
+	•	Body paragraph: 	Everlasting Homes Building Group was founded by experienced builders and engineering-minded leaders with backgrounds in complex construction, luxury homes, and large-scale energy-sector projects. Led by Franck Boursier and George Mock they’ve reimagined construction using the revolutionary Structural Concrete Insulated Panel (SCIP) technology—setting a new standard for strength, safety, and sustainability. Together, Franck and George build more than homes; they craft legacies.
+	•	Award label (gold): Global Leader in Resilient Architecture
+	•	Engineering-Led. Family-Focused. Built for the Future.
+	•	Text appears at frame: (EHBG_webscroll_v3393.webp 	
+
+
+SECTION 12 — Services 
+	•	Eyebrow: Our Capabilities
+	•	H2: Turnkey Luxury & Resilience
+	•	Service 1: Planning & Design Coordination Shape the home around your lifestyle, property, and long-term goals.
+	•	Service 2: Permitting & Demolition Support Move from site preparation to build-ready with a guided process.
+	•	Service 3: Complete Luxury Build Bring together structure, systems, finishes, and performance into one cohesive home.
+	•	Text appears at frame: (EHBG_webscroll_v3430.webp 
+
+
+	•	SECTION 13 — Awards 
+	•	Eyebrow: Recognized Performance
+	•	H2: Award-Winning Homes. Proven Building Science.
+	•	Trust Badges / Proof Points:
+	•	DOE Recognition
+	•	RESNET HERS Performance Focus
+	•	Green Builder Recognition
+	•	Luxury Concrete Homebuilding Recognition
+	•	Text appears at frame: (EHBG_webscroll_v3466.webp 
+
+
+SECTION 14 — Portfolio 
+	•	Eyebrow: Featured Projects
+	•	H2: Proven Strength Worldwide
+	•	Project 1 — Name: The Meyerland | Location/Caption: Houston, TX — A flood-hardened masterpiece engineered to endure repeat catastrophic flooding.
+	•	Project 2 — Name: West University | Location/Caption: Houston, TX — A high-efficiency luxury estate built for a 100-year design life.
+	•	Project 3 — Name: Coastal Fortress | Location/Caption: Gulf Coast — A hurricane-ready retreat built on a monolithic concrete foundation for absolute coastal security.
+	•	Text appears at frame: (EHBG_webscroll_v3503.webp 
+
+
+SECTION 15 — FAQ 
+	•	Eyebrow: Before You Build
+	•	H2: Smart Questions Before Choosing Your Homebuilder
+	•	H1: Building or rebuilding is a major decision. These answers help you understand why structure, resilience, and long-term performance should be part of the conversation from the start.
+	•	•1. Why shouldn’t I rebuild the same way after a wildfire?
+	•	Rebuilding is a chance to come home stronger. Instead of recreating the same vulnerabilities, SCIP construction gives your family a more resilient, fire-resistant path forward from the start.
+	•	2. What makes an Everlasting Home different?
+	•	An Everlasting Home is built with more than beauty in mind. Behind the custom design is SCIP technology, created to support strength, comfort, energy efficiency, and long-term peace of mind.
+	•	
+	•	3. Will it still look and feel like a luxury home?
+	•	Yes. Your home can still feel elegant, personal, and beautifully designed. SCIP strengthens the structure behind the walls while allowing room for modern architecture, custom layouts, elevated finishes, and indoor-outdoor living.
+	•	
+	•	4. Is this only for wildfire rebuilds?
+	•	Not at all. Everlasting Homes is also for families building new custom homes, especially in areas where fire, earthquakes, wind, moisture, pests, or rising energy costs are part of the bigger picture.
+	•	
+	•	5. Can I use my own architect or contractor?
+	•	Yes. If you already have a trusted team, Everlasting Homes can work alongside them to build the SCIP shell — including the walls, floors, and roof system — while helping strengthen the home’s core structure.
+	•	
+	•	6. Can Everlasting Homes manage the full build?
+	•	Yes. For homeowners who want more guidance, the turnkey option can support the full journey — from planning and permits to demolition, construction, interior design, and final delivery.
+	•	
+	•	7. Is SCIP construction worth the investment?
+	•	For families thinking long-term, it can be. SCIP construction is designed to help protect against fire, energy waste, moisture, pests, maintenance concerns, and structural wear over time.
+	•	
+	•	8. How much does it cost to build an Everlasting Home?
+	•	Every home is different. Pricing depends on your property, design, square footage, finish level, site conditions, and whether you need a turnkey build or a SCIP shell. A consultation is the best place to start.
+	•	
+	•	9. Are these homes energy efficient?
+	•	Yes. SCIP homes are designed with insulation and concrete working together to support steady indoor comfort, better efficiency, and reduced energy waste.
+	•	
+	•	10. How does this help protect my family?
+	•	It creates a stronger building envelope around the life you are building inside. Everlasting Homes are designed to help protect against fire, earthquakes, wind, moisture, mold, termites, and long-term wear.
+	•	
+	•	11. When should I contact Everlasting Homes?
+	•	The earlier, the better. Reaching out before plans, permits, or builder decisions are finalized gives you more options and helps avoid costly changes later.
+	•	
+	•	12. Do I need a turnkey build or just the SCIP shell?
+	•	If you want full support from start to finish, turnkey may be the best fit. If you already have a team and want to strengthen the structure, the SCIP shell may be the right path.
+	•	
+	•	13. What is the next step?
+	•	Start with a consultation. The Everlasting Homes team can review your property, goals, timeline, plans, and help you understand the strongest path forward.
+	•	
+	•	Text appears at frame: (EHBG_webscroll_v3530.webp 
+
+
+SECTION 16 — CTA #cta
+	•	Eyebrow: Begin Your Legacy
+	•	H2: Secure Your Future Today
+	•	Body paragraph: Wherever you are in the world, our team will design a disaster-resistant fortress of luxury tailored precisely to your site, your climate, and your vision.
+	•	CTA Button: Schedule Private Consultation
+	•	Email (gold): hello@everlasting.build
+	•	Text appears at frame: (EHBG_webscroll_v3576.webp 
+
+INFOGRAPHIC CAROUSEL - PROOF
+	•	Infographics
+
+FOOTER
+	•	Copyright line: © 2026 Everlasting Homes Building Group | Precision Engineered Luxury | Built for the World

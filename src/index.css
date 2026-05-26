@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════
+   Everlasting Homes — UI/UX Pro Max Design System
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --bg:          #050505;
+  --surface:     #121212;
+  --surface-lt:  #1e1e1e;
+  --text:        #ffffff;
+  --muted:       #a0a0a0;
+  --gold:        #dfb76c;
+  --gold-glow:   rgba(223, 183, 108, 0.3);
+  --border:      rgba(255, 255, 255, 0.1);
+  --font-primary: 'Inter', sans-serif;
+  --font-accent: 'Outfit', sans-serif; /* Using Outfit for headings for that premium feel */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  object-fit: cover;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.15; /* Clean premium tight leading */
+}
+
+.section-subtitle {
+  color: var(--gold);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Components ───────────────────────────────────────── */
+.glow-content {
+  padding: 2rem 2.25rem; /* Restored padding */
+  border-radius: 12px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.25); /* Slightly darker for better readability */
+  backdrop-filter: blur(12px); /* Premium, deep glass blur */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-content h1 {
+  text-shadow: 
+    0 0 15px rgba(223, 183, 108, 0.9),
+    0 0 30px rgba(223, 183, 108, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.glow-content h2,
+.glow-content h3,
+.glow-content h4 {
+  text-shadow: 
+    0 0 10px rgba(223, 183, 108, 0.7),
+    0 0 20px rgba(223, 183, 108, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+.glow-content p {
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.9);
+  color: #ffffff;
+  font-weight: 400;
+  line-height: 1.45; /* Clean premium tight leading */
+}
+
+.glow-content .section-subtitle {
+  text-shadow: 0 0 15px rgba(223, 183, 108, 0.4);
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.8rem 1.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.cta-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: 0 0 30px var(--gold-glow);
+}
+
+/* ── Nav ──────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(5,5,5,0.8), transparent);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-family: var(--font-accent);
+  font-size: 1.06rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo-dot { color: var(--gold); }
+
+.menu-links a {
+  transition: color 0.3s ease;
+}
+
+.menu-links a:hover {
+  color: var(--gold) !important;
+}
+
+.social-link {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-link:hover {
+  color: var(--gold) !important;
+  transform: translateY(-2px);
+}
+
+.video-btn {
+  transition: all 0.3s ease;
+}
+
+.video-btn:hover {
+  background: var(--gold) !important;
+  color: var(--bg) !important;
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* ── Layout ───────────────────────────────────────────── */
+section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.content-wrapper {
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+  pointer-events: all;
+}
+
+/* ── Stats & Grids ─────────────────────────────────────── */
+.stat-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.stat-item h3 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1.2;
+}
+
+.stat-item span {
+  font-size: 0.72rem;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+#infographics {
+  height: auto;
+  min-height: unset;
+  pointer-events: all;
+}
+
+#testimonials {
+  height: auto;
+  min-height: unset;
+  pointer-events: all;
+}
+
+#media {
+  height: auto;
+  min-height: unset;
+  pointer-events: all;
+}
+
+.form-input {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  padding: 0.65rem 1rem;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  border-radius: 4px;
+}
+
+.form-input:focus {
+  border-color: var(--gold);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+select.form-input {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+select.form-input option {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.faq-item {
+  transition: transform 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateX(10px);
+}
+
+/* ── Scroll Hints ─────────────────────────────────────── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0.6;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollLine 2s infinite;
+}
+
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  51% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
