@@ -109,39 +109,70 @@ export default function ScrollytellingEngine() {
       { id: '#cta', frame: 576 }
     ];
 
-    // Create contiguous ScrollTriggers for each section transition
+    // Create contiguous ScrollTriggers for each section transition.
+    // Each onUpdate guards with a scroll-range check so that when multiple
+    // triggers reset to progress=0 simultaneously (e.g. snapping to top),
+    // only the trigger whose range actually contains the current scroll
+    // position calls drawFrame — preventing later triggers from overwriting
+    // frame 1 with their own "from" frame value.
     const triggers = [];
     sectionMapping.forEach((m, i) => {
       if (i === 0) return;
       const prev = sectionMapping[i - 1];
       const section = document.querySelector(m.id);
       const prevSection = document.querySelector(prev.id);
-      
+
       if (!section || !prevSection) return;
+
+      const startY = prevSection.offsetTop;
+      const endY   = section.offsetTop;
 
       const trigger = ScrollTrigger.create({
         trigger: prevSection,
         start: "top top",
         endTrigger: section,
         end: "top top",
-        scrub: 1.5,
-        animation: gsap.fromTo(playheadRef.current, 
-          { frame: prev.frame }, 
-          { 
-            frame: m.frame, 
+        scrub: true,
+        animation: gsap.fromTo(playheadRef.current,
+          { frame: prev.frame },
+          {
+            frame: m.frame,
             ease: "none",
-            onUpdate: () => drawFrame(Math.floor(playheadRef.current.frame))
+            onUpdate: () => {
+              const sy = window.scrollY;
+              if (sy >= startY && sy <= endY) {
+                drawFrame(Math.floor(playheadRef.current.frame));
+              }
+            }
           }
         )
       });
       triggers.push(trigger);
     });
 
+    // After triggers are created, guarantee the canvas shows frame 1 at scroll=0.
+    // This catches any trigger that fired during GSAP's internal refresh pass.
+    if (window.scrollY === 0) {
+      playheadRef.current.frame = 1;
+      drawFrame(1);
+    }
+
     const handleResize = () => drawFrame(Math.floor(playheadRef.current.frame));
     window.addEventListener('resize', handleResize);
 
+    // When the logo/home button snaps to top, bypass the scrub lag and
+    // immediately draw frame 1 so the canvas matches scroll position 0.
+    const handleGoHome = () => {
+      // With the range guard on each onUpdate, scroll=0 will only let
+      // trigger 1 draw. Force frame 1 now so there's no single-frame flash.
+      playheadRef.current.frame = 1;
+      drawFrame(1);
+    };
+    window.addEventListener('go-home', handleGoHome);
+
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('go-home', handleGoHome);
       triggers.forEach(t => t.kill());
       ScrollTrigger.getAll().forEach(t => t.kill());
     };

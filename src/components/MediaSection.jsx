@@ -4,6 +4,7 @@ const MEDIA = [
   {
     outlet: 'FOX 26',
     outletSub: 'Houston',
+    logo: '/media-logos/fox26.jpeg',
     title: 'Concrete homes offer more resistance to natural disasters',
     description: 'Franck Boursier, CEO of Everlasting Homes Building Group, discusses how SCIP concrete construction enhances structural durability against fires, tornadoes, hurricanes, and earthquakes.',
     date: 'February 13, 2025',
@@ -12,6 +13,7 @@ const MEDIA = [
   {
     outlet: 'CW39',
     outletSub: 'Houston',
+    logo: '/media-logos/cw39.webp',
     title: 'The Technology Behind Weather-Resilient Homes',
     description: 'An inside look at the innovative building technology making homes more resilient to extreme weather events across the Gulf Coast.',
     date: '',
@@ -20,6 +22,7 @@ const MEDIA = [
   {
     outlet: 'TIME',
     outletSub: 'Magazine',
+    logo: '/media-logos/time.png',
     title: 'Wood and Steel Houses Keep Burning. Here\'s What to Build Instead.',
     description: 'As wildfires intensify across the U.S., the case for concrete and fire-resistant construction grows — and builders like Everlasting Homes are leading the way.',
     date: '2021',
@@ -28,6 +31,7 @@ const MEDIA = [
   {
     outlet: 'CNN',
     outletSub: 'Business',
+    logo: '/media-logos/cnn.png',
     title: 'How to Build a Home That Can Survive a Disaster',
     description: 'A deep dive into disaster-proof construction methods and how innovative builders are rethinking what structural resilience really means.',
     date: '2018',
@@ -36,6 +40,7 @@ const MEDIA = [
   {
     outlet: 'CBS News',
     outletSub: 'San Francisco',
+    logo: '/media-logos/cbs-news.png',
     title: 'Fire-Resistant and Earthquake-Safe: Rebuilding After Wildfires',
     description: 'Coverage of SCIP panel wall reconstruction following devastating California wildfires — demonstrating the technology\'s real-world resilience.',
     date: '',
@@ -94,16 +99,27 @@ export default function MediaSection() {
                 e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.35)';
               }}
             >
-              {/* Outlet badge */}
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
-                <span style={{ fontSize: '1.05rem', fontFamily: 'var(--font-accent)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--gold)' }}>
-                  {item.outlet}
-                </span>
-                {item.outletSub && (
-                  <span style={{ fontSize: '0.62rem', letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-primary)' }}>
-                    {item.outletSub}
-                  </span>
-                )}
+              {/* Outlet logo */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(255,255,255,0.92)',
+                borderRadius: '6px',
+                padding: '6px 10px',
+                alignSelf: 'flex-start',
+              }}>
+                <img
+                  src={item.logo}
+                  alt={item.outlet}
+                  style={{
+                    height: '28px',
+                    maxWidth: '110px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    display: 'block',
+                  }}
+                />
               </div>
 
               {/* Title */}

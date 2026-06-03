@@ -10,7 +10,10 @@ export default function ScrollToTopButton() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => {
+    window.dispatchEvent(new CustomEvent('go-home'));
+    window.scrollTo({ top: 0 });
+  };
 
   return (
     <button

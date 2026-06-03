@@ -290,6 +290,25 @@ textarea.form-input {
   transform: translateX(10px);
 }
 
+/* ── Mobile Nav ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav {
+    padding: 0.6rem 4%;
+  }
+
+  nav img {
+    height: 52px !important;
+  }
+
+  .nav-text-link {
+    display: none !important;
+  }
+
+  .menu-links {
+    gap: 0.85rem !important;
+  }
+}
+
 /* ── Scroll Hints ─────────────────────────────────────── */
 .scroll-indicator {
   position: absolute;

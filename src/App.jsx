@@ -105,6 +105,7 @@ const CERT_LOGOS = [
 
 function App() {
   const containerRef = useRef(null);
+  const lenisRef = useRef(null);
   const [openFaq, setOpenFaq] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -115,17 +116,19 @@ function App() {
   });
 
   useEffect(() => {
+    history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
+    lenisRef.current = lenis;
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+    lenis.on('scroll', ScrollTrigger.update);
+    const lenisRaf = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(lenisRaf);
+    gsap.ticker.lagSmoothing(0);
 
     const sections = document.querySelectorAll('section');
     sections.forEach((section) => {
@@ -151,7 +154,9 @@ function App() {
     });
 
     return () => {
+      gsap.ticker.remove(lenisRaf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
@@ -211,17 +216,18 @@ function App() {
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            window.location.href = '/';
+            window.dispatchEvent(new CustomEvent('go-home'));
+            lenisRef.current?.scrollTo(0, { immediate: true });
           }}
           style={{ display: 'flex', alignItems: 'center' }}
         >
           <img src="/Logos/ehbg-logo.png" alt="Everlasting Homes Building Group" style={{ height: '80px', width: 'auto', objectFit: 'contain' }} />
         </a>
         <div className="menu-links" style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-          <a href="#scip-core" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Technology</a>
-          <a href="#fire-protection" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Protection</a>
-          <a href="#house-wireframe" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>About</a>
-          <a href="#portfolio" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Projects</a>
+          <a href="#scip-core" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Technology</a>
+          <a href="#fire-protection" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Protection</a>
+          <a href="#house-wireframe" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>About</a>
+          <a href="#portfolio" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Projects</a>
           
           {/* Social Media Icons */}
           <a href="https://www.facebook.com/youreverlastinghome" target="_blank" rel="noopener noreferrer" className="social-link" style={{ color: 'var(--text)', display: 'flex', alignItems: 'center' }}>
