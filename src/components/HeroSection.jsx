@@ -133,15 +133,6 @@ export default function HeroSection({ onOpenCalculator }) {
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
           }}>Schedule Consultation</a>
-          <a href="#scip-technology" className="cta-btn" style={{
-            background: 'transparent',
-            borderColor: 'rgba(255,255,255,0.18)',
-            color: 'rgba(255,255,255,0.75)',
-            filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
-            textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
-          }}>
-            Explore SCIP
-          </a>
           <button onClick={onOpenCalculator} className="cta-btn" style={{
             background: 'transparent',
             borderColor: 'rgba(223,183,108,0.35)',
