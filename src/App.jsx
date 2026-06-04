@@ -5,6 +5,7 @@ import InfographicsCarousel from './components/InfographicsCarousel';
 import TestimonialsSection from './components/TestimonialsSection';
 import MediaSection from './components/MediaSection';
 import ConsultationModal from './components/ConsultationModal';
+import RiskCalculator from './components/RiskCalculator';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import SectionNavDots from './components/SectionNavDots';
 import Lenis from 'lenis';
@@ -108,6 +109,7 @@ function App() {
   const lenisRef = useRef(null);
   const [openFaq, setOpenFaq] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [formStatus, setFormStatus] = useState({
     submitting: false,
@@ -240,14 +242,14 @@ function App() {
             <Youtube size={12} />
           </a>
           
-          <button onClick={() => setShowModal(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Consultation</button>
+          <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Calculate Your Risk</button>
         </div>
       </nav>
 
       <ScrollytellingEngine />
 
       {/* SECTION 01 — Hero */}
-      <HeroSection />
+      <HeroSection onOpenCalculator={() => setShowCalculator(true)} />
 
       {/* SECTION 02 — SCIP Intro */}
       <section id="scip-core">
@@ -804,6 +806,7 @@ function App() {
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
               <button onClick={() => setShowModal(true)} className="cta-btn">Schedule Private Consultation</button>
+              <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ borderColor: 'rgba(223,183,108,0.4)', color: 'rgba(223,183,108,0.75)' }}>Calculate Your Risk</button>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Mail size={14} color="var(--gold)" />
                 <span style={{ fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '1px' }}>hello@everlasting.build</span>
@@ -828,6 +831,12 @@ function App() {
       <SectionNavDots />
 
       {showModal && <ConsultationModal onClose={() => setShowModal(false)} />}
+      {showCalculator && (
+        <RiskCalculator
+          onClose={() => setShowCalculator(false)}
+          onConsult={() => { setShowCalculator(false); setShowModal(true); }}
+        />
+      )}
 
       {/* ── Sticky bottom-left CTA ────────────────────── */}
       <a
