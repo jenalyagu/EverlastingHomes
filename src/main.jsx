@@ -1,23 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
+import MyEverlastingHome from './pages/MyEverlastingHome.jsx';
 import './index.css';
 import { initToolbar } from '@21st-extension/toolbar';
 
-const stagewiseConfig = {
-  plugins: [],
-};
+const stagewiseConfig = { plugins: [] };
 
-function setupStagewise() {
-  if (process.env.NODE_ENV === 'development') {
-    initToolbar(stagewiseConfig);
-  }
+if (process.env.NODE_ENV === 'development') {
+  initToolbar(stagewiseConfig);
 }
-
-setupStagewise();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/my-everlasting-home" element={<MyEverlastingHome />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ArrowRight, Zap } from 'lucide-react';
 
@@ -142,6 +143,15 @@ export default function HeroSection({ onOpenCalculator }) {
           }}>
             Calculate Your Risk
           </button>
+          <Link to="/my-everlasting-home" className="cta-btn" style={{
+            background: 'transparent',
+            borderColor: 'rgba(255,255,255,0.18)',
+            color: 'rgba(255,255,255,0.7)',
+            filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
+            textShadow: '0 2px 10px rgba(0,0,0,0.95)',
+          }}>
+            Design Your Resilient Home
+          </Link>
         </div>
 
         {/* ── Stats Strip ───────────────────────────────────── */}
