@@ -3,7 +3,6 @@ import ScrollytellingEngine from './components/ScrollytellingEngine';
 import HeroSection from './components/HeroSection';
 import InfographicsCarousel from './components/InfographicsCarousel';
 import TestimonialsSection from './components/TestimonialsSection';
-import MediaSection from './components/MediaSection';
 import ConsultationModal from './components/ConsultationModal';
 import RiskCalculator from './components/RiskCalculator';
 import ScrollToTopButton from './components/ScrollToTopButton';
@@ -824,7 +823,6 @@ function App() {
 
       <TestimonialsSection />
 
-      <MediaSection />
 
       <footer style={{ padding: '2.94rem 0', width: '100%', textAlign: 'center', opacity: 0.5, fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
         &copy; 2026 Everlasting Homes Building Group | Precision Engineered Luxury | Built for the World
