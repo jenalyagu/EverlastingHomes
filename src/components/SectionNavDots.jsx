@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SECTIONS = [
   { id: 'hero',                  label: 'Home'        },
@@ -30,6 +31,7 @@ const LINE_R   = 4;   // px from container right — centres the 1px line on the
 export default function SectionNavDots() {
   const [active,  setActive]  = useState('hero');
   const [hovered, setHovered] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const updateActive = () => {
@@ -50,6 +52,7 @@ export default function SectionNavDots() {
   }, []);
 
   const scrollTo = (id) => {
+    if (id === 'media') { navigate('/media'); return; }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };

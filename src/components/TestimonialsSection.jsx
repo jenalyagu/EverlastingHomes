@@ -17,11 +17,6 @@ const TESTIMONIALS = [
     title: "Homeowner"
   },
   {
-    quote: "You never have to go behind him or manage the quality of workmanship. Five stars. Highly recommended.",
-    name: "Charles Mansour",
-    title: "Homeowner"
-  },
-  {
     quote: "We were very impressed with the professionalism and project management skills. We highly recommend Everlasting Homes.",
     name: "Floyd & Gabriel",
     title: "Homeowners"

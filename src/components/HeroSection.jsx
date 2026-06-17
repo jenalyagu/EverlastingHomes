@@ -135,23 +135,17 @@ export default function HeroSection({ onOpenCalculator }) {
             textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
           }}>Schedule Consultation</a>
           <button onClick={onOpenCalculator} className="cta-btn" style={{
-            background: 'transparent',
-            borderColor: 'rgba(223,183,108,0.35)',
-            color: 'rgba(223,183,108,0.8)',
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95)',
           }}>
             Calculate Your Risk
           </button>
-          <Link to="/my-everlasting-home" className="cta-btn" style={{
-            background: 'transparent',
-            borderColor: 'rgba(255,255,255,0.18)',
-            color: 'rgba(255,255,255,0.7)',
+          <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95)',
           }}>
             Design Your Resilient Home
-          </Link>
+          </a>
         </div>
 
         {/* ── Stats Strip ───────────────────────────────────── */}

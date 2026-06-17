@@ -48,7 +48,7 @@ const MEDIA = [
   },
 ];
 
-export default function MediaSection() {
+export default function MediaSection({ hideHeader = false }) {
   return (
     <section id="media" style={{ position: 'relative', width: '100%', padding: '5.9rem 5%', overflow: 'hidden', backgroundColor: 'var(--bg)' }}>
 
@@ -59,12 +59,14 @@ export default function MediaSection() {
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <span className="section-subtitle" style={{ display: 'block', marginBottom: '0.75rem' }}>Press & Coverage</span>
-          <h2 style={{ fontSize: '2.95rem', fontFamily: 'var(--font-accent)', textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1.15, textShadow: '0 0 10px rgba(223,183,108,0.7), 0 0 20px rgba(223,183,108,0.3), 0 2px 8px rgba(0,0,0,0.8)' }}>
-            As Seen <span style={{ color: 'var(--gold)' }}>In</span>
-          </h2>
-        </div>
+        {!hideHeader && (
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <span className="section-subtitle" style={{ display: 'block', marginBottom: '0.75rem' }}>Press & Coverage</span>
+            <h2 style={{ fontSize: '2.95rem', fontFamily: 'var(--font-accent)', textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1.15, textShadow: '0 0 10px rgba(223,183,108,0.7), 0 0 20px rgba(223,183,108,0.3), 0 2px 8px rgba(0,0,0,0.8)' }}>
+              As Seen <span style={{ color: 'var(--gold)' }}>In</span>
+            </h2>
+          </div>
+        )}
 
         {/* Cards */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', justifyContent: 'center' }}>

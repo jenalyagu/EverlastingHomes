@@ -230,7 +230,8 @@ function App() {
           <a href="#fire-protection" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Protection</a>
           <a href="#house-wireframe" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>About</a>
           <a href="#portfolio" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Projects</a>
-          
+          <a href="/media" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Media</a>
+
           {/* Social Media Icons */}
           <a href="https://www.facebook.com/youreverlastinghome" target="_blank" rel="noopener noreferrer" className="social-link" style={{ color: 'var(--text)', display: 'flex', alignItems: 'center' }}>
             <Facebook size={12} />
@@ -242,7 +243,7 @@ function App() {
             <Youtube size={12} />
           </a>
           
-          <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Calculate Your Risk</button>
+          <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem', background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
         </div>
       </nav>
 
@@ -642,6 +643,11 @@ function App() {
                 <p style={{ fontSize: '0.85rem', marginTop: '0.2rem', lineHeight: 1.35, color: 'rgba(255,255,255,0.8)' }}>Bring together structure, systems, finishes, and performance into one cohesive home.</p>
               </div>
             </div>
+            <div style={{ marginTop: '2rem' }}>
+              <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{ fontSize: '0.72rem' }}>
+                Design Your Resilient Home
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -806,11 +812,8 @@ function App() {
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
               <button onClick={() => setShowModal(true)} className="cta-btn">Schedule Private Consultation</button>
-              <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ borderColor: 'rgba(223,183,108,0.4)', color: 'rgba(223,183,108,0.75)' }}>Calculate Your Risk</button>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Mail size={14} color="var(--gold)" />
-                <span style={{ fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '1px' }}>hello@everlasting.build</span>
-              </div>
+              <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
+              <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn">Design Your Resilient Home</a>
             </div>
           </div>
         </div>
