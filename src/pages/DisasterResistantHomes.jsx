@@ -86,10 +86,11 @@ export default function DisasterResistantHomes() {
 
         {/* ── HERO ── */}
         <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '9rem 2rem 5rem', textAlign: 'center', overflow: 'hidden' }}>
-          <div ref={bgRef} style={{ position: 'absolute', inset: '-20%', backgroundImage: 'url(/assets/hero.png)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.15 }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.78) 65%, rgba(5,5,5,0.97) 100%)' }} />
+          <div ref={bgRef} style={{ position: 'absolute', inset: '-20%', backgroundImage: 'url(/assets/hero.png)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.57 }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(5,5,5,0.05) 0%, rgba(5,5,5,0.32) 65%, rgba(5,5,5,0.65) 100%)' }} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%', background: 'linear-gradient(to top, rgba(223,183,108,0.05), transparent)', pointerEvents: 'none' }} />
 
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 55% at 50% 48%, rgba(30,80,160,0.2) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
           <div style={{ position: 'relative', zIndex: 1, maxWidth: '880px', margin: '0 auto' }}>
             <div className="land-reveal" style={{ marginBottom: '1.75rem' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1.1rem', background: 'rgba(223,183,108,0.08)', border: '1px solid rgba(223,183,108,0.35)', borderRadius: '100px', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--gold)', fontWeight: 700 }}>

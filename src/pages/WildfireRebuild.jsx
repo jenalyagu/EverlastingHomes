@@ -83,12 +83,13 @@ export default function WildfireRebuild() {
         {/* ── HERO ── */}
         <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '9rem 2rem 5rem', textAlign: 'center', overflow: 'hidden' }}>
           {/* Parallax background — ref passed from hook */}
-          <div ref={bgRef} style={{ position: 'absolute', inset: '-20%', backgroundImage: 'url(/assets/hero.png)', backgroundSize: 'cover', backgroundPosition: 'center top', opacity: 0.2 }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.7) 55%, rgba(5,5,5,0.96) 100%)' }} />
+          <div ref={bgRef} style={{ position: 'absolute', inset: '-20%', backgroundImage: 'url(/assets/hero.png)', backgroundSize: 'cover', backgroundPosition: 'center top', opacity: 0.60 }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(5,5,5,0.05) 0%, rgba(5,5,5,0.32) 55%, rgba(5,5,5,0.65) 100%)' }} />
           {/* Fire glow */}
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(200,60,10,0.15), transparent)', pointerEvents: 'none' }} />
           {/* Ember particles */}
 
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 55% at 50% 48%, rgba(200,70,20,0.22) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
           <div style={{ position: 'relative', zIndex: 1, maxWidth: '820px', margin: '0 auto' }}>
             <div className="land-reveal" style={{ marginBottom: '1.75rem' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1.1rem', background: 'rgba(255,107,53,0.12)', border: '1px solid rgba(255,107,53,0.45)', borderRadius: '100px', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: '#ff6b35', fontWeight: 700 }}>
