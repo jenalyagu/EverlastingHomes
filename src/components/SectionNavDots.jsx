@@ -65,6 +65,7 @@ export default function SectionNavDots() {
 
   return (
     <div
+      className="section-nav-dots"
       style={{
         position:  'fixed',
         right:     '1.75rem',

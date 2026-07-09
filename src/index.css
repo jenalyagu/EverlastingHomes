@@ -290,22 +290,124 @@ textarea.form-input {
   transform: translateX(10px);
 }
 
-/* ── Mobile Nav ───────────────────────────────────────── */
+/* ── Mobile ───────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Nav: keep everything on one row without overflowing the screen */
   nav {
-    padding: 0.6rem 4%;
+    padding: 0.5rem 4%;
   }
 
   nav img {
-    height: 52px !important;
+    height: 44px !important;
   }
 
   .nav-text-link {
     display: none !important;
   }
 
+  /* Social icons are available in the footer — drop them from the top bar
+     so the Calculate button always fits */
+  nav .social-link {
+    display: none !important;
+  }
+
   .menu-links {
-    gap: 0.85rem !important;
+    gap: 0.6rem !important;
+  }
+
+  /* "Calculate Your Risk" is too long to sit beside the wide logo on a phone.
+     The same CTA appears prominently in the hero and throughout the page,
+     so drop it from the top bar to keep the header clean. */
+  nav .cta-btn {
+    display: none !important;
+  }
+
+  /* Right-side section progress dots + labels overlap headings on narrow
+     screens — they're a desktop affordance, hide on mobile */
+  .section-nav-dots {
+    display: none !important;
+  }
+
+  /* Scroll hint overlaps the hero stats on short mobile viewports */
+  .scroll-indicator {
+    display: none !important;
+  }
+
+  /* Type: desktop sizes are set inline, so override with !important.
+     These scale the oversized headings down so they stop running off-screen */
+  .content-wrapper h1,
+  .glow-content h1 {
+    font-size: 2.15rem !important;
+    line-height: 1.08 !important;
+  }
+
+  .content-wrapper h2,
+  .glow-content h2 {
+    font-size: 1.6rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .content-wrapper h3,
+  .glow-content h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .content-wrapper p,
+  .glow-content p {
+    font-size: 0.95rem !important;
+  }
+
+  /* Long uppercase words (TECHNOLOGY, CONSTRUCTION…) must wrap, not overflow */
+  h1, h2, h3, h4 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Tighten the glass panels and use more of the screen width */
+  .content-wrapper {
+    width: 92%;
+  }
+
+  .glow-content {
+    padding: 1.35rem 1.2rem !important;
+  }
+
+  /* Fixed-width inner columns → full width so two-column rows stack */
+  .glow-content [style*="width: 200px"] {
+    width: 100% !important;
+  }
+
+  /* Dense grids get cramped at 3- and 4-across on a phone */
+  .stat-grid[style*="repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Hero: compress vertical rhythm so the top line clears the fixed header */
+  #hero .hero-badge {
+    margin-bottom: 1.2rem !important;
+  }
+
+  #hero h1 {
+    margin-bottom: 1.1rem !important;
+  }
+
+  #hero .hero-body {
+    margin-bottom: 1.4rem !important;
+  }
+
+  #hero .hero-ctas {
+    margin-bottom: 1.6rem !important;
+    gap: 0.6rem !important;
+  }
+
+  #hero .hero-ctas .cta-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 

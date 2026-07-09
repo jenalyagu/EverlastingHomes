@@ -298,6 +298,7 @@ function App() {
             {/* Two-column body: cards left, graphic right — shared tinted backdrop */}
             <div style={{
               display:      'flex',
+              flexWrap:     'wrap',
               gap:          '1.25rem',
               alignItems:   'center',
               borderRadius: '8px',
