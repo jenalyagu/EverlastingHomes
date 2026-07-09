@@ -381,7 +381,7 @@ export default function Media() {
                 </div>
                 <div style={{ padding: '1.1rem 1.4rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px' }}>
                   <div style={{ fontSize: '0.57rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: '0.35rem' }}>General Inquiries</div>
-                  <div style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>hello@everlasting.build</div>
+                  <div style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>info@everlastinghomesgroup.com</div>
                 </div>
               </div>
               <a href="mailto:media@everlasting.build?subject=Media Inquiry — Everlasting Homes" className="cta-btn" style={{ fontSize: '0.7rem', alignSelf: 'flex-start', background: 'transparent', color: 'var(--gold)' }}>

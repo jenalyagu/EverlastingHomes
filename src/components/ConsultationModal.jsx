@@ -39,7 +39,7 @@ export default function ConsultationModal({ onClose }) {
         `Timeline: ${form.timeline || 'Not specified'}`,
         `Message: ${form.message || 'None'}`,
       ].join('\n');
-      window.location.href = `mailto:hello@everlasting.build?subject=Consultation Request — ${encodeURIComponent(form.name)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:info@everlastinghomesgroup.com?subject=Consultation Request — ${encodeURIComponent(form.name)}&body=${encodeURIComponent(body)}`;
       return;
     }
 
@@ -56,7 +56,7 @@ export default function ConsultationModal({ onClose }) {
         throw new Error();
       }
     } catch {
-      setStatus({ submitting: false, success: false, error: 'Something went wrong. Please email us at hello@everlasting.build' });
+      setStatus({ submitting: false, success: false, error: 'Something went wrong. Please email us at info@everlastinghomesgroup.com' });
     }
   };
 
@@ -188,8 +188,8 @@ export default function ConsultationModal({ onClose }) {
 
             <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.22)', textAlign: 'center', margin: 0, textTransform: 'none', letterSpacing: 0, lineHeight: 1.5 }}>
               Or reach us directly at{' '}
-              <a href="mailto:hello@everlasting.build" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
-                hello@everlasting.build
+              <a href="mailto:info@everlastinghomesgroup.com" style={{ color: 'var(--gold)', textDecoration: 'none' }}>
+                info@everlastinghomesgroup.com
               </a>
             </p>
 

@@ -171,7 +171,7 @@ function App() {
       // Fallback: If no Formspree ID is set, use the mailto fallback to prevent breaking forms
       const { name, email, phone } = formData;
       const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}`;
-      window.location.href = `mailto:hello@everlasting.build?subject=Consultation Request — ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:info@everlastinghomesgroup.com?subject=Consultation Request — ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
       return;
     }
 
