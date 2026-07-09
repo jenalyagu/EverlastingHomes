@@ -357,11 +357,12 @@ textarea.form-input {
     font-size: 0.95rem !important;
   }
 
-  /* Long uppercase words (TECHNOLOGY, CONSTRUCTION…) must wrap, not overflow */
-  h1, h2, h3, h4 {
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
+  /* Long words wrap whole to the next line — never hyphenated or split mid-word */
+  h1, h2, h3, h4, p {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 
   /* Tighten the glass panels and use more of the screen width */
