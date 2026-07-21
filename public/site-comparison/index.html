@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>EHBG — Site Comparison: everlastinghomesgroup.com vs. New Site</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: rgba(201,168,76,0.12);
+      --dark: #0D0D0D;
+      --surface: #141414;
+      --surface2: #1A1A1A;
+      --surface3: #222222;
+      --text: #F0EDE8;
+      --muted: #8A8278;
+      --green: #4CAF7D;
+      --red: #E05C5C;
+      --amber: #E8A84C;
+      --border: rgba(201,168,76,0.18);
+      --border-dim: rgba(255,255,255,0.06);
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Georgia', serif; overflow: hidden; }
+
+    /* ─── Slide system ─── */
+    #deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s ease;
+      overflow: hidden;
+    }
+    .slide.active { opacity: 1; pointer-events: all; }
+
+    /* ─── Nav ─── */
+    #nav {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 1rem; z-index: 100;
+      background: rgba(20,20,20,0.92); border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem; border-radius: 99px;
+      backdrop-filter: blur(12px);
+    }
+    #nav button {
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-size: 1.1rem; padding: 0.2rem 0.5rem; transition: color 0.2s;
+    }
+    #nav button:hover { color: var(--gold); }
+    #slide-counter { font-family: 'Georgia', serif; font-size: 0.75rem; color: var(--muted); min-width: 4rem; text-align: center; }
+    .dot-nav { display: flex; gap: 0.4rem; align-items: center; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--muted); cursor: pointer; transition: all 0.2s;
+    }
+    .dot.active { background: var(--gold); transform: scale(1.4); }
+
+    /* ─── Shared layout ─── */
+    .slide-header {
+      padding: 2.5rem 3rem 1.5rem;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .slide-label {
+      font-family: 'Georgia', serif; font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    }
+    .slide-title {
+      font-size: 1.5rem; font-weight: 400; color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .slide-title span { color: var(--gold); }
+    .slide-body {
+      flex: 1; padding: 2rem 3rem 5rem;
+      overflow-y: auto;
+    }
+
+    /* ─── Cover slide ─── */
+    #cover {
+      background: var(--dark);
+      justify-content: center; align-items: center; text-align: center;
+      gap: 0;
+    }
+    .cover-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .cover-h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400;
+      line-height: 1.15; letter-spacing: -0.03em;
+      color: var(--text); max-width: 700px; margin-bottom: 1rem;
+    }
+    .cover-h1 em { color: var(--gold); font-style: normal; }
+    .cover-sub {
+      font-size: 0.95rem; color: var(--muted); max-width: 480px; line-height: 1.6;
+      margin-bottom: 3rem;
+    }
+    .vs-pill {
+      display: flex; align-items: center; gap: 1.2rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 2rem; margin-bottom: 2.5rem;
+    }
+    .vs-url { font-size: 0.8rem; color: var(--muted); font-family: monospace; }
+    .vs-divider { color: var(--gold); font-size: 1.2rem; }
+    .cover-meta { display: flex; gap: 2.5rem; }
+    .cover-meta-item { text-align: center; }
+    .cover-meta-num { font-size: 1.6rem; color: var(--gold); }
+    .cover-meta-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+
+    /* ─── Scorecard ─── */
+    .scorecard {
+      display: grid; gap: 0.5rem;
+    }
+    .score-row {
+      display: grid; grid-template-columns: 1fr 2.5rem 2.5rem;
+      align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface2); border-radius: 8px;
+      border: 1px solid var(--border-dim);
+      transition: border-color 0.2s;
+    }
+    .score-row:hover { border-color: var(--border); }
+    .score-category { font-size: 0.85rem; color: var(--text); }
+    .score-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.15rem; }
+    .score-cell { text-align: center; font-size: 1rem; }
+    .col-headers {
+      display: grid; grid-template-columns: 1fr 2.5rem 2.5rem;
+      gap: 1rem; padding: 0 1rem 0.5rem;
+    }
+    .col-label { text-align: center; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .col-label.new { color: var(--gold); }
+    .win { color: var(--green); }
+    .lose { color: var(--red); opacity: 0.6; }
+    .partial { color: var(--amber); }
+
+    /* ─── Comparison table ─── */
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      text-align: left; padding: 0.6rem 1rem;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--border-dim);
+      font-weight: 400;
+    }
+    .compare-table th.new { color: var(--gold); }
+    .compare-table td {
+      padding: 0.75rem 1rem; font-size: 0.82rem;
+      border-bottom: 1px solid var(--border-dim); vertical-align: top;
+      line-height: 1.5;
+    }
+    .compare-table tr:hover td { background: var(--surface2); }
+    .compare-table td:first-child { color: var(--muted); font-size: 0.75rem; }
+    .badge {
+      display: inline-block; padding: 0.15rem 0.5rem;
+      border-radius: 4px; font-size: 0.65rem; font-weight: bold;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .badge-win { background: rgba(76,175,125,0.15); color: var(--green); }
+    .badge-lose { background: rgba(224,92,92,0.12); color: var(--red); }
+    .badge-partial { background: rgba(232,168,76,0.12); color: var(--amber); }
+
+    /* ─── CTA slide ─── */
+    .cta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+    .cta-card {
+      background: var(--surface2); border: 1px solid var(--border-dim);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .cta-card:hover { border-color: var(--border); }
+    .cta-card-tier { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .cta-card-label { font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
+    .cta-card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Tech slide ─── */
+    .chunk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .chunk-card {
+      background: var(--surface2); border: 1px solid var(--border-dim);
+      border-radius: 10px; padding: 1.25rem;
+    }
+    .chunk-title { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .chunk-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.4rem 0; border-bottom: 1px solid var(--border-dim);
+      font-size: 0.78rem;
+    }
+    .chunk-item:last-child { border-bottom: none; }
+    .chunk-name { color: var(--text); font-family: monospace; font-size: 0.72rem; }
+    .chunk-size { color: var(--muted); font-size: 0.7rem; }
+    .chunk-size.gold { color: var(--gold); }
+    .chunk-size.green { color: var(--green); }
+    .improvement-bar {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .imp-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+    .imp-val { font-size: 1.4rem; color: var(--gold); }
+    .imp-val.green { color: var(--green); }
+
+    /* ─── SEO slide ─── */
+    .kw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .kw-row {
+      display: grid; grid-template-columns: 1fr 1.5rem 1.5rem;
+      align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0.9rem; background: var(--surface2);
+      border-radius: 6px; border: 1px solid var(--border-dim);
+    }
+    .kw-term { font-size: 0.78rem; color: var(--text); }
+    .kw-cell { text-align: center; font-size: 0.85rem; }
+
+    /* ─── CR slide ─── */
+    .cr-vs {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem;
+      align-items: center; margin-bottom: 2rem;
+    }
+    .cr-card {
+      background: var(--surface2); border: 1px solid var(--border-dim);
+      border-radius: 12px; padding: 2rem; text-align: center;
+    }
+    .cr-card.winner { border-color: var(--gold); background: var(--gold-dim); }
+    .cr-site { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .cr-rate { font-size: 3rem; font-weight: 400; color: var(--text); }
+    .cr-rate span { color: var(--gold); }
+    .cr-label { font-size: 0.72rem; color: var(--muted); margin-top: 0.5rem; }
+    .cr-divider { text-align: center; }
+    .cr-arrow { font-size: 2rem; color: var(--gold); }
+    .cr-lift { font-size: 0.75rem; color: var(--gold); margin-top: 0.25rem; }
+    .cr-factors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .cr-factor {
+      background: var(--surface2); border: 1px solid var(--border-dim);
+      border-radius: 8px; padding: 1rem;
+    }
+    .cr-factor-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .cr-factor-old { font-size: 0.78rem; color: var(--red); text-decoration: line-through; margin-bottom: 0.2rem; }
+    .cr-factor-new { font-size: 0.82rem; color: var(--green); }
+
+    /* ─── Final slide ─── */
+    #final {
+      justify-content: center; align-items: center; text-align: center;
+    }
+    .final-score {
+      display: flex; gap: 3rem; margin-bottom: 3rem;
+    }
+    .final-score-item { text-align: center; }
+    .final-score-num { font-size: 3.5rem; color: var(--gold); line-height: 1; }
+    .final-score-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+    .final-h { font-size: clamp(1.6rem, 3vw, 2.5rem); margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .final-h span { color: var(--gold); }
+    .final-sub { font-size: 0.9rem; color: var(--muted); max-width: 500px; line-height: 1.6; margin-bottom: 2.5rem; }
+    .final-url {
+      font-family: monospace; font-size: 0.85rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 0.6rem 1.5rem; border-radius: 8px; color: var(--gold);
+      display: inline-block; margin-bottom: 0.5rem;
+    }
+    .final-url-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ─── Section divider ─── */
+    .divider { height: 1px; background: var(--border-dim); margin: 1.25rem 0; }
+
+    /* ─── Pill tags ─── */
+    .tag {
+      display: inline-block; padding: 0.2rem 0.6rem;
+      border-radius: 4px; font-size: 0.65rem; letter-spacing: 0.08em;
+      text-transform: uppercase; border: 1px solid var(--border);
+      color: var(--gold); margin-right: 0.4rem; margin-bottom: 0.4rem;
+    }
+
+    /* ─── Two-col layout ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--surface2); border: 1px solid var(--border-dim);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+    }
+    .stat-card-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .stat-card-val { font-size: 1.6rem; color: var(--gold); }
+    .stat-card-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 1 — Cover
+  ───────────────────────────────────────────── -->
+  <div class="slide active" id="cover">
+    <div class="cover-eyebrow">Everlasting Homes Building Group — Confidential</div>
+    <h1 class="cover-h1">Site Performance<br><em>Head-to-Head Comparison</em></h1>
+    <p class="cover-sub">A full analysis of conversion rate, SEO coverage, technical performance, and component architecture.</p>
+    <div class="vs-pill">
+      <span class="vs-url">everlastinghomesgroup.com</span>
+      <span class="vs-divider">vs</span>
+      <span class="vs-url" style="color:var(--gold)">everlastinghomesbg.netlify.app</span>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-num">11</div>
+        <div class="cover-meta-label">Categories Analyzed</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-num" style="color:var(--green)">11/11</div>
+        <div class="cover-meta-label">New Site Wins</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-num">3×</div>
+        <div class="cover-meta-label">Projected Lead Lift</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 2 — Scorecard Overview
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Overview</div>
+        <div class="slide-title">Full <span>Scorecard</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="col-headers">
+        <div></div>
+        <div class="col-label">Current</div>
+        <div class="col-label new">New</div>
+      </div>
+      <div class="scorecard">
+        <div class="score-row">
+          <div><div class="score-category">SEO Title &amp; Meta</div><div class="score-sub">Keyword visibility in search results</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Keyword Landing Pages</div><div class="score-sub">High-intent search capture</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Hero Impact</div><div class="score-sub">First impression &amp; headline strength</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Navigation Clarity</div><div class="score-sub">Cognitive load &amp; path to conversion</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">CTA Depth</div><div class="score-sub">Tiered calls-to-action for every buyer stage</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Social Proof</div><div class="score-sub">Testimonials, awards, certifications</div></div>
+          <div class="score-cell partial">~</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Content Storytelling</div><div class="score-sub">Narrative depth &amp; emotional engagement</div></div>
+          <div class="score-cell partial">~</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Interactive Calculators</div><div class="score-sub">Risk Calculator (50 states) + ROI Calculator (Houston neighborhoods)</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Interactive Design Tool</div><div class="score-sub">Estate configurator at /design/ — bottom-of-funnel capture</div></div>
+          <div class="score-cell lose">✗</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Technical Platform &amp; Performance</div><div class="score-sub">Build system, speed, chunk strategy</div></div>
+          <div class="score-cell partial">~</div>
+          <div class="score-cell win">✓</div>
+        </div>
+        <div class="score-row">
+          <div><div class="score-category">Estimated Conversion Rate</div><div class="score-sub">Projected qualified lead rate</div></div>
+          <div class="score-cell" style="color:var(--muted);font-size:0.7rem">1–1.5%</div>
+          <div class="score-cell" style="color:var(--green);font-size:0.7rem">3–5%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 3 — SEO Title & Meta
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 1</div>
+        <div class="slide-title">SEO Identity &amp; <span>Title Tags</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>everlastinghomesgroup.com</th>
+            <th class="new">everlastinghomesbg.netlify.app</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Page Title</td>
+            <td><span class="badge badge-lose">Weak</span><br>"Everlasting Homes Building Group"</td>
+            <td><span class="badge badge-win">Strong</span><br>"Everlasting Homes | Luxury Concrete Custom Homes | SCIP Builder"</td>
+          </tr>
+          <tr>
+            <td>Keyword Targeting</td>
+            <td>Brand name only — invisible to anyone without brand awareness</td>
+            <td>Luxury homes + concrete construction + SCIP builder</td>
+          </tr>
+          <tr>
+            <td>Meta Description</td>
+            <td><span class="badge badge-lose">Missing</span></td>
+            <td><span class="badge badge-win">Present on all pages</span></td>
+          </tr>
+          <tr>
+            <td>Robots.txt / Sitemap</td>
+            <td>Not optimized</td>
+            <td>Points correctly to sitemap; all crawlers allowed</td>
+          </tr>
+          <tr>
+            <td>Landing Page Titles</td>
+            <td>None</td>
+            <td>"Disaster-Resistant Custom Homes | SCIP Construction"<br>"Luxury Custom Homes Texas | Disaster-Resistant SCIP"<br>"Wildfire Home Rebuild | Fire-Resistant SCIP Homes"</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="divider"></div>
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.6"><strong style="color:var(--gold)">Why it matters:</strong> A title tag is the first thing Google shows a searcher. "Everlasting Homes Building Group" earns zero clicks from someone who doesn't already know the brand. The new title earns clicks from people actively searching for what EHBG builds.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 4 — Sitemap & Pages
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 2</div>
+        <div class="slide-title">Sitemap &amp; <span>Indexed Pages</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="stat-card">
+          <div class="stat-card-label">everlastinghomesgroup.com</div>
+          <div class="stat-card-val">17 URLs</div>
+          <div class="stat-card-sub">Mostly portfolio sub-pages — 0 keyword-targeted pages</div>
+        </div>
+        <div class="stat-card" style="border-color:var(--border)">
+          <div class="stat-card-label" style="color:var(--gold)">everlastinghomesbg.netlify.app</div>
+          <div class="stat-card-val">7 URLs</div>
+          <div class="stat-card-sub">Every page earns its place — 3 keyword landing pages + /design/ tool</div>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Page Type</th>
+            <th>Current Site</th>
+            <th class="new">New Site</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Homepage</td>
+            <td>✓</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td>Keyword Landing Pages</td>
+            <td><span class="badge badge-lose">0</span></td>
+            <td><span class="badge badge-win">3</span> — /disaster-resistant-homes, /luxury-homes-texas, /wildfire-rebuild</td>
+          </tr>
+          <tr>
+            <td>Interactive Tool</td>
+            <td><span class="badge badge-lose">None</span></td>
+            <td><span class="badge badge-win">/design/</span> — proxied from myeverlastinghome.netlify.app, same domain</td>
+          </tr>
+          <tr>
+            <td>Portfolio Sub-pages</td>
+            <td>portfolio-1 through portfolio-7</td>
+            <td>Consolidated — The Neverland, West University, Coastal Fortress</td>
+          </tr>
+          <tr>
+            <td>Sitemap Domain Match</td>
+            <td>✓</td>
+            <td>✓ <span style="color:var(--muted);font-size:0.7rem">(corrected from everlasting.build → everlastinghomesgroup.com)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 5 — SEO Keywords
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 3</div>
+        <div class="slide-title">SEO <span>Keyword Coverage</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="col-headers" style="grid-template-columns:1fr 1.5rem 1.5rem">
+        <div></div>
+        <div class="col-label">Current</div>
+        <div class="col-label new">New</div>
+      </div>
+      <div class="kw-grid">
+        <div class="kw-row"><span class="kw-term">"disaster resistant homes"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"luxury homes Texas"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"wildfire home rebuild"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"SCIP home builder"</span><span class="kw-cell partial">~</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"luxury concrete homes"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"fire resistant homes"</span><span class="kw-cell partial">~</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"hurricane resistant homes"</span><span class="kw-cell partial">~</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"custom homes Houston"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"earthquake safe home builder"</span><span class="kw-cell lose">✗</span><span class="kw-cell win">✓</span></div>
+        <div class="kw-row"><span class="kw-term">"energy efficient custom homes"</span><span class="kw-cell partial">~</span><span class="kw-cell win">✓</span></div>
+      </div>
+      <div class="divider"></div>
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.6"><strong style="color:var(--gold)">The gap:</strong> The current site has zero pages built around high-intent searches. The new site captures the three highest-value search categories in this industry — disaster resistance, luxury Texas builds, and wildfire rebuilds — each with its own dedicated, optimized page.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 6 — Hero & First Impression
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 4</div>
+        <div class="slide-title">Hero &amp; <span>First Impression</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="chunk-card">
+          <div class="chunk-title" style="color:var(--red)">everlastinghomesgroup.com</div>
+          <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:0.75rem">"We are reimagining home construction beyond the status quo."</p>
+          <div style="font-size:0.72rem;color:var(--muted)">
+            <div style="margin-bottom:0.4rem">✗ Vague brand statement — tells prospects what EHBG thinks about itself</div>
+            <div style="margin-bottom:0.4rem">✗ No stats above the fold</div>
+            <div style="margin-bottom:0.4rem">✗ Static imagery</div>
+            <div>✗ No immediate credibility signal</div>
+          </div>
+        </div>
+        <div class="chunk-card" style="border-color:var(--border)">
+          <div class="chunk-title" style="color:var(--gold)">everlastinghomesbg.netlify.app</div>
+          <p style="font-size:0.78rem;color:var(--text);line-height:1.6;margin-bottom:0.25rem">"RESILIENT LUXURY HOMEBUILDING</p>
+          <p style="font-size:0.78rem;color:var(--gold);font-weight:bold;margin-bottom:0.75rem">BUILT FOR STRENGTH"</p>
+          <div style="font-size:0.72rem;color:var(--muted)">
+            <div style="margin-bottom:0.4rem">✓ Tells the prospect what <em style="color:var(--text)">they get</em></div>
+            <div style="margin-bottom:0.4rem">✓ Stats bar: 250 homes / 4in panels / 60yr lifespan / 100yr warranty</div>
+            <div style="margin-bottom:0.4rem">✓ Cinematic full-bleed hero with parallax</div>
+            <div>✓ 3 CTAs immediately visible</div>
+          </div>
+        </div>
+      </div>
+      <div class="improvement-bar">
+        <div><div class="imp-label">Subheadline</div><div class="imp-val" style="font-size:0.9rem;color:var(--text)">"Your home should do more than look beautiful. It should be built to last."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 7 — Navigation & UX
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 5</div>
+        <div class="slide-title">Navigation &amp; <span>UX Clarity</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="chunk-card">
+          <div class="chunk-title" style="color:var(--red)">Current — 12+ Navigation Items</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem">
+            <span class="tag">Home</span><span class="tag">Custom Design &amp; Build</span><span class="tag">Custom Build</span>
+            <span class="tag">Performance &amp; Safety</span><span class="tag">Portfolio</span><span class="tag">Flood, Wind &amp; Mold</span>
+            <span class="tag">Fire, Embers &amp; Earthquakes</span><span class="tag">Energy Efficiency</span>
+            <span class="tag">Maintenance &amp; Durability</span><span class="tag">Health &amp; Lifestyle</span>
+            <span class="tag">Media</span><span class="tag">About</span><span class="tag">Contact</span>
+          </div>
+          <p style="font-size:0.72rem;color:var(--muted)">High cognitive load. No pinned CTA. Choice paralysis before reading a single word.</p>
+        </div>
+        <div class="chunk-card" style="border-color:var(--border)">
+          <div class="chunk-title" style="color:var(--gold)">New — 6 Items + Persistent CTA</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem">
+            <span class="tag" style="border-color:var(--gold);color:var(--gold)">Technology</span>
+            <span class="tag" style="border-color:var(--gold);color:var(--gold)">Protection</span>
+            <span class="tag" style="border-color:var(--gold);color:var(--gold)">About</span>
+            <span class="tag" style="border-color:var(--gold);color:var(--gold)">Projects</span>
+            <span class="tag" style="border-color:var(--gold);color:var(--gold)">Media</span>
+            <span class="tag" style="background:var(--gold);color:#000">Calculate Your Risk →</span>
+          </div>
+          <p style="font-size:0.72rem;color:var(--muted)">Clean. One persistent CTA always visible regardless of scroll position.</p>
+        </div>
+      </div>
+      <div class="improvement-bar">
+        <div><div class="imp-label">UX Principle</div><div class="imp-val" style="font-size:0.85rem;color:var(--text)">Fewer choices = higher action rate. Every item removed from the nav is a decision the prospect doesn't have to make before converting.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 8 — CTA Strategy
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 6</div>
+        <div class="slide-title">CTA <span>Strategy</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div style="margin-bottom:1.25rem">
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem">The current site asks every visitor to make one high-commitment move immediately. The new site meets prospects where they are.</p>
+      </div>
+      <div class="cta-grid" style="margin-bottom:1.5rem">
+        <div class="cta-card">
+          <div class="cta-card-tier">Tier 1 — Low Commitment</div>
+          <div class="cta-card-label">Calculate Your Risk</div>
+          <div class="cta-card-desc">Prospect is curious. No obligation — just information. Hooks them into engagement before they're ready to buy.</div>
+        </div>
+        <div class="cta-card" style="border-color:var(--border)">
+          <div class="cta-card-tier">Tier 2 — Medium Commitment</div>
+          <div class="cta-card-label">Design Your Resilient Home</div>
+          <div class="cta-card-desc">Prospect is interested. Interactive configurator at /design/ — invests time, creates emotional ownership. Captures leads at the bottom of the funnel.</div>
+        </div>
+        <div class="cta-card">
+          <div class="cta-card-tier">Tier 3 — High Commitment</div>
+          <div class="cta-card-label">Schedule Consultation</div>
+          <div class="cta-card-desc">Prospect is ready. A direct sales conversation. Now positioned after trust has been built through Tiers 1 &amp; 2.</div>
+        </div>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr><th>Factor</th><th>Current Site</th><th class="new">New Site</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CTA tiers</td><td>1 (high commitment only)</td><td>3 (low → medium → high)</td></tr>
+          <tr><td>Urgency language</td><td>None</td><td>"Reserve now today" on landing pages</td></tr>
+          <tr><td>CTA repetitions</td><td>Once</td><td>3× through scroll journey</td></tr>
+          <tr><td>Interactive tool</td><td>None</td><td>/design/ — estate configurator</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 9 — Interactive Calculators
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 6b</div>
+        <div class="slide-title">Interactive <span>Calculators</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">The current site has no interactive tools. The new site ships two data-driven calculators that turn passive visitors into engaged prospects — and give the sales team a warm lead with context.</p>
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="chunk-card" style="border-color:var(--border)">
+          <div class="chunk-title" style="color:var(--gold)">Risk Calculator</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem;line-height:1.5">State-level disaster risk scores calibrated to FEMA, USGS &amp; NOAA hazard data across all 50 states.</div>
+          <div style="font-size:0.72rem;color:var(--muted);line-height:1.7">
+            <div>✓ Scores Fire · Earthquake · Flood · Wind risk per state (0–100)</div>
+            <div>✓ Personalizes the EHBG value prop to the prospect's actual location</div>
+            <div>✓ Triggered by "Calculate Your Risk" CTA — the most prominent nav button</div>
+            <div>✓ Creates urgency: prospects see their real exposure before seeing the solution</div>
+          </div>
+        </div>
+        <div class="chunk-card" style="border-color:var(--border)">
+          <div class="chunk-title" style="color:var(--gold)">ROI Calculator</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem;line-height:1.5">Houston neighborhood-level ROI model — inputs home value, sq ft, and zip area to project 25-year financial outcomes.</div>
+          <div style="font-size:0.72rem;color:var(--muted);line-height:1.7">
+            <div>✓ 12 Houston micro-zones with real insurance multipliers (River Oaks, Meyerland, Galveston, etc.)</div>
+            <div>✓ Models insurance savings, energy savings, maintenance delta, and resale premium</div>
+            <div>✓ Outputs a dollar figure — turns "is this worth it?" into "I'd be losing money not to"</div>
+            <div>✓ "Consult" CTA fires directly from the result screen — highest-intent lead capture</div>
+          </div>
+        </div>
+      </div>
+      <div class="improvement-bar">
+        <div style="flex:1">
+          <div class="imp-label">Competitive Position</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-top:0.3rem;line-height:1.5">No other custom home builder in the Houston / Southern California market offers both a disaster risk assessment and a 25-year financial ROI model on their site. These tools don't just convert — they disqualify competitors before the prospect ever books a call.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 10 — Social Proof
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 7</div>
+        <div class="slide-title">Social Proof &amp; <span>Trust</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="three-col" style="margin-bottom:1.5rem">
+        <div class="stat-card">
+          <div class="stat-card-label">Testimonials</div>
+          <div class="stat-card-val" style="color:var(--red)">3</div>
+          <div style="font-size:0.65rem;color:var(--gold);margin-top:0.5rem">→</div>
+          <div class="stat-card-val" style="color:var(--green)">6</div>
+          <div class="stat-card-sub">incl. Dept. of Energy director</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Certifications Shown</div>
+          <div class="stat-card-val" style="color:var(--red)">2</div>
+          <div style="font-size:0.65rem;color:var(--gold);margin-top:0.5rem">→</div>
+          <div class="stat-card-val" style="color:var(--green)">6+</div>
+          <div class="stat-card-sub">GHBA, RESNET, NAR, RSG3D + partners</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">FAQ Section</div>
+          <div class="stat-card-val" style="color:var(--red)">0</div>
+          <div style="font-size:0.65rem;color:var(--gold);margin-top:0.5rem">→</div>
+          <div class="stat-card-val" style="color:var(--green)">12</div>
+          <div class="stat-card-sub">questions — pre-handles objections</div>
+        </div>
+      </div>
+      <div class="improvement-bar" style="margin-bottom:1rem">
+        <div>
+          <div class="imp-label">Standout Trust Signal</div>
+          <div style="font-size:0.85rem;color:var(--text);margin-top:0.25rem;line-height:1.5">"The homes you build are outstanding achievements and examples of how we can move the building industry to zero."<br><span style="color:var(--gold);font-size:0.72rem">— Jaime Van Mourik, Department of Energy Ready Home Program Director</span></div>
+        </div>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.6">A DOE program director endorsement is a category-defining trust signal most luxury home builders could never claim. The new site surfaces it prominently. The current site doesn't feature it at all.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 10 — Storytelling
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 8</div>
+        <div class="slide-title">Content &amp; <span>Storytelling</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <table class="compare-table" style="margin-bottom:1.5rem">
+        <thead>
+          <tr><th>Element</th><th>Current Site</th><th class="new">New Site</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Page depth</td>
+            <td>Short, informational pages</td>
+            <td>16,389px homepage — full story arc from discovery to close</td>
+          </tr>
+          <tr>
+            <td>Protection specs</td>
+            <td>Text-heavy sub-pages (buried in nav)</td>
+            <td>Fire (2200°F) · Earthquake (9.0) · Wind (250+ MPH) — each a cinematic full-bleed section</td>
+          </tr>
+          <tr>
+            <td>Build process</td>
+            <td>6-step numbered list</td>
+            <td>VISION → SHELL → ARMOR → FINISH with 3D wireframe visualization</td>
+          </tr>
+          <tr>
+            <td>Emotional narrative</td>
+            <td>Minimal</td>
+            <td>"Secure Your Future Today" · "Built to Last Generations"</td>
+          </tr>
+          <tr>
+            <td>Confusing elements</td>
+            <td>Shop/cart link present</td>
+            <td>None</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="improvement-bar">
+        <div><div class="imp-label">The difference</div><div class="imp-val" style="font-size:0.85rem;color:var(--text)">The current site is a brochure. The new site is a sales experience.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 11 — Technical Performance (UPDATED)
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 9 — Updated</div>
+        <div class="slide-title">Technical <span>Performance</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="chunk-card">
+          <div class="chunk-title" style="color:var(--red)">Before Code-Splitting — 1 Bundle</div>
+          <div class="chunk-item"><span class="chunk-name">index.js</span><span class="chunk-size" style="color:var(--red)">1,835 KB</span></div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-top:0.75rem;line-height:1.5">Every visitor to every page downloaded the entire site — homepage, all landing pages, all libraries — whether they'd ever visit those pages or not.</div>
+        </div>
+        <div class="chunk-card" style="border-color:var(--border)">
+          <div class="chunk-title" style="color:var(--gold)">After Code-Splitting — 12 Chunks</div>
+          <div class="chunk-item"><span class="chunk-name">vendor-react</span><span class="chunk-size gold">177 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">vendor-gsap</span><span class="chunk-size gold">70 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">vendor-lenis</span><span class="chunk-size gold">19 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">WildfireRebuild</span><span class="chunk-size green">25 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">DisasterResistantHomes</span><span class="chunk-size green">33 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">LuxuryHomesTexas</span><span class="chunk-size green">41 KB</span></div>
+          <div class="chunk-item"><span class="chunk-name">Media · MyEverlastingHome</span><span class="chunk-size green">22–24 KB</span></div>
+        </div>
+      </div>
+      <div class="three-col">
+        <div class="improvement-bar" style="flex-direction:column;align-items:flex-start;gap:0.25rem">
+          <div class="imp-label">Landing Page Load</div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem">
+            <div class="imp-val" style="color:var(--red);text-decoration:line-through;font-size:1.1rem">1,835 KB</div>
+            <div class="imp-val green">~267 KB</div>
+          </div>
+        </div>
+        <div class="improvement-bar" style="flex-direction:column;align-items:flex-start;gap:0.25rem">
+          <div class="imp-label">Size Reduction</div>
+          <div class="imp-val green">85%</div>
+        </div>
+        <div class="improvement-bar" style="flex-direction:column;align-items:flex-start;gap:0.25rem">
+          <div class="imp-label">Vendor Cache Benefit</div>
+          <div style="font-size:0.8rem;color:var(--text);margin-top:0.25rem">React, GSAP &amp; Lenis cached separately — returning visitors skip 266 KB on every page change</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <p style="font-size:0.72rem;color:var(--muted);line-height:1.6"><strong style="color:var(--gold)">Platform:</strong> Current site runs on Wix (limited performance control). New site is React/Vite on Netlify's global CDN — full control over build output, caching, and future optimization. The homepage bundle (1.4 MB) is the remaining opportunity and can be addressed without a full rewrite.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 12 — Conversion Rate
+  ───────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-label">Section 10</div>
+        <div class="slide-title">Estimated <span>Conversion Rate</span></div>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="cr-vs" style="margin-bottom:1.5rem">
+        <div class="cr-card">
+          <div class="cr-site">everlastinghomesgroup.com</div>
+          <div class="cr-rate">1<span>–</span>1.5<span>%</span></div>
+          <div class="cr-label">Industry average for custom builders</div>
+        </div>
+        <div class="cr-divider">
+          <div class="cr-arrow">→</div>
+          <div class="cr-lift">2–3.5× lift</div>
+        </div>
+        <div class="cr-card winner">
+          <div class="cr-site" style="color:var(--gold)">everlastinghomesbg.netlify.app</div>
+          <div class="cr-rate" style="color:var(--gold)">3<span style="color:var(--gold-light)">–</span>5<span style="color:var(--gold-light)">%</span></div>
+          <div class="cr-label">Projected with tiered CTAs + landing pages</div>
+        </div>
+      </div>
+      <div class="cr-factors">
+        <div class="cr-factor">
+          <div class="cr-factor-label">Headline Clarity</div>
+          <div class="cr-factor-old">Low — vague positioning</div>
+          <div class="cr-factor-new">High — benefit-led</div>
+        </div>
+        <div class="cr-factor">
+          <div class="cr-factor-label">CTA Structure</div>
+          <div class="cr-factor-old">1 tier, high commitment</div>
+          <div class="cr-factor-new">3 tiers, any buyer stage</div>
+        </div>
+        <div class="cr-factor">
+          <div class="cr-factor-label">Trust Signals</div>
+          <div class="cr-factor-old">Moderate</div>
+          <div class="cr-factor-new">High — DOE endorsement</div>
+        </div>
+        <div class="cr-factor">
+          <div class="cr-factor-label">Urgency</div>
+          <div class="cr-factor-old">None</div>
+          <div class="cr-factor-new">Present on all landing pages</div>
+        </div>
+        <div class="cr-factor">
+          <div class="cr-factor-label">Interactive Tool</div>
+          <div class="cr-factor-old">None</div>
+          <div class="cr-factor-new">/design/ configurator</div>
+        </div>
+        <div class="cr-factor">
+          <div class="cr-factor-label">Traffic Quality (SEO)</div>
+          <div class="cr-factor-old">Low — no keyword pages</div>
+          <div class="cr-factor-new">High — 3 targeted pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       SLIDE 13 — Final
+  ───────────────────────────────────────────── -->
+  <div class="slide" id="final">
+    <div class="final-score">
+      <div class="final-score-item">
+        <div class="final-score-num">11</div>
+        <div class="final-score-label">of 11 Categories Won</div>
+      </div>
+      <div class="final-score-item">
+        <div class="final-score-num" style="color:var(--green)">85%</div>
+        <div class="final-score-label">Landing Page Load Reduction</div>
+      </div>
+      <div class="final-score-item">
+        <div class="final-score-num">3×</div>
+        <div class="final-score-label">Projected Lead Lift</div>
+      </div>
+    </div>
+    <h2 class="final-h">The new site doesn't just look better.<br><span>It's built to convert.</span></h2>
+    <p class="final-sub">Better SEO coverage, a tiered CTA architecture, two proprietary interactive calculators, an interactive design tool, code-split performance, and a trust signal stack anchored by a Department of Energy endorsement.</p>
+    <div class="final-url">everlastinghomesbg.netlify.app</div>
+    <div class="final-url-label" style="margin-top:0.5rem">Ready for client review</div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ─── Navigation ─── -->
+<div id="nav">
+  <button id="prev">←</button>
+  <div class="dot-nav" id="dots"></div>
+  <div id="slide-counter">1 / 14</div>
+  <button id="next">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slide-counter');
+  const dotsEl = document.getElementById('dots');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  });
+
+  function go(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    counter.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  document.getElementById('next').addEventListener('click', () => go(current + 1));
+  document.getElementById('prev').addEventListener('click', () => go(current - 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(current - 1);
+  });
+</script>
+
+</body>
+</html>

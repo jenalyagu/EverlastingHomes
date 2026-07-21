@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>EHBG — Estimated Value Comparison</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: rgba(201,168,76,0.12);
+      --dark: #0D0D0D;
+      --surface: #141414;
+      --surface2: #1A1A1A;
+      --surface3: #222222;
+      --text: #F0EDE8;
+      --muted: #8A8278;
+      --green: #4CAF7D;
+      --red: #E05C5C;
+      --amber: #E8A84C;
+      --border: rgba(201,168,76,0.18);
+      --border-dim: rgba(255,255,255,0.06);
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Georgia', serif; overflow: hidden; }
+
+    #deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.45s ease;
+      overflow: hidden;
+    }
+    .slide.active { opacity: 1; pointer-events: all; }
+
+    /* Nav */
+    #nav {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 1rem; z-index: 100;
+      background: rgba(20,20,20,0.92); border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem; border-radius: 99px; backdrop-filter: blur(12px);
+    }
+    #nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.2rem 0.5rem; transition: color 0.2s; }
+    #nav button:hover { color: var(--gold); }
+    #slide-counter { font-size: 0.75rem; color: var(--muted); min-width: 4rem; text-align: center; }
+    .dot-nav { display: flex; gap: 0.4rem; align-items: center; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .dot.active { background: var(--gold); transform: scale(1.4); }
+
+    /* Shared layout */
+    .slide-header { padding: 2.2rem 3rem 1.25rem; border-bottom: 1px solid var(--border-dim); }
+    .slide-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .slide-title { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.02em; }
+    .slide-title span { color: var(--gold); }
+    .slide-body { flex: 1; padding: 1.75rem 3rem 5rem; overflow-y: auto; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Cover */
+    #cover { justify-content: center; align-items: center; text-align: center; }
+    .cover-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .cover-h1 { font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.03em; max-width: 700px; margin-bottom: 1rem; }
+    .cover-h1 em { color: var(--gold); font-style: normal; }
+    .cover-sub { font-size: 0.9rem; color: var(--muted); max-width: 480px; line-height: 1.6; margin-bottom: 2.75rem; }
+    .cover-stats { display: flex; gap: 3.5rem; }
+    .cs-item { text-align: center; }
+    .cs-num { font-size: 2.2rem; color: var(--gold); line-height: 1; }
+    .cs-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.35rem; }
+
+    /* Tables */
+    .vtable { width: 100%; border-collapse: collapse; }
+    .vtable th { text-align: left; padding: 0.55rem 1rem; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 400; }
+    .vtable th.gold { color: var(--gold); }
+    .vtable td { padding: 0.7rem 1rem; font-size: 0.8rem; border-bottom: 1px solid var(--border-dim); vertical-align: top; line-height: 1.5; }
+    .vtable tr:hover td { background: var(--surface2); border-radius: 4px; }
+    .vtable td:first-child { color: var(--muted); font-size: 0.72rem; }
+    .vtable td.val { font-family: monospace; font-size: 0.75rem; white-space: nowrap; }
+    .vtable td.val.red { color: var(--red); }
+    .vtable td.val.green { color: var(--green); }
+    .vtable td.val.gold { color: var(--gold); }
+    .vtable td.val.amber { color: var(--amber); }
+
+    /* Cards */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+    .card { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 10px; padding: 1.25rem 1.5rem; }
+    .card.gold { border-color: var(--border); }
+    .card.green-border { border-color: rgba(76,175,125,0.3); }
+    .card.red-border { border-color: rgba(224,92,92,0.25); }
+    .card-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .card-val { font-size: 1.6rem; color: var(--gold); line-height: 1.1; }
+    .card-val.green { color: var(--green); }
+    .card-val.red { color: var(--red); }
+    .card-val.sm { font-size: 1.1rem; }
+    .card-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.35rem; line-height: 1.5; }
+
+    .divider { height: 1px; background: var(--border-dim); margin: 1.25rem 0; }
+
+    .hbar { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.5rem; }
+    .hbar-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .hbar-val { font-size: 0.85rem; color: var(--text); line-height: 1.6; }
+
+    /* VS split */
+    .vs-split { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: stretch; margin-bottom: 1.5rem; }
+    .vs-panel { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 10px; padding: 1.25rem 1.5rem; }
+    .vs-panel.winner { border-color: var(--border); background: var(--gold-dim); }
+    .vs-panel-site { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .vs-panel-site.gold { color: var(--gold); }
+    .vs-divider { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.5rem; }
+    .vs-arrow { color: var(--gold); font-size: 1.5rem; }
+
+    /* Bar chart */
+    .bar-chart { display: flex; flex-direction: column; gap: 0.75rem; }
+    .bar-row { display: grid; grid-template-columns: 10rem 1fr auto; align-items: center; gap: 1rem; }
+    .bar-label { font-size: 0.75rem; color: var(--muted); text-align: right; }
+    .bar-track { background: var(--surface2); border-radius: 99px; height: 10px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+    .bar-val { font-size: 0.72rem; color: var(--text); font-family: monospace; white-space: nowrap; }
+
+    /* Final */
+    #final { justify-content: center; align-items: center; text-align: center; }
+    .final-nums { display: flex; gap: 3rem; margin-bottom: 2.5rem; }
+    .fn-num { font-size: 2.8rem; color: var(--gold); line-height: 1; }
+    .fn-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+    .final-h { font-size: clamp(1.4rem, 2.5vw, 2.2rem); margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .final-h span { color: var(--gold); }
+    .final-sub { font-size: 0.85rem; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 2rem; }
+    .final-url { font-family: monospace; font-size: 0.85rem; background: var(--surface2); border: 1px solid var(--border); padding: 0.6rem 1.5rem; border-radius: 8px; color: var(--gold); display: inline-block; }
+  </style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- SLIDE 1 — Cover -->
+  <div class="slide active" id="cover">
+    <div class="cover-eyebrow">Everlasting Homes Building Group — Confidential</div>
+    <h1 class="cover-h1">Estimated Value<br><em>Side-by-Side Comparison</em></h1>
+    <p class="cover-sub">What each site actually delivers to the business — in leads, revenue, SEO equity, and competitive positioning.</p>
+    <div class="cover-stats">
+      <div class="cs-item"><div class="cs-num">3.3×</div><div class="cs-label">More Annual Leads</div></div>
+      <div class="cs-item"><div class="cs-num" style="color:var(--green)">$264K</div><div class="cs-label">Max Annual SEO Value</div></div>
+      <div class="cs-item"><div class="cs-num">5–7×</div><div class="cs-label">Estimated Value Gap</div></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — Lead Capture Architecture -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 1</div>
+      <div class="slide-title">Lead Capture <span>Architecture</span></div>
+    </div>
+    <div class="slide-body">
+      <div class="vs-split" style="margin-bottom:1.25rem">
+        <div class="vs-panel">
+          <div class="vs-panel-site">everlastinghomesgroup.com</div>
+          <div style="font-size:0.8rem;color:var(--muted);line-height:1.7">
+            <div style="margin-bottom:0.4rem">✗ 1 CTA path — "Request a consultation"</div>
+            <div style="margin-bottom:0.4rem">✗ 1 lead capture point (contact form)</div>
+            <div style="margin-bottom:0.4rem">✗ Email newsletter as secondary capture</div>
+            <div style="margin-bottom:0.4rem">✗ No pre-qualification before the call</div>
+            <div>✗ Every lead arrives cold</div>
+          </div>
+        </div>
+        <div class="vs-divider"><div class="vs-arrow">→</div></div>
+        <div class="vs-panel winner">
+          <div class="vs-panel-site gold">everlastinghomesbg.netlify.app</div>
+          <div style="font-size:0.8rem;color:var(--text);line-height:1.7">
+            <div style="margin-bottom:0.4rem">✓ 3 CTA tiers: Calculate Risk → Design Home → Consult</div>
+            <div style="margin-bottom:0.4rem">✓ 4 lead capture points across the funnel</div>
+            <div style="margin-bottom:0.4rem">✓ Risk Calc → prospect knows their exposure</div>
+            <div style="margin-bottom:0.4rem">✓ ROI Calc → prospect knows their 25-yr savings</div>
+            <div>✓ Configurator → prospect arrives with design brief</div>
+          </div>
+        </div>
+      </div>
+      <table class="vtable">
+        <thead><tr><th>Metric</th><th>Current Site</th><th class="gold">New Site</th></tr></thead>
+        <tbody>
+          <tr><td>CTA tiers</td><td class="val red">1</td><td class="val green">3</td></tr>
+          <tr><td>Lead capture points</td><td class="val red">1</td><td class="val green">4</td></tr>
+          <tr><td>Lead temperature on arrival</td><td class="val red">Cold</td><td class="val green">Warm → Hot</td></tr>
+          <tr><td>Sales context before call</td><td class="val red">None</td><td class="val green">Risk profile + ROI figure + design brief</td></tr>
+          <tr><td>Estimated sales cycle impact</td><td class="val amber">Baseline</td><td class="val green">Shorter — objections pre-handled by tools</td></tr>
+        </tbody>
+      </table>
+      <div class="divider"></div>
+      <div class="hbar">
+        <div class="hbar-label">What This Means for the Sales Team</div>
+        <div class="hbar-val">The current site sends the sales team into every call blind. The new site sends them in with a risk profile, a 25-year savings number, and a design brief — three conversations that would have taken hours now happen before the call is booked.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — Conversion Rate Value -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 2</div>
+      <div class="slide-title">Conversion Rate &amp; <span>Lead Volume</span></div>
+    </div>
+    <div class="slide-body">
+      <p style="font-size:0.78rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem">Based on 1,000 monthly visitors — a conservative baseline applicable to both sites.</p>
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="card red-border">
+          <div class="card-label">Current Site</div>
+          <div style="display:flex;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem">
+            <div class="card-val red">1–1.5%</div><div style="font-size:0.75rem;color:var(--muted)">conversion rate</div>
+          </div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.25rem">10–15 leads / month</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem">120–180 leads / year</div>
+          <div style="font-size:0.72rem;color:var(--muted)">At 5% close rate: <span style="color:var(--red)">6–9 projects/yr</span></div>
+        </div>
+        <div class="card green-border">
+          <div class="card-label">New Site</div>
+          <div style="display:flex;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem">
+            <div class="card-val green">3–5%</div><div style="font-size:0.75rem;color:var(--muted)">conversion rate</div>
+          </div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.25rem">30–50 leads / month</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem">360–600 leads / year</div>
+          <div style="font-size:0.72rem;color:var(--muted)">At 6% close rate (warmer leads): <span style="color:var(--green)">22–36 projects/yr</span></div>
+        </div>
+      </div>
+      <div class="bar-chart" style="margin-bottom:1.5rem">
+        <div class="bar-row">
+          <div class="bar-label">Monthly leads (current)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--red)"></div></div>
+          <div class="bar-val" style="color:var(--red)">15</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Monthly leads (new)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--green)"></div></div>
+          <div class="bar-val" style="color:var(--green)">40</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">+ SEO organic leads</div>
+          <div class="bar-track"><div class="bar-fill" style="width:13%;background:var(--gold)"></div></div>
+          <div class="bar-val" style="color:var(--gold)">+10/mo</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Total new site leads/mo</div>
+          <div class="bar-track"><div class="bar-fill" style="width:63%;background:var(--gold)"></div></div>
+          <div class="bar-val" style="color:var(--gold)">50+</div>
+        </div>
+      </div>
+      <div class="hbar">
+        <div class="hbar-label">Lift</div>
+        <div class="hbar-val">The new site generates <strong style="color:var(--gold)">3.3× more leads per month</strong> from the same traffic — before accounting for the additional organic visitors the landing pages attract.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — SEO Traffic Value -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 3</div>
+      <div class="slide-title">Organic Search <span>Traffic Value</span></div>
+    </div>
+    <div class="slide-body">
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">SEO traffic value = what you'd have to spend on Google Ads to buy the same visitors. Landing pages are permanent assets — they compound over time instead of stopping when the budget runs out.</p>
+      <table class="vtable" style="margin-bottom:1.5rem">
+        <thead>
+          <tr><th>Keyword</th><th>Monthly Searches</th><th>Current Site</th><th class="gold">New Site</th><th class="gold">Cost Per Click (Google Ads)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"disaster resistant homes"</td>
+            <td class="val">~1,600</td>
+            <td class="val red">Not ranking</td>
+            <td class="val green">Indexing</td>
+            <td class="val gold">$10–15</td>
+          </tr>
+          <tr>
+            <td>"luxury homes Texas"</td>
+            <td class="val">~2,400</td>
+            <td class="val red">Not ranking</td>
+            <td class="val green">Indexing</td>
+            <td class="val gold">$12–20</td>
+          </tr>
+          <tr>
+            <td>"wildfire home rebuild"</td>
+            <td class="val">~880</td>
+            <td class="val red">Not ranking</td>
+            <td class="val green">Indexing</td>
+            <td class="val gold">$10–18</td>
+          </tr>
+          <tr>
+            <td>"SCIP home builder"</td>
+            <td class="val">~320</td>
+            <td class="val amber">Body copy only</td>
+            <td class="val green">Title tag + page</td>
+            <td class="val gold">$8–14</td>
+          </tr>
+          <tr>
+            <td>"luxury concrete homes"</td>
+            <td class="val">~590</td>
+            <td class="val red">Not ranking</td>
+            <td class="val green">Indexing</td>
+            <td class="val gold">$11–17</td>
+          </tr>
+          <tr style="font-weight:bold">
+            <td>Combined addressable</td>
+            <td class="val gold">~5,790/mo</td>
+            <td class="val red">0 visitors</td>
+            <td class="val green">~460–1,450/mo</td>
+            <td class="val gold">avg. $12–17</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="three-col">
+        <div class="card gold">
+          <div class="card-label">Conservative (page 3, 8% CTR)</div>
+          <div class="card-val sm">~460 visitors/mo</div>
+          <div class="card-sub">Equivalent ad spend: <span style="color:var(--green)">$5,500–$7,800/mo</span></div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Moderate (page 2, 15% CTR)</div>
+          <div class="card-val sm">~870 visitors/mo</div>
+          <div class="card-sub">Equivalent ad spend: <span style="color:var(--green)">$10,400–$14,800/mo</span></div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Strong (page 1, 25% CTR)</div>
+          <div class="card-val sm">~1,450 visitors/mo</div>
+          <div class="card-sub">Equivalent ad spend: <span style="color:var(--green)">$17,400–$24,650/mo</span></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="hbar">
+        <div class="hbar-label">Annual SEO Traffic Value</div>
+        <div class="hbar-val">Conservative: <strong style="color:var(--gold)">$66,000–$93,600/yr</strong> &nbsp;·&nbsp; Moderate: <strong style="color:var(--gold)">$124,800–$177,600/yr</strong> &nbsp;·&nbsp; Strong: <strong style="color:var(--gold)">$208,800–$295,800/yr</strong><br><span style="color:var(--muted);font-size:0.72rem">Current site value: $0. These pages didn't exist 6 months ago.</span></div>
+      </div>
+      <div class="hbar" style="margin-top:0.75rem">
+        <div class="hbar-label">How to Read the Cost Per Click Column</div>
+        <div class="hbar-val">Cost Per Click is what an advertiser pays Google each time someone clicks their ad for that keyword. It measures what the organic traffic is worth in ad dollars avoided. Example: a keyword with a <strong style="color:var(--gold)">$15 Cost Per Click</strong> and <strong style="color:var(--gold)">460 monthly organic visitors</strong> = <strong style="color:var(--green)">$6,900/month in ad spend avoided</strong> — money the new site earns by ranking, not paying.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — Interactive Tool Value -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 4</div>
+      <div class="slide-title">Interactive <span>Tool Value</span></div>
+    </div>
+    <div class="slide-body">
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">The three tools don't just capture leads — they change the nature of the lead. Each tool handles a specific sales objection before the prospect ever speaks to anyone.</p>
+      <div class="three-col" style="margin-bottom:1.5rem">
+        <div class="card gold">
+          <div class="card-label">Risk Calculator</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem;line-height:1.5">Objection handled: <em style="color:var(--gold)">"Do I actually need this?"</em></div>
+          <div style="font-size:0.72rem;color:var(--muted);line-height:1.7">
+            <div>→ Prospect enters their state</div>
+            <div>→ Sees their real FEMA-calibrated risk scores</div>
+            <div>→ Sees EHBG's solution for each hazard</div>
+            <div>→ Books a call already sold on the problem</div>
+          </div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">ROI Calculator</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem;line-height:1.5">Objection handled: <em style="color:var(--gold)">"Is the premium worth it?"</em></div>
+          <div style="font-size:0.72rem;color:var(--muted);line-height:1.7">
+            <div>→ Inputs home value, sq ft, neighborhood</div>
+            <div>→ Sees 25-yr insurance + energy + maintenance savings</div>
+            <div>→ Gets a personal dollar figure</div>
+            <div>→ Conversation shifts from "can I afford this" to "can I afford not to"</div>
+          </div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Estate Configurator</div>
+          <div style="font-size:0.82rem;color:var(--text);margin-bottom:0.75rem;line-height:1.5">Objection handled: <em style="color:var(--gold)">"What do I actually want?"</em></div>
+          <div style="font-size:0.72rem;color:var(--muted);line-height:1.7">
+            <div>→ Multi-step intake: style, budget, lot, lifestyle</div>
+            <div>→ Moodboard studio + blueprint visualization</div>
+            <div>→ AI-generated design brief</div>
+            <div>→ Sales team gets warm handoff with full context</div>
+          </div>
+        </div>
+      </div>
+      <table class="vtable">
+        <thead><tr><th>Tool</th><th>Current Site</th><th class="gold">New Site</th><th class="gold">Sales Cycle Impact</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Risk Calculator</td>
+            <td class="val red">None</td>
+            <td class="val green">✓ 50-state model</td>
+            <td style="font-size:0.75rem;color:var(--text)">Removes "do I need this" objection</td>
+          </tr>
+          <tr>
+            <td>ROI Calculator</td>
+            <td class="val red">None</td>
+            <td class="val green">✓ 12-zone Houston</td>
+            <td style="font-size:0.75rem;color:var(--text)">Removes "is it worth it" objection</td>
+          </tr>
+          <tr>
+            <td>Estate Configurator</td>
+            <td class="val red">None</td>
+            <td class="val green">✓ AI brief + board</td>
+            <td style="font-size:0.75rem;color:var(--text)">Removes "I don't know what I want" friction</td>
+          </tr>
+          <tr>
+            <td>Competitive availability</td>
+            <td class="val red">N/A</td>
+            <td class="val green">Market exclusive</td>
+            <td style="font-size:0.75rem;color:var(--text)">No competitor in Houston/LA market has all three</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — Brand & Trust Value -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 5</div>
+      <div class="slide-title">Brand &amp; <span>Trust Value</span></div>
+    </div>
+    <div class="slide-body">
+      <div class="two-col" style="margin-bottom:1.5rem">
+        <div class="card red-border">
+          <div class="card-label" style="color:var(--red)">Current Site — Trust Signals</div>
+          <div style="font-size:0.78rem;color:var(--muted);line-height:1.8;margin-top:0.5rem">
+            <div>• 3 homeowner testimonials</div>
+            <div>• 2 certifications listed (ICC-ES, Passive House)</div>
+            <div>• Awards mentioned in body text</div>
+            <div>• No FAQ — every question requires a call</div>
+            <div>• No interactive credibility</div>
+            <div>• Shop/cart element creates confusion</div>
+          </div>
+        </div>
+        <div class="card green-border">
+          <div class="card-label" style="color:var(--green)">New Site — Trust Signals</div>
+          <div style="font-size:0.78rem;color:var(--text);line-height:1.8;margin-top:0.5rem">
+            <div>• 6 testimonials incl. DOE program director</div>
+            <div>• 6+ certifications (GHBA, RESNET, NAR, RSG3D + partners)</div>
+            <div>• Award seals section — visual, above fold</div>
+            <div>• 12-question FAQ — handles objections at scale</div>
+            <div>• 3 interactive tools = demonstrated expertise</div>
+            <div>• Zero confusing elements</div>
+          </div>
+        </div>
+      </div>
+      <div class="hbar" style="margin-bottom:0.75rem">
+        <div class="hbar-label">The DOE Signal</div>
+        <div class="hbar-val">"The homes that you build are outstanding achievements and examples of how we can move the building industry to zero." — <strong style="color:var(--gold)">Jaime Van Mourik, Department of Energy Ready Home Program Director</strong><br><span style="color:var(--muted);font-size:0.72rem">This is a government endorsement from the agency that sets the national standard for energy-efficient home construction. No competitor can claim this.</span></div>
+      </div>
+      <div class="hbar">
+        <div class="hbar-label">The FAQ Effect</div>
+        <div class="hbar-val">12 answered questions = 12 calls that don't need to happen to qualify a prospect. At scale, this filters serious buyers from tire-kickers before they ever reach the sales team — improving close rate on the leads that do convert.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — Revenue Impact -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Value Category 6</div>
+      <div class="slide-title">Revenue <span>Impact Projection</span></div>
+    </div>
+    <div class="slide-body">
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">Assumes 1,000 base monthly visitors on both sites. Conservative figures throughout.</p>
+      <table class="vtable" style="margin-bottom:1.5rem">
+        <thead><tr><th>Metric</th><th>Current Site</th><th class="gold">New Site</th></tr></thead>
+        <tbody>
+          <tr><td>Monthly visitors (base)</td><td class="val">1,000</td><td class="val">1,000</td></tr>
+          <tr><td>Additional organic (SEO landing pages)</td><td class="val red">0</td><td class="val green">+460/mo (conservative)</td></tr>
+          <tr><td>Effective monthly visitors</td><td class="val">1,000</td><td class="val gold">1,460</td></tr>
+          <tr><td>Conversion rate</td><td class="val red">1.5%</td><td class="val green">4%</td></tr>
+          <tr><td>Monthly leads</td><td class="val red">15</td><td class="val green">58</td></tr>
+          <tr><td>Annual leads</td><td class="val red">180</td><td class="val green">696</td></tr>
+          <tr><td>Close rate</td><td class="val">5%</td><td class="val green">6% (warmer leads)</td></tr>
+          <tr><td>Closed projects / year</td><td class="val red">9</td><td class="val green">42</td></tr>
+          <tr><td>Additional projects / year</td><td class="val">—</td><td class="val green">+33</td></tr>
+          <tr><td>Average contract value</td><td class="val">$2M</td><td class="val">$2M</td></tr>
+          <tr style="font-weight:bold">
+            <td>Annual revenue differential</td>
+            <td class="val">Baseline</td>
+            <td class="val green" style="font-size:0.88rem">+$66M addressable</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="hbar" style="margin-bottom:0.75rem">
+        <div class="hbar-label">Break-Even Point</div>
+        <div class="hbar-val">The production cost difference between the two sites is <strong style="color:var(--gold)">$130K–$237K</strong>. At a $2M average contract value, <strong style="color:var(--gold)">one additional closed project</strong> covers the entire investment — with $1.76M+ to spare.</div>
+      </div>
+      <div class="hbar">
+        <div class="hbar-label">Note on the Revenue Figure</div>
+        <div class="hbar-val">$66M is the addressable revenue differential — what's theoretically in play. Actual capture depends on sales capacity, market conditions, and how aggressively the SEO landing pages are promoted. Even at 10% of that figure, the ROI on the site investment is exceptional.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — Full Value Summary -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-label">Summary</div>
+      <div class="slide-title">Full <span>Value Comparison</span></div>
+    </div>
+    <div class="slide-body">
+      <table class="vtable" style="margin-bottom:1.5rem">
+        <thead><tr><th>Value Category</th><th>Current Site</th><th class="gold">New Site</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lead capture points</td>
+            <td class="val red">1</td>
+            <td class="val green">4</td>
+          </tr>
+          <tr>
+            <td>Lead temperature</td>
+            <td class="val red">Cold</td>
+            <td class="val green">Warm → Hot</td>
+          </tr>
+          <tr>
+            <td>Monthly leads (1,000 visitors)</td>
+            <td class="val red">15</td>
+            <td class="val green">58</td>
+          </tr>
+          <tr>
+            <td>Annual leads</td>
+            <td class="val red">180</td>
+            <td class="val green">696</td>
+          </tr>
+          <tr>
+            <td>Annual SEO traffic value</td>
+            <td class="val red">$0</td>
+            <td class="val green">$66K–$296K/yr</td>
+          </tr>
+          <tr>
+            <td>Interactive tools</td>
+            <td class="val red">0</td>
+            <td class="val green">3 (market exclusive)</td>
+          </tr>
+          <tr>
+            <td>Objections pre-handled</td>
+            <td class="val red">0</td>
+            <td class="val green">3 (need / worth / design)</td>
+          </tr>
+          <tr>
+            <td>Trust signals</td>
+            <td class="val amber">Moderate</td>
+            <td class="val green">High — DOE endorsement</td>
+          </tr>
+          <tr>
+            <td>Brand positioning</td>
+            <td class="val amber">Standard builder</td>
+            <td class="val green">Most sophisticated in market</td>
+          </tr>
+          <tr>
+            <td>Annual hosting cost</td>
+            <td class="val red">$600/yr</td>
+            <td class="val green">$228/yr</td>
+          </tr>
+          <tr>
+            <td>Closed projects / year (est.)</td>
+            <td class="val red">9</td>
+            <td class="val green">42</td>
+          </tr>
+          <tr style="font-weight:bold">
+            <td>Estimated annual business value</td>
+            <td class="val red" style="font-size:0.85rem">$360K–$1.8M</td>
+            <td class="val green" style="font-size:0.85rem">$2.4M–$12M+</td>
+          </tr>
+          <tr style="font-weight:bold">
+            <td>Value gap</td>
+            <td colspan="2" class="val gold" style="font-size:0.85rem;text-align:center">5–7× — compounding every month</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="hbar">
+        <div class="hbar-label">Why It Compounds</div>
+        <div class="hbar-val">SEO ranking improves over time. Brand authority builds with each tool interaction. The configurator builds a lead database. Every month the new site is live, the gap between the two sites widens — and the current site's relative value shrinks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 — Core Argument -->
+  <div class="slide" style="justify-content:center;align-items:center;text-align:center;padding:3rem">
+    <div style="max-width:720px">
+      <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem">The Core Argument</div>
+      <p style="font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.7;color:var(--muted);margin-bottom:1.5rem">
+        The current site is a brochure<br>that <em style="color:var(--text)">waits to be found.</em>
+      </p>
+      <p style="font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.7;color:var(--muted);margin-bottom:2.5rem">
+        The new site is a system that <em style="color:var(--text)">finds prospects,<br>qualifies them, pre-sells them,</em> and hands the sales team<br>a warm lead with a <em style="color:var(--gold)">design brief,</em> a <em style="color:var(--gold)">risk profile,</em><br>and a <em style="color:var(--gold)">25-year savings figure</em> already in hand.
+      </p>
+      <div style="height:1px;background:var(--border);margin:0 auto 2.5rem;max-width:300px"></div>
+      <p style="font-size:1rem;color:var(--muted);line-height:1.7">
+        The value gap isn't just in production cost.<br>
+        <strong style="color:var(--text)">It's compounding — every month the new site is live,<br>the gap widens.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 10 — Final -->
+  <div class="slide" id="final">
+    <div class="final-nums">
+      <div class="fn-item"><div class="fn-num">3.3×</div><div class="fn-label">More Annual Leads</div></div>
+      <div class="fn-item"><div class="fn-num" style="color:var(--green)">5–7×</div><div class="fn-label">Estimated Value Gap</div></div>
+      <div class="fn-item"><div class="fn-num">1</div><div class="fn-label">Project to Break Even</div></div>
+    </div>
+    <h2 class="final-h">The current site is leaving<br><span>most of the market on the table.</span></h2>
+    <p class="final-sub">3.3× fewer leads. Zero SEO equity. No pre-qualification tools. No competitive moat. And it costs more to host. The value gap between these two sites isn't a matter of aesthetics — it's a structural difference in how each site is built to grow the business.</p>
+    <div class="final-url">everlastinghomesbg.netlify.app</div>
+    <div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem">Ready for client review</div>
+  </div>
+
+</div>
+
+<div id="nav">
+  <button id="prev">←</button>
+  <div class="dot-nav" id="dots"></div>
+  <div id="slide-counter">1 / 10</div>
+  <button id="next">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slide-counter');
+  const dotsEl  = document.getElementById('dots');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  });
+
+  function go(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    counter.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  document.getElementById('next').addEventListener('click', () => go(current + 1));
+  document.getElementById('prev').addEventListener('click', () => go(current - 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(current - 1);
+  });
+</script>
+</body>
+</html>
