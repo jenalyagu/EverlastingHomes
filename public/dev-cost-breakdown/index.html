@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EB3BQF857W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EB3BQF857W');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Development Cost Breakdown — EHBG</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --dark: #0D0D0D;
+      --surface: #141414;
+      --surface2: #1E1E1E;
+      --surface3: #282828;
+      --text: #F0EDE8;
+      --muted: #8A8278;
+      --green-light: #27AE60;
+      --blue-light: #4FC3F7;
+      --border: rgba(201,168,76,0.18);
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Georgia', serif; overflow: hidden; }
+
+    #deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 52px 80px;
+      opacity: 0; transform: translateX(60px); pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .slide.active  { opacity: 1; transform: translateX(0); pointer-events: all; }
+    .slide.exit    { opacity: 0; transform: translateX(-60px); }
+    .slide-content { align-items: flex-start; }
+    .slide-cover   { text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%); }
+
+    .cover-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+    .eyebrow { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    h1 { font-size: clamp(34px, 5vw, 62px); font-weight: normal; line-height: 1.1; }
+    h2 { font-size: clamp(22px, 3vw, 40px); font-weight: normal; line-height: 1.15; margin-bottom: 8px; }
+    .subtitle { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; color: var(--muted); margin-top: 14px; letter-spacing: 0.4px; }
+    p { font-size: 16px; line-height: 1.8; color: #C8C4BE; max-width: 820px; }
+    .rule { width: 48px; height: 2px; background: var(--gold); margin: 22px 0; }
+
+    /* ── Data table ── */
+    .dt { width: 100%; max-width: 920px; border-collapse: collapse; margin-top: 24px; }
+    .dt th {
+      font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+      text-align: left; padding: 0 0 12px; border-bottom: 1px solid var(--border);
+    }
+    .dt th.r { text-align: right; }
+    .dt td { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; color: var(--text); vertical-align: middle; }
+    .dt td.r { text-align: right; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .dt td.muted { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); }
+    .dt td.gold { color: var(--gold); font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 600; }
+    .dt tr.total td { border-top: 1px solid var(--border); border-bottom: none; padding-top: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 13px; color: var(--text); }
+    .dt tr.total td.cost { color: var(--gold); font-size: 15px; }
+
+    /* ── Stat cards ── */
+    .stat-row { display: flex; gap: 20px; width: 100%; max-width: 920px; margin-top: 28px; }
+    .stat-card { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 22px 24px; }
+    .stat-card .sc-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .stat-card .sc-val { font-size: 34px; font-weight: 300; color: var(--gold); line-height: 1; }
+    .stat-card .sc-sub { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    /* ── Site header bar ── */
+    .site-bar { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; }
+    .site-bar .site-name { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--text); }
+    .site-bar .site-url  { font-family: monospace; font-size: 12px; color: var(--muted); }
+    .site-bar .site-total { margin-left: auto; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); }
+
+    /* ── Horizontal summary bars ── */
+    .bar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; width: 100%; max-width: 860px; }
+    .bar-site { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: var(--text); width: 220px; flex-shrink: 0; }
+    .bar-sub  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; color: var(--muted); }
+    .bar-track { flex: 1; height: 7px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+    .bar-fill  { height: 100%; border-radius: 3px; background: var(--gold); }
+    .bar-val   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--gold); width: 80px; text-align: right; flex-shrink: 0; }
+
+    /* ── Rate comparison ── */
+    .rate-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; max-width: 860px; margin-top: 28px; }
+    .rate-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 24px 26px; }
+    .rate-card.highlight { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04); }
+    .rate-card .rc-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .rate-card .rc-rate  { font-size: 32px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .rate-card .rc-total { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 22px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+    .rate-card .rc-note  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .rate-card.highlight .rc-label { color: var(--gold); }
+    .rate-card.highlight .rc-rate  { color: var(--gold-light); }
+
+    /* ── Callout ── */
+    .callout { background: rgba(201,168,76,0.05); border-left: 3px solid var(--gold); padding: 16px 22px; margin-top: 22px; max-width: 860px; border-radius: 0 2px 2px 0; }
+    .callout p { font-size: 15px; color: #C8C4BE; line-height: 1.7; }
+
+    /* ── What makes this premium ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 900px; margin-top: 24px; }
+    .col-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 22px 26px; }
+    .col-card .cc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .col-card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .col-card ul li { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #C8C4BE; line-height: 1.5; padding-left: 14px; position: relative; }
+    .col-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 1px; }
+
+    /* ── Section label ── */
+    .section-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
+
+    /* ── Nav ── */
+    #nav { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 24px; z-index: 100; }
+    .nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--gold); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .nav-btn:hover { background: var(--surface3); border-color: var(--gold); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    #slide-counter { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 1px; min-width: 60px; text-align: center; }
+    #dots { position: fixed; right: 36px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface3); border: 1px solid var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .dot.active { background: var(--gold); transform: scale(1.3); }
+  </style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- ─── 1: Cover ─── -->
+  <div class="slide slide-cover active" id="s0">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1>Development<br>Cost Breakdown</h1>
+    <div class="rule" style="margin:24px auto;"></div>
+    <p class="subtitle" style="text-align:center;">Three sites. 10,469 lines of code. What was built,<br>what it cost, and what it's worth at market rate.</p>
+    <p class="subtitle" style="text-align:center; margin-top:10px; font-size:13px;">236 hours · $125/hr · Prepared June 2026</p>
+  </div>
+
+  <!-- ─── 2: Grand Total Overview ─── -->
+  <div class="slide slide-content" id="s1">
+    <div class="eyebrow">Portfolio Overview</div>
+    <h2>Three production sites.<br>One integrated ecosystem.</h2>
+    <div class="rule"></div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="sc-label">Total Lines of Code</div>
+        <div class="sc-val">10,469</div>
+        <div class="sc-sub">Across 3 deployed sites</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Total Hours</div>
+        <div class="sc-val">236</div>
+        <div class="sc-sub">React · TypeScript · AI tooling · Luxury UX · SEO</div>
+      </div>
+      <div class="stat-card" style="border-color:rgba(201,168,76,0.4); background:rgba(201,168,76,0.04);">
+        <div class="sc-label">Total at $125/hr</div>
+        <div class="sc-val">$29,538</div>
+        <div class="sc-sub">Conservative mid-market freelance rate</div>
+      </div>
+    </div>
+
+    <div style="margin-top:36px; width:100%; max-width:860px;">
+      <div class="bar-row">
+        <div class="bar-site">everlastinghomesbg<div class="bar-sub">Main SCIP marketing site + SEO pages</div></div>
+        <div class="bar-track"><div class="bar-fill" style="width:79%;"></div></div>
+        <div class="bar-val">$9,625</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-site">ehbgconfidential<div class="bar-sub">Private athlete-relocation</div></div>
+        <div class="bar-track"><div class="bar-fill" style="width:64%;"></div></div>
+        <div class="bar-val">$7,750</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-site">myeverlastinghome<div class="bar-sub">AI Estate Designer</div></div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>
+        <div class="bar-val">$12,163</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3: Site 1 — everlastinghomesbg ─── -->
+  <div class="slide slide-content" id="s2">
+    <div class="eyebrow">Site 01 of 03</div>
+    <div class="site-bar">
+      <span class="site-name">everlastinghomesbg.netlify.app</span>
+      <span class="site-url">Main SCIP Marketing Site</span>
+      <span class="site-total">$9,625</span>
+    </div>
+
+    <p class="section-label">Core Components</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>MyEverlastingHome.jsx</td><td class="r muted">683</td><td class="r muted">12</td><td class="r gold">$1,500</td></tr>
+        <tr><td>RiskCalculator.jsx</td><td class="r muted">465</td><td class="r muted">10</td><td class="r gold">$1,250</td></tr>
+        <tr><td>Media.jsx</td><td class="r muted">403</td><td class="r muted">8</td><td class="r gold">$1,000</td></tr>
+        <tr><td>ScrollytellingEngine.jsx</td><td class="r muted">204</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>ConsultationModal.jsx</td><td class="r muted">201</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>HeroSection.jsx</td><td class="r muted">205</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>SectionNavDots.jsx</td><td class="r muted">217</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>MediaSection.jsx</td><td class="r muted">155</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>InfographicsCarousel.jsx</td><td class="r muted">112</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>TestimonialsSection.jsx</td><td class="r muted">86</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>ScrollToTopButton.jsx</td><td class="r muted">54</td><td class="r muted">1</td><td class="r gold">$125</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 3b: Site 1 continued — SEO Landing Pages ─── -->
+  <div class="slide slide-content" id="s2b">
+    <div class="eyebrow">Site 01 of 03 — continued</div>
+    <div class="site-bar">
+      <span class="site-name">everlastinghomesbg.netlify.app</span>
+      <span class="site-total">$9,625 total</span>
+    </div>
+
+    <p class="section-label">SEO Landing Pages</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Page</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>LuxuryHomesTexas.jsx<div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; color:var(--muted); margin-top:2px;">/luxury-homes-texas · geo-targeted, conversion-optimized</div></td><td class="r muted">420</td><td class="r muted">7</td><td class="r gold">$875</td></tr>
+        <tr><td>DisasterResistantHomes.jsx<div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; color:var(--muted); margin-top:2px;">/disaster-resistant-homes · problem-aware buyer traffic</div></td><td class="r muted">379</td><td class="r muted">6</td><td class="r gold">$750</td></tr>
+        <tr><td>WildfireRebuild.jsx<div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; color:var(--muted); margin-top:2px;">/wildfire-rebuild · California fire-zone targeting</div></td><td class="r muted">335</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr class="total"><td>SEO Pages Subtotal</td><td class="r">1,134 lines</td><td class="r">18 hrs</td><td class="r cost">$2,250</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="max-width:860px; margin-top:20px;">
+      <p>Each page is individually optimized for a distinct search intent — geography, disaster type, and buyer stage. They function as standalone conversion pages and as internal link targets that lift the domain's authority on disaster-resilient home keywords.</p>
+    </div>
+
+    <table class="dt" style="max-width:860px; margin-top:16px;">
+      <tbody>
+        <tr class="total"><td>Site 1 Total</td><td class="r">3,919 lines</td><td class="r">77 hrs</td><td class="r cost">$9,625</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 4: Site 2 — ehbgconfidential ─── -->
+  <div class="slide slide-content" id="s3">
+    <div class="eyebrow">Site 02 of 03</div>
+    <div class="site-bar">
+      <span class="site-name">ehbgconfidential.netlify.app</span>
+      <span class="site-url">Private SCIP / Athlete Relocation</span>
+      <span class="site-total">$7,750</span>
+    </div>
+
+    <p class="section-label">Sections</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ConfidentialInquiry.jsx</td><td class="r muted">352</td><td class="r muted">8</td><td class="r gold">$1,000</td></tr>
+        <tr><td>EstateConcepts.jsx</td><td class="r muted">139</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>SCIPSolution.jsx</td><td class="r muted">112</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>AthleteProfile.jsx</td><td class="r muted">101</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>BuildPathway.jsx</td><td class="r muted">97</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>HoustonRiskProfile.jsx</td><td class="r muted">97</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>TraditionalShortfall.jsx</td><td class="r muted">89</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>ReferralPartner.jsx</td><td class="r muted">88</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>Hero.jsx</td><td class="r muted">92</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 5: Site 2 continued — UI Primitives ─── -->
+  <div class="slide slide-content" id="s4">
+    <div class="eyebrow">Site 02 of 03 — continued</div>
+    <div class="site-bar">
+      <span class="site-name">ehbgconfidential.netlify.app</span>
+      <span class="site-total">$7,750 total</span>
+    </div>
+
+    <p class="section-label">UI Primitives &amp; Design System</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>RiskCalculator.jsx</td><td class="r muted">465</td><td class="r muted">10</td><td class="r gold">$1,250</td></tr>
+        <tr><td>ConfidentialInquiryForm.jsx</td><td class="r muted">167</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>SectionNavDots.jsx</td><td class="r muted">195</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>EvidenceStrip.jsx</td><td class="r muted">89</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>EstateConceptCard.jsx</td><td class="r muted">73</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>SCIPComparisonTable.jsx</td><td class="r muted">60</td><td class="r muted">2</td><td class="r gold">$250</td></tr>
+        <tr><td>ProcessStep / ReferralPartnerCard / Button</td><td class="r muted">106</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>RiskCard / SolutionCard / SectionHeader / AudienceCard</td><td class="r muted">109</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>FadeInView / SectionLabel / GoldDivider</td><td class="r muted">33</td><td class="r muted">1</td><td class="r gold">$125</td></tr>
+        <tr><td>Navigation.jsx + Footer.jsx</td><td class="r muted">69</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr class="total"><td>Site 2 Total</td><td class="r">2,533 lines</td><td class="r">62 hrs</td><td class="r cost">$7,750</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 6: Site 3 — myeverlastinghome ─── -->
+  <div class="slide slide-content" id="s5">
+    <div class="eyebrow">Site 03 of 03</div>
+    <div class="site-bar">
+      <span class="site-name">myeverlastinghome.netlify.app</span>
+      <span class="site-url">AI Estate Designer</span>
+      <span class="site-total">$12,163</span>
+    </div>
+
+    <p class="section-label">Core Components</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>EstateForm.tsx</td><td class="r muted">471</td><td class="r muted">12</td><td class="r gold">$1,500</td></tr>
+        <tr><td>EstateBlueprintBoard.tsx</td><td class="r muted">273</td><td class="r muted">7</td><td class="r gold">$875</td></tr>
+        <tr><td>EstateAestheticResult.tsx</td><td class="r muted">243</td><td class="r muted">6</td><td class="r gold">$750</td></tr>
+        <tr><td>ShareWithEHBG.tsx</td><td class="r muted">186</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>BoardBriefPreview.tsx</td><td class="r muted">160</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>Hero.tsx</td><td class="r muted">167</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>PaywallScreen.tsx</td><td class="r muted">119</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>ImageProviderSwitcher.tsx</td><td class="r muted">104</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>WhySCIP.tsx / WhatItDoes.tsx</td><td class="r muted">252</td><td class="r muted">6</td><td class="r gold">$750</td></tr>
+        <tr><td>HowItWorks.tsx / SamplePreview.tsx / Navbar / Footer</td><td class="r muted">321</td><td class="r muted">8</td><td class="r gold">$1,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 7: Site 3 continued — Pages + Logic ─── -->
+  <div class="slide slide-content" id="s6">
+    <div class="eyebrow">Site 03 of 03 — continued</div>
+    <div class="site-bar">
+      <span class="site-name">myeverlastinghome.netlify.app</span>
+      <span class="site-total">$12,163 total</span>
+    </div>
+
+    <p class="section-label">Pages</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>BoardPreview.tsx</td><td class="r muted">317</td><td class="r muted">8</td><td class="r gold">$1,000</td></tr>
+        <tr><td>BoardStudio.tsx</td><td class="r muted">277</td><td class="r muted">7</td><td class="r gold">$875</td></tr>
+        <tr><td>BoardIntake.tsx</td><td class="r muted">196</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>BlueprintPage.tsx</td><td class="r muted">187</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>SampleEstatePage.tsx</td><td class="r muted">183</td><td class="r muted">4</td><td class="r gold">$500</td></tr>
+        <tr><td>BoardTemplateSelector.tsx</td><td class="r muted">117</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr><td>BoardPromptPack.tsx</td><td class="r muted">59</td><td class="r muted">1.5</td><td class="r gold">$188</td></tr>
+      </tbody>
+    </table>
+
+    <p class="section-label" style="margin-top:16px;">Logic / Data Layer</p>
+    <table class="dt" style="margin-top:6px;">
+      <thead>
+        <tr>
+          <th style="width:46%;">Component</th>
+          <th class="r" style="width:18%;">Lines</th>
+          <th class="r" style="width:18%;">Est. Hours</th>
+          <th class="r" style="width:18%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>boardGenerator.ts</td><td class="r muted">177</td><td class="r muted">5</td><td class="r gold">$625</td></tr>
+        <tr><td>boardTypes.ts</td><td class="r muted">208</td><td class="r muted">3</td><td class="r gold">$375</td></tr>
+        <tr class="total"><td>Site 3 Total</td><td class="r">4,017 lines</td><td class="r">97 hrs</td><td class="r cost">$12,163</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 8: Grand Total Table ─── -->
+  <div class="slide slide-content" id="s7">
+    <div class="eyebrow">Grand Total</div>
+    <h2>10,469 lines.<br>236 hours. Three live sites.</h2>
+    <div class="rule"></div>
+
+    <table class="dt" style="max-width:800px;">
+      <thead>
+        <tr>
+          <th style="width:40%;">Site</th>
+          <th class="r" style="width:20%;">Lines</th>
+          <th class="r" style="width:20%;">Hours</th>
+          <th class="r" style="width:20%;">Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>everlastinghomesbg<div style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; color:var(--muted); margin-top:2px;">incl. 3 SEO landing pages</div></td>
+          <td class="r muted">3,919</td>
+          <td class="r muted">77</td>
+          <td class="r gold">$9,625</td>
+        </tr>
+        <tr>
+          <td>ehbgconfidential</td>
+          <td class="r muted">2,533</td>
+          <td class="r muted">62</td>
+          <td class="r gold">$7,750</td>
+        </tr>
+        <tr>
+          <td>myeverlastinghome</td>
+          <td class="r muted">4,017</td>
+          <td class="r muted">97</td>
+          <td class="r gold">$12,163</td>
+        </tr>
+        <tr class="total">
+          <td>All Three Sites</td>
+          <td class="r">10,469</td>
+          <td class="r">236 hrs</td>
+          <td class="r cost">$29,538</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="max-width:800px;">
+      <p>$125/hr is the conservative mid-market rate for React development. This scope — AI tooling, luxury brand system, multi-site architecture, TypeScript data layer, SEO landing pages — consistently bills at $175–$250/hr at agencies doing comparable work.</p>
+    </div>
+  </div>
+
+  <!-- ─── 9: Rate Comparison ─── -->
+  <div class="slide slide-content" id="s8">
+    <div class="eyebrow">Rate Context</div>
+    <h2>The same 218 hours<br>at market rate.</h2>
+    <div class="rule"></div>
+    <p>$125/hr reflects mid-market freelance pricing for React + branding work. Agencies specializing in luxury real estate and AI-integrated tooling bill significantly higher for this scope.</p>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <div class="rc-label">Conservative / Freelance</div>
+        <div class="rc-rate">$125<span style="font-size:16px; color:var(--muted);">/hr</span></div>
+        <div class="rc-total">$27,288</div>
+        <div class="rc-note">Mid-market solo developer rate. Used as the basis for this breakdown.</div>
+      </div>
+      <div class="rate-card highlight">
+        <div class="rc-label">Standard Agency Rate</div>
+        <div class="rc-rate">$175<span style="font-size:16px; color:rgba(201,168,76,0.5);">/hr</span></div>
+        <div class="rc-total">$41,300</div>
+        <div class="rc-note">Typical for luxury real estate + AI tooling agencies. This scope is well within that billing tier.</div>
+      </div>
+      <div class="rate-card">
+        <div class="rc-label">Premium Agency Rate</div>
+        <div class="rc-rate">$200<span style="font-size:16px; color:var(--muted);">/hr</span></div>
+        <div class="rc-total">$47,200</div>
+        <div class="rc-note">Senior-level or boutique agency rate for integrated AI + luxury brand work.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>The $29,538 figure represents what was delivered at below-market cost. The $41,300–$47,200 range is what this engagement would invoice at a standard agency specializing in this category.</p>
+    </div>
+  </div>
+
+  <!-- ─── 10: What Makes This Premium ─── -->
+  <div class="slide slide-content" id="s9">
+    <div class="eyebrow">Scope Context</div>
+    <h2>Why this rates above<br>standard React work.</h2>
+    <div class="rule"></div>
+    <p>Lines of code understate the complexity. Each site required domain expertise across multiple disciplines simultaneously.</p>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="cc-title">Technical Complexity</div>
+        <ul>
+          <li>TypeScript data layer with custom board generation logic</li>
+          <li>Multi-step AI estate designer with paywall and image provider switching</li>
+          <li>Scrollytelling engine with synchronized animations</li>
+          <li>Risk calculator with real structural data inputs</li>
+          <li>Three separate Netlify deployments with env-var routing</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <div class="cc-title">Brand &amp; Strategy Layer</div>
+        <ul>
+          <li>Luxury design system built from scratch — no off-the-shelf UI kit</li>
+          <li>Conversion architecture across three distinct buyer audiences</li>
+          <li>Confidential site with discrete advisor referral flow</li>
+          <li>SEO landing pages optimized for high-risk geography keywords</li>
+          <li>Copy, UX, and visual direction integrated — not siloed</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>A standard agency would scope this across a developer, UX designer, copywriter, and strategist. This was delivered as a unified engagement — which is where the rate compression comes from.</p>
+    </div>
+  </div>
+
+  <!-- ─── 11: Close ─── -->
+  <div class="slide slide-cover" id="s10">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1 style="font-size:clamp(26px,3.8vw,50px); max-width:700px; text-align:center;">10,469 lines of production code.<br>Three live sites.<br>One integrated system.</h1>
+    <div class="rule" style="margin:28px auto;"></div>
+    <p style="text-align:center; max-width:560px; color:var(--muted); font-size:15px;">Built at $29,538. Worth $41,300–$47,200 at standard agency rates.<br>The infrastructure is in place. The next phase is activation.</p>
+  </div>
+
+</div>
+
+<!-- ─── Nav ─── -->
+<div id="nav">
+  <button class="nav-btn" id="prev" onclick="go(-1)" disabled>← Prev</button>
+  <span id="slide-counter">1 / 12</span>
+  <button class="nav-btn" id="next" onclick="go(1)">Next →</button>
+</div>
+<div id="dots"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let current  = 0;
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current].classList.remove('exit'), 450);
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === total - 1;
+  }
+
+  function go(dir) { const n = current + dir; if (n >= 0 && n < total) goTo(n); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     go(-1);
+  });
+</script>
+</body>
+</html>

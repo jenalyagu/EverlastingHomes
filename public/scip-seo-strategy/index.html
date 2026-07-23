@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EB3BQF857W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EB3BQF857W');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>SCIP SEO Strategy — EHBG</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --dark: #0D0D0D;
+      --surface: #141414;
+      --surface2: #1E1E1E;
+      --surface3: #282828;
+      --text: #F0EDE8;
+      --muted: #8A8278;
+      --red: #C0392B;
+      --green: #1E7E4A;
+      --green-light: #27AE60;
+      --blue: #2E86AB;
+      --blue-light: #4FC3F7;
+      --border: rgba(201,168,76,0.18);
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Georgia', serif; overflow: hidden; }
+
+    /* ── Slide container ── */
+    #deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 56px 80px;
+      opacity: 0; transform: translateX(60px); pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .slide.active  { opacity: 1; transform: translateX(0); pointer-events: all; }
+    .slide.exit    { opacity: 0; transform: translateX(-60px); }
+    .slide-content { align-items: flex-start; }
+    .slide-cover   { text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%); }
+
+    /* ── Type ── */
+    .eyebrow { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    h1 { font-size: clamp(34px, 5vw, 62px); font-weight: normal; line-height: 1.1; }
+    h2 { font-size: clamp(24px, 3.2vw, 42px); font-weight: normal; line-height: 1.15; margin-bottom: 8px; }
+    .subtitle { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; color: var(--muted); margin-top: 14px; letter-spacing: 0.5px; }
+    p { font-size: 16px; line-height: 1.8; color: #C8C4BE; max-width: 800px; }
+    .rule { width: 48px; height: 2px; background: var(--gold); margin: 22px 0; }
+    .cover-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+    /* ── Keyword table ── */
+    .kw-table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 28px; }
+    .kw-table th {
+      font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+      text-align: left; padding: 0 16px 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .kw-table th.right { text-align: right; padding-right: 0; }
+    .kw-table td {
+      padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 14px; color: var(--text); vertical-align: middle;
+    }
+    .kw-table td.intent { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); }
+    .kw-table td.vol { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; text-align: right; }
+    .kw-table td.vol.hi  { color: var(--green-light); }
+    .kw-table td.vol.med { color: var(--gold); }
+    .kw-table td.vol.lo  { color: var(--muted); }
+
+    /* ── Volume pill ── */
+    .vol-pill {
+      display: inline-block; padding: 2px 9px; border-radius: 2px;
+      font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600;
+    }
+    .pill-hi  { background: rgba(39,174,96,0.12);  color: var(--green-light); border: 1px solid rgba(39,174,96,0.25); }
+    .pill-med { background: rgba(201,168,76,0.1);  color: var(--gold);        border: 1px solid rgba(201,168,76,0.25); }
+    .pill-lo  { background: rgba(138,130,120,0.1); color: var(--muted);       border: 1px solid rgba(138,130,120,0.2); }
+    .pill-opp { background: rgba(79,195,247,0.1);  color: var(--blue-light);  border: 1px solid rgba(79,195,247,0.25); }
+
+    /* ── Opportunity card ── */
+    .opp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 900px; margin-top: 28px; }
+    .opp-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 22px 26px; }
+    .opp-card .oc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .opp-card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .opp-card ul li { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #C8C4BE; line-height: 1.5; padding-left: 14px; position: relative; }
+    .opp-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 1px; }
+
+    /* ── Strategy items ── */
+    .strat-list { width: 100%; max-width: 900px; margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .strat-item { display: flex; align-items: flex-start; gap: 20px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; }
+    .strat-num { flex-shrink: 0; width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--gold); }
+    .strat-body .st-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .strat-body .st-desc  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .strat-body .st-example { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--gold); margin-top: 5px; font-style: italic; }
+
+    /* ── Callout ── */
+    .callout { background: rgba(201,168,76,0.05); border-left: 3px solid var(--gold); padding: 16px 22px; margin-top: 24px; max-width: 860px; border-radius: 0 2px 2px 0; }
+    .callout p { font-size: 15px; color: #C8C4BE; line-height: 1.7; }
+
+    /* ── Quick wins ── */
+    .wins-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; width: 100%; max-width: 920px; margin-top: 28px; }
+    .win-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; }
+    .win-card .wc-num { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 28px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+    .win-card .wc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .win-card .wc-desc { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Volume context bar ── */
+    .vol-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; width: 100%; max-width: 860px; }
+    .vol-bar-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: var(--text); width: 260px; flex-shrink: 0; }
+    .vol-bar-track { flex: 1; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+    .vol-bar-fill  { height: 100%; border-radius: 3px; }
+    .vol-bar-val   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 600; width: 90px; text-align: right; flex-shrink: 0; }
+
+    /* ── Tier badge ── */
+    .tier-badge { display: inline-block; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-bottom: 16px; }
+    .tier-1 { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+    .tier-2 { background: rgba(39,174,96,0.1);   color: var(--green-light); border: 1px solid rgba(39,174,96,0.25); }
+    .tier-3 { background: rgba(79,195,247,0.1);  color: var(--blue-light);  border: 1px solid rgba(79,195,247,0.25); }
+    .tier-4 { background: rgba(206,147,216,0.1); color: #CE93D8; border: 1px solid rgba(206,147,216,0.25); }
+
+    /* ── Note ── */
+    .est-note { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; color: var(--muted); margin-top: 10px; letter-spacing: 0.3px; }
+
+    /* ── Nav ── */
+    #nav { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 24px; z-index: 100; }
+    .nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--gold); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 24px; cursor: pointer; border-radius: 2px; transition: background 0.2s, border-color 0.2s; }
+    .nav-btn:hover { background: var(--surface3); border-color: var(--gold); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    #slide-counter { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 1px; min-width: 60px; text-align: center; }
+
+    #dots { position: fixed; right: 36px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--surface3); border: 1px solid var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .dot.active { background: var(--gold); transform: scale(1.3); }
+  </style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- ─── 1: Cover ─── -->
+  <div class="slide slide-cover active" id="s0">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1>SCIP SEO Strategy</h1>
+    <div class="rule" style="margin:24px auto;"></div>
+    <p class="subtitle" style="text-align:center;">Keyword landscape, search demand, and the content plays<br>that put EHBG at the top before competitors catch up.</p>
+    <p class="subtitle" style="text-align:center; margin-top:10px; font-size:13px;">Prepared June 2026</p>
+  </div>
+
+  <!-- ─── 2: The Opportunity ─── -->
+  <div class="slide slide-content" id="s1">
+    <div class="eyebrow">The Opportunity</div>
+    <h2>SCIP is a niche term<br>in a massive market.</h2>
+    <div class="rule"></div>
+    <p>Disaster-resilient home construction is a high-interest, growing category. Climate anxiety, rising insurance costs, and back-to-back natural disasters are pushing homeowners to research alternatives to conventional builds — right now.</p>
+    <div class="callout" style="margin-top:24px;">
+      <p>SCIP as a brand term is still low-competition. The window to own these keywords before the market matures is open — but it won't stay that way. Early content authority compounds over time; late entries pay for every click.</p>
+    </div>
+    <div class="opp-grid" style="grid-template-columns:1fr 1fr 1fr; margin-top:24px;">
+      <div class="opp-card">
+        <div class="oc-title">Low Competition</div>
+        <ul>
+          <li>Few authoritative SCIP-specific domains exist</li>
+          <li>Informational gap is wide open</li>
+          <li>Early content ranks fast and holds</li>
+        </ul>
+      </div>
+      <div class="opp-card">
+        <div class="oc-title">High-Intent Audience</div>
+        <ul>
+          <li>$1M+ builds — qualified buyers research deeply</li>
+          <li>Problem-aware searches growing YoY</li>
+          <li>Insurance cost searches surging post-disasters</li>
+        </ul>
+      </div>
+      <div class="opp-card">
+        <div class="oc-title">EHBG Advantage</div>
+        <ul>
+          <li>Site already live and indexed</li>
+          <li>Landing pages for key geographies built</li>
+          <li>NASIP association backlink available now</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3: Tier 1 Keywords ─── -->
+  <div class="slide slide-content" id="s2">
+    <div class="eyebrow">Keyword Tiers — 01 of 04</div>
+    <div class="tier-badge tier-1">Tier 1 — High Intent / Buyer Keywords</div>
+    <h2 style="margin-bottom:4px; font-size:clamp(20px,2.6vw,34px);">People actively looking to build or buy.</h2>
+    <table class="kw-table">
+      <thead>
+        <tr>
+          <th style="width:44%;">Keyword</th>
+          <th style="width:28%;">Intent</th>
+          <th class="right" style="width:28%;">Est. Monthly Searches (US)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SCIP homes</td><td class="intent">Brand / product awareness</td><td class="vol med"><span class="vol-pill pill-med">200–500</span></td></tr>
+        <tr><td>SCIP panel house</td><td class="intent">Product search</td><td class="vol"><span class="vol-pill pill-lo">100–200</span></td></tr>
+        <tr><td>structural concrete insulated panel homes</td><td class="intent">Informational + buyer</td><td class="vol"><span class="vol-pill pill-lo">100–300</span></td></tr>
+        <tr><td>hurricane proof SCIP home</td><td class="intent">Problem–solution</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>SCIP home builders near me</td><td class="intent">Local purchase intent</td><td class="vol med"><span class="vol-pill pill-med">100–300</span></td></tr>
+        <tr><td>SCIP construction cost</td><td class="intent">Buyer comparison</td><td class="vol med"><span class="vol-pill pill-med">100–250</span></td></tr>
+        <tr><td>SCIP vs ICF homes</td><td class="intent">Comparison research</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>SCIP vs concrete block homes</td><td class="intent">Comparison research</td><td class="vol"><span class="vol-pill pill-lo">50–100</span></td></tr>
+        <tr><td>prefab SCIP homes</td><td class="intent">Product variant</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>custom SCIP home builder</td><td class="intent">Service search</td><td class="vol med"><span class="vol-pill pill-med">100–250</span></td></tr>
+      </tbody>
+    </table>
+    <p class="est-note">* Estimates based on niche keyword modeling. Verify with Ahrefs / SEMrush before campaign launch.</p>
+  </div>
+
+  <!-- ─── 4: Tier 1 Context ─── -->
+  <div class="slide slide-content" id="s3">
+    <div class="eyebrow">Tier 1 — Why Low Volume Isn't Low Value</div>
+    <h2>These searches are rare.<br>The buyers aren't.</h2>
+    <div class="rule"></div>
+    <p>Tier 1 keywords are low volume because SCIP is still a niche term — most $1M+ custom home buyers don't know the word yet. But the people who do search it are deep in the research phase, often with land already identified and a budget confirmed.</p>
+    <div class="callout">
+      <p>A single converted lead from "custom SCIP home builder" is worth more than 10,000 general traffic visits. These keywords should be owned outright — there is almost no competition and the buyer intent is explicit.</p>
+    </div>
+    <div class="opp-grid" style="margin-top:24px;">
+      <div class="opp-card" style="border-color: rgba(201,168,76,0.35);">
+        <div class="oc-title">Keyword Difficulty</div>
+        <ul>
+          <li>Most SCIP terms: KD 0–15 (very easy to rank)</li>
+          <li>Minimal authoritative competition</li>
+          <li>One strong pillar page can own the category</li>
+        </ul>
+      </div>
+      <div class="opp-card" style="border-color: rgba(201,168,76,0.35);">
+        <div class="oc-title">Conversion Quality</div>
+        <ul>
+          <li>Buyer-stage searches = highest close rate</li>
+          <li>"Near me" + cost searches signal ready-to-act buyers</li>
+          <li>Comparison searches convert after 1–2 follow-ups</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 5: Tier 2 Keywords ─── -->
+  <div class="slide slide-content" id="s4">
+    <div class="eyebrow">Keyword Tiers — 02 of 04</div>
+    <div class="tier-badge tier-2">Tier 2 — Problem-Aware Keywords</div>
+    <h2 style="font-size:clamp(20px,2.6vw,34px);">Searching around a pain point SCIP solves.</h2>
+
+    <div style="margin-top:20px; width:100%; max-width:900px;">
+      <div class="vol-bar-row"><span class="vol-bar-label">hurricane proof home construction</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:90%; background:var(--green-light);"></div></div><span class="vol-bar-val" style="color:var(--green-light);">1K–3K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">energy efficient home building systems</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:85%; background:var(--green-light);"></div></div><span class="vol-bar-val" style="color:var(--green-light);">2K–5K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">wildfire resistant home materials</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:72%; background:var(--green-light);"></div></div><span class="vol-bar-val" style="color:var(--green-light);">1K–3K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">earthquake resistant home building</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:60%; background:var(--gold);"></div></div><span class="vol-bar-val" style="color:var(--gold);">500–2K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">fire resistant wall panels</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:55%; background:var(--gold);"></div></div><span class="vol-bar-val" style="color:var(--gold);">1K–2K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">disaster resistant housing</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:45%; background:var(--gold);"></div></div><span class="vol-bar-val" style="color:var(--gold);">500–1.5K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">low energy bill home design</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:44%; background:var(--gold);"></div></div><span class="vol-bar-val" style="color:var(--gold);">1K–3K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">wind resistant home construction (200 mph)</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:38%; background:var(--gold);"></div></div><span class="vol-bar-val" style="color:var(--gold);">500–1.5K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">fortified home construction</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:30%; background:var(--muted);"></div></div><span class="vol-bar-val" style="color:var(--muted);">500–1K/mo</span></div>
+      <div class="vol-bar-row"><span class="vol-bar-label">storm proof house construction</span><div class="vol-bar-track"><div class="vol-bar-fill" style="width:26%; background:var(--muted);"></div></div><span class="vol-bar-val" style="color:var(--muted);">500–1.5K/mo</span></div>
+    </div>
+    <p class="est-note">* Estimates based on niche keyword modeling. Verify with Ahrefs / SEMrush before campaign launch.</p>
+  </div>
+
+  <!-- ─── 6: Tier 2 Context ─── -->
+  <div class="slide slide-content" id="s5">
+    <div class="eyebrow">Tier 2 — The Bridge Strategy</div>
+    <h2>Most buyers search<br>the problem before the product.</h2>
+    <div class="rule"></div>
+    <p>A homeowner in Florida doesn't search "SCIP" — they search "hurricane proof home construction." Tier 2 is where the audience volume lives. Content that answers the problem and introduces SCIP as the answer captures buyers before they know what to ask for.</p>
+    <div class="strat-list" style="margin-top:24px; gap:12px;">
+      <div class="strat-item">
+        <div class="strat-num">→</div>
+        <div class="strat-body">
+          <div class="st-title">Write for the problem, introduce the product</div>
+          <div class="st-desc">"Hurricane Proof Home Construction: What Actually Works" — answer the search, then explain why SCIP is the answer.</div>
+          <div class="st-example">Estimated traffic potential: 1,000–3,000 visits/mo per article at rank 1–3</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">→</div>
+        <div class="strat-body">
+          <div class="st-title">Leverage climate anxiety + insurance cost searches</div>
+          <div class="st-desc">"How to Lower Homeowner's Insurance by Building Smarter" — connects SCIP to the #1 financial pain point for high-risk-zone homeowners right now.</div>
+          <div class="st-example">Searches for insurance cost-related content are up significantly post-2024 hurricane and wildfire seasons</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">→</div>
+        <div class="strat-body">
+          <div class="st-title">These pages feed Tier 1 conversions</div>
+          <div class="st-desc">A visitor who lands on "wildfire resistant home materials" and reads about SCIP will then search "SCIP home builders near me" — the Tier 1 close keyword EHBG should already own.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 7: Tier 3 Keywords ─── -->
+  <div class="slide slide-content" id="s6">
+    <div class="eyebrow">Keyword Tiers — 03 of 04</div>
+    <div class="tier-badge tier-3">Tier 3 — Education / Research Keywords</div>
+    <h2 style="font-size:clamp(20px,2.6vw,34px);">Top-of-funnel — people learning what SCIP is.</h2>
+    <table class="kw-table">
+      <thead>
+        <tr>
+          <th style="width:50%;">Keyword</th>
+          <th style="width:20%;">Stage</th>
+          <th class="right" style="width:30%;">Est. Monthly Searches (US)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>what are SCIP panels</td><td class="intent">Awareness</td><td class="vol"><span class="vol-pill pill-lo">100–300</span></td></tr>
+        <tr><td>how are SCIP homes built</td><td class="intent">Awareness</td><td class="vol"><span class="vol-pill pill-lo">50–200</span></td></tr>
+        <tr><td>SCIP panel construction process</td><td class="intent">Education</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>structural concrete insulated panels explained</td><td class="intent">Education</td><td class="vol"><span class="vol-pill pill-lo">50–100</span></td></tr>
+        <tr><td>SCIP home pros and cons</td><td class="intent">Research</td><td class="vol med"><span class="vol-pill pill-med">100–300</span></td></tr>
+        <tr><td>how long do SCIP homes last</td><td class="intent">Research</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>are SCIP homes worth it</td><td class="intent">Decision</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>SCIP home insurance savings</td><td class="intent">Decision</td><td class="vol"><span class="vol-pill pill-lo">50–100</span></td></tr>
+        <tr><td>SCIP shotcrete process</td><td class="intent">Technical</td><td class="vol"><span class="vol-pill pill-lo">50–100</span></td></tr>
+        <tr><td>EPS foam panel homes</td><td class="intent">Awareness</td><td class="vol med"><span class="vol-pill pill-med">200–500</span></td></tr>
+      </tbody>
+    </table>
+    <p class="est-note">* Estimates based on niche keyword modeling. Verify with Ahrefs / SEMrush before campaign launch.</p>
+  </div>
+
+  <!-- ─── 8: Tier 3 Context ─── -->
+  <div class="slide slide-content" id="s7">
+    <div class="eyebrow">Tier 3 — Why This Tier Matters Most for Authority</div>
+    <h2>Ranking the FAQ layer<br>builds the category.</h2>
+    <div class="rule"></div>
+    <p>Tier 3 keywords are low-volume and nearly zero competition. A single well-built pillar page can rank for dozens of these simultaneously and establish EHBG as <em style="color:var(--text);">the</em> authoritative source on SCIP construction.</p>
+    <div class="callout">
+      <p>Google surfaces these as featured snippets and "People Also Ask" boxes — high-visibility placements that don't require a #1 ranking. One comprehensive "What Is a SCIP Home?" guide can capture this entire tier.</p>
+    </div>
+    <div class="opp-grid" style="margin-top:22px;">
+      <div class="opp-card">
+        <div class="oc-title">Content to Publish First</div>
+        <ul>
+          <li>"What Is a SCIP Home? The Complete Guide"</li>
+          <li>"SCIP vs ICF vs CMU Block: Which Is Better?"</li>
+          <li>"How Much Does a SCIP Home Cost in [State]?"</li>
+          <li>"SCIP Home Pros and Cons: An Honest Look"</li>
+        </ul>
+      </div>
+      <div class="opp-card">
+        <div class="oc-title">Why They Rank Fast</div>
+        <ul>
+          <li>Keyword difficulty: 0–10 on most tools</li>
+          <li>No existing authoritative SCIP content hub</li>
+          <li>Google rewards first-mover educational content</li>
+          <li>Featured snippet potential on nearly every query</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 9: Tier 4 Keywords ─── -->
+  <div class="slide slide-content" id="s8">
+    <div class="eyebrow">Keyword Tiers — 04 of 04</div>
+    <div class="tier-badge tier-4">Tier 4 — Location-Based Keywords</div>
+    <h2 style="font-size:clamp(20px,2.6vw,34px);">Pair any keyword above with high-risk geography.</h2>
+
+    <table class="kw-table" style="margin-top:24px;">
+      <thead>
+        <tr>
+          <th style="width:44%;">Keyword</th>
+          <th style="width:26%;">Geography</th>
+          <th class="right" style="width:30%;">Est. Monthly Searches (US)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SCIP homes Florida</td><td class="intent">Florida (hurricane zone)</td><td class="vol med"><span class="vol-pill pill-med">100–300</span></td></tr>
+        <tr><td>SCIP homes Texas</td><td class="intent">Texas (wind / heat)</td><td class="vol med"><span class="vol-pill pill-med">100–250</span></td></tr>
+        <tr><td>SCIP homes California wildfire zone</td><td class="intent">California (fire zone)</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>hurricane resistant homes [city/state]</td><td class="intent">Gulf + Atlantic coast</td><td class="vol hi"><span class="vol-pill pill-hi">500–2K/mo</span></td></tr>
+        <tr><td>SCIP builders [city]</td><td class="intent">Local intent</td><td class="vol"><span class="vol-pill pill-lo">50–150</span></td></tr>
+        <tr><td>custom home builder disaster resistant [state]</td><td class="intent">High-value local</td><td class="vol med"><span class="vol-pill pill-med">200–800</span></td></tr>
+        <tr><td>wildfire proof home builder California</td><td class="intent">California (fire zone)</td><td class="vol med"><span class="vol-pill pill-med">200–600</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:20px;">
+      <p>EHBG already has <span style="color:var(--gold);">/wildfire-rebuild</span>, <span style="color:var(--gold);">/disaster-resistant-homes</span>, and <span style="color:var(--gold);">/luxury-homes-texas</span> built. These pages are positioned to rank for Tier 4 terms with schema markup and backlinks — no new pages needed for the core geographies.</p>
+    </div>
+    <p class="est-note">* Estimates based on niche keyword modeling. Verify with Ahrefs / SEMrush before campaign launch.</p>
+  </div>
+
+  <!-- ─── 10: SEO Strategy ─── -->
+  <div class="slide slide-content" id="s9">
+    <div class="eyebrow">Strategy</div>
+    <h2>Six plays to own<br>the SCIP category.</h2>
+    <div class="rule"></div>
+    <div class="strat-list" style="gap:10px;">
+      <div class="strat-item">
+        <div class="strat-num">1</div>
+        <div class="strat-body">
+          <div class="st-title">Claim the Informational Gap</div>
+          <div class="st-desc">Publish pillar content on "What Is a SCIP Home?" and "SCIP vs ICF vs CMU Block." These rank fast, build authority, and capture buyers before they know the product name.</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">2</div>
+        <div class="strat-body">
+          <div class="st-title">Target the Problem, Not Just the Product</div>
+          <div class="st-desc">Write content for "hurricane proof home," "wildfire resistant home materials," and similar — bridge it to SCIP. This is where volume lives.</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">3</div>
+        <div class="strat-body">
+          <div class="st-title">Local SEO — Existing Pages Are Ready</div>
+          <div class="st-desc">Add schema markup + location signals to /luxury-homes-texas, /wildfire-rebuild, /disaster-resistant-homes. Get on Google Business Profile with completed build photos.</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">4</div>
+        <div class="strat-body">
+          <div class="st-title">Cost + Comparison Pages Convert Best</div>
+          <div class="st-desc">"SCIP home cost per square foot" and "SCIP vs traditional construction cost" with real numbers. These are the highest-buying-intent pages in the funnel.</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">5</div>
+        <div class="strat-body">
+          <div class="st-title">NASIP Authority Backlink</div>
+          <div class="st-desc">Get listed on the North America SCIP Association site now. An industry authority backlink is the fastest single-action way to lift domain authority across all SCIP terms.</div>
+        </div>
+      </div>
+      <div class="strat-item">
+        <div class="strat-num">6</div>
+        <div class="strat-body">
+          <div class="st-title">Video SEO on YouTube</div>
+          <div class="st-desc">SCIP is visual. "Build time-lapse," "shotcrete process," and "SCIP home tour" videos rank in Google search results and drive direct inbound leads — the #2 search engine is untapped here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 11: Quick Wins ─── -->
+  <div class="slide slide-content" id="s10">
+    <div class="eyebrow">Quick Wins — Start Now</div>
+    <h2>Five actions that<br>move the needle immediately.</h2>
+    <div class="rule"></div>
+    <div class="wins-grid">
+      <div class="win-card">
+        <div class="wc-num">01</div>
+        <div class="wc-title">Publish "What Is a SCIP Home?"</div>
+        <div class="wc-desc">Target zero-competition informational keywords. Captures Tier 3 searches and builds authority that lifts every other page on the domain.</div>
+      </div>
+      <div class="win-card">
+        <div class="wc-num">02</div>
+        <div class="wc-title">Add Schema Markup to Location Pages</div>
+        <div class="wc-desc">LocalBusiness + Service schema on /luxury-homes-texas and /disaster-resistant-homes signals geo-relevance to Google with no new content.</div>
+      </div>
+      <div class="win-card">
+        <div class="wc-num">03</div>
+        <div class="wc-title">Google Business Profile</div>
+        <div class="wc-desc">Set up and optimize with photos of completed SCIP builds. Unlocks "near me" and local map pack results — highest-intent traffic source available.</div>
+      </div>
+      <div class="win-card">
+        <div class="wc-num">04</div>
+        <div class="wc-title">Cost + Comparison Page</div>
+        <div class="wc-desc">Publish a page with real SCIP cost-per-square-foot data and a SCIP vs. conventional comparison table. Highest-converting content type for this buyer profile.</div>
+      </div>
+      <div class="win-card">
+        <div class="wc-num">05</div>
+        <div class="wc-title">NASIP Member Listing</div>
+        <div class="wc-desc">Secure the industry association backlink. High domain authority, directly relevant, and likely available immediately. One of the most valuable single links in the SCIP space.</div>
+      </div>
+      <div class="win-card" style="border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.04);">
+        <div class="wc-num" style="color:var(--muted); font-size:20px;">+</div>
+        <div class="wc-title" style="color:var(--gold);">Foundation Already In Place</div>
+        <div class="wc-desc" style="color: #C8C4BE;">Site is live, indexed, and has three geo-specific landing pages. These quick wins build on existing infrastructure — no rebuild required.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 12: Close ─── -->
+  <div class="slide slide-cover" id="s11">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1 style="font-size:clamp(28px,4vw,52px); max-width:680px; text-align:center;">The window to own<br>SCIP search is open.<br>It won't be forever.</h1>
+    <div class="rule" style="margin:28px auto;"></div>
+    <p style="text-align:center; max-width:560px; color:var(--muted); font-size:15px;">Low competition. High-intent buyers. A site already live.<br>The plays are defined — execution is the only variable left.</p>
+  </div>
+
+</div>
+
+<!-- ─── Nav ─── -->
+<div id="nav">
+  <button class="nav-btn" id="prev" onclick="go(-1)" disabled>← Prev</button>
+  <span id="slide-counter">1 / 12</span>
+  <button class="nav-btn" id="next" onclick="go(1)">Next →</button>
+</div>
+<div id="dots"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let current  = 0;
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current].classList.remove('exit'), 450);
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === total - 1;
+  }
+
+  function go(dir) { const n = current + dir; if (n >= 0 && n < total) goTo(n); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     go(-1);
+  });
+</script>
+</body>
+</html>

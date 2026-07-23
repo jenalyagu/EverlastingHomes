@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EB3BQF857W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EB3BQF857W');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>EHBG — Digital Ecosystem Overview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: rgba(201,168,76,0.15);
+      --dark: #0D0D0D;
+      --surface: #141414;
+      --surface2: #1E1E1E;
+      --surface3: #282828;
+      --text: #F0EDE8;
+      --muted: #8A8278;
+      --green: #27AE60;
+      --blue: #4FC3F7;
+      --border: rgba(201,168,76,0.18);
+      --border-dim: rgba(255,255,255,0.06);
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Georgia', serif; overflow: hidden; }
+
+    /* ─── Slide system ─── */
+    #deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 52px 84px;
+      opacity: 0; transform: translateX(56px); pointer-events: none;
+      transition: opacity 0.42s ease, transform 0.42s ease;
+    }
+    .slide.active  { opacity: 1; transform: translateX(0); pointer-events: all; }
+    .slide.exit    { opacity: 0; transform: translateX(-56px); }
+    .slide-start   { align-items: flex-start; }
+    .slide-cover   { text-align: center; }
+
+    /* ─── Accent line ─── */
+    .cover-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+    /* ─── Type ─── */
+    .eyebrow { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    h1 { font-size: clamp(36px, 5.2vw, 68px); font-weight: normal; line-height: 1.08; letter-spacing: -0.5px; }
+    h2 { font-size: clamp(24px, 3.2vw, 44px); font-weight: normal; line-height: 1.14; }
+    p.lead { font-size: 17px; line-height: 1.8; color: #C8C4BE; max-width: 780px; }
+    p.sm  { font-size: 14px; line-height: 1.75; color: #C8C4BE; }
+    .subtitle { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; color: var(--muted); margin-top: 14px; }
+    .rule { width: 48px; height: 2px; background: var(--gold); margin: 20px 0; }
+    em { font-style: normal; color: var(--gold); }
+
+    /* ─── Ecosystem flow ─── */
+    .ecosystem { display: flex; align-items: center; gap: 0; width: 100%; max-width: 960px; margin-top: 36px; }
+    .eco-node { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 24px 22px; }
+    .eco-node.center { border-color: rgba(201,168,76,0.45); background: rgba(201,168,76,0.04); }
+    .eco-arrow { flex-shrink: 0; width: 44px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .eco-arrow .line { width: 100%; height: 1px; background: linear-gradient(90deg, var(--border), var(--gold), var(--border)); }
+    .eco-arrow .tip  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 18px; color: var(--gold); line-height: 1; }
+    .eco-node .en-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .eco-node .en-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .eco-node .en-url   { font-family: monospace; font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .eco-node ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .eco-node ul li { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: #C8C4BE; padding-left: 12px; position: relative; }
+    .eco-node ul li::before { content: '·'; position: absolute; left: 2px; color: var(--gold); }
+
+    /* ─── Feature grid ─── */
+    .feat-grid { display: grid; gap: 14px; width: 100%; max-width: 940px; margin-top: 26px; }
+    .feat-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .feat-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .feat-card { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 20px 22px; }
+    .feat-card.gold-border { border-color: var(--border); }
+    .feat-card .fc-icon { font-size: 22px; margin-bottom: 10px; }
+    .feat-card .fc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .feat-card .fc-desc  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .feat-card .fc-tag   { display: inline-block; margin-top: 8px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+
+    /* ─── Route pills ─── */
+    .route-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .route-pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 2px; padding: 7px 14px; font-family: monospace; font-size: 13px; color: var(--gold); }
+
+    /* ─── Page section card (full-width) ─── */
+    .page-card { width: 100%; max-width: 940px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 24px 28px; margin-top: 20px; display: flex; gap: 32px; align-items: flex-start; }
+    .page-card .pc-left { flex-shrink: 0; width: 220px; }
+    .page-card .pc-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .page-card .pc-name  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .page-card .pc-url   { font-family: monospace; font-size: 11px; color: var(--muted); }
+    .page-card .pc-right { flex: 1; }
+    .page-card .pc-desc  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #C8C4BE; line-height: 1.65; }
+    .page-card .pc-tags  { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .page-card .pc-tag   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); background: var(--surface3); padding: 3px 9px; border-radius: 2px; }
+
+    /* ─── Stat row ─── */
+    .stat-row { display: flex; gap: 18px; width: 100%; max-width: 940px; margin-top: 28px; }
+    .stat-card { flex: 1; background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 20px 22px; }
+    .stat-card.gold { border-color: var(--border); background: var(--gold-dim); }
+    .stat-card .sc-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .stat-card .sc-val   { font-size: 32px; font-weight: 300; color: var(--gold); line-height: 1; }
+    .stat-card .sc-sub   { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    /* ─── Step list ─── */
+    .step-list { width: 100%; max-width: 940px; margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .step-item { display: flex; gap: 18px; align-items: flex-start; background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 18px 22px; }
+    .step-item.highlight { border-color: var(--border); background: var(--gold-dim); }
+    .step-num { flex-shrink: 0; width: 32px; height: 32px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--gold); }
+    .step-body .sb-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .step-body .sb-desc  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── Two column ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; max-width: 940px; margin-top: 24px; }
+    .col-card { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 22px 24px; }
+    .col-card .cc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .col-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .col-card ul li { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #C8C4BE; line-height: 1.5; padding-left: 14px; position: relative; }
+    .col-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 1px; }
+
+    /* ─── Callout ─── */
+    .callout { background: rgba(201,168,76,0.05); border-left: 3px solid var(--gold); padding: 15px 20px; margin-top: 20px; max-width: 860px; border-radius: 0 2px 2px 0; }
+    .callout p { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; color: #C8C4BE; line-height: 1.7; }
+
+    /* ─── Status badge ─── */
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 2px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .badge-gold  { background: rgba(201,168,76,0.12); color: var(--gold);  border: 1px solid rgba(201,168,76,0.3); }
+    .badge-green { background: rgba(39,174,96,0.1);  color: var(--green); border: 1px solid rgba(39,174,96,0.25); }
+    .badge-dim   { background: var(--surface3); color: var(--muted); border: 1px solid var(--border-dim); }
+
+    /* ─── SEO tier dots ─── */
+    .tier-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .tier-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .tier-text { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #C8C4BE; }
+    .tier-vol  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); margin-left: auto; }
+
+    /* ─── Rate comparison ─── */
+    .rate-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; max-width: 860px; margin-top: 26px; }
+    .rate-card { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 22px 24px; }
+    .rate-card.hl { border-color: var(--border); background: var(--gold-dim); }
+    .rate-card .rc-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .rate-card.hl .rc-label { color: var(--gold); }
+    .rate-card .rc-rate  { font-size: 30px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .rate-card.hl .rc-rate { color: var(--gold-light); }
+    .rate-card .rc-total { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 20px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+    .rate-card .rc-note  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Next steps ─── */
+    .next-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; max-width: 940px; margin-top: 28px; }
+    .next-card { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: 4px; padding: 22px 24px; }
+    .next-card.priority { border-color: var(--border); background: var(--gold-dim); }
+    .next-card .nc-num   { font-size: 32px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+    .next-card .nc-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .next-card .nc-desc  { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .next-card .nc-impact { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; color: var(--green); margin-top: 8px; letter-spacing: 0.5px; }
+
+    /* ─── Nav ─── */
+    #nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 22px; z-index: 100; }
+    .nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--gold); font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 9px 22px; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .nav-btn:hover { background: var(--surface3); border-color: var(--gold); }
+    .nav-btn:disabled { opacity: 0.22; cursor: default; }
+    #slide-counter { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 1px; min-width: 56px; text-align: center; }
+    #dots { position: fixed; right: 32px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 100; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--surface3); border: 1px solid var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .dot.active { background: var(--gold); transform: scale(1.4); }
+  </style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- ─── 1: Cover ─── -->
+  <div class="slide slide-cover active" id="s0">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1>The Digital Ecosystem</h1>
+    <div class="rule" style="margin:24px auto;"></div>
+    <p class="subtitle">Three sites. One integrated system built for<br>the $1M+ custom SCIP home market.</p>
+    <p class="subtitle" style="margin-top:10px; font-size:13px;">Comprehensive Build Overview · June 2026</p>
+  </div>
+
+  <!-- ─── 2: What We Built ─── -->
+  <div class="slide slide-start" id="s1">
+    <div class="eyebrow">What We Built</div>
+    <h2>A three-channel ecosystem<br>for three distinct buyer moments.</h2>
+    <div class="rule"></div>
+    <p class="lead">Every SCIP buyer moves through the same journey: they discover the problem, research the solution, and decide to engage. We built a dedicated channel for each stage — and connected them into a single pipeline.</p>
+
+    <div class="ecosystem">
+      <div class="eco-node">
+        <div class="en-label">Discover</div>
+        <div class="en-title">Main Marketing Site</div>
+        <div class="en-url">everlastinghomesbg.netlify.app</div>
+        <ul>
+          <li>Brand, technology, team</li>
+          <li>SEO — problem-aware keywords</li>
+          <li>Risk calculator + consultation</li>
+          <li>Media coverage + credentials</li>
+        </ul>
+      </div>
+      <div class="eco-arrow"><div class="line"></div><div class="tip">→</div></div>
+      <div class="eco-node center">
+        <div class="en-label">Design</div>
+        <div class="en-title">AI Estate Designer</div>
+        <div class="en-url">myeverlastinghome.netlify.app</div>
+        <ul>
+          <li>5-step personalized quiz</li>
+          <li>Concept summary generation</li>
+          <li>Lead capture with estate context</li>
+          <li>Pre-qualifies before consultation</li>
+        </ul>
+      </div>
+      <div class="eco-arrow"><div class="line"></div><div class="tip">→</div></div>
+      <div class="eco-node">
+        <div class="en-label">Decide</div>
+        <div class="en-title">Confidential Channel</div>
+        <div class="en-url">ehbgconfidential.netlify.app</div>
+        <ul>
+          <li>Advisor + athlete relocation</li>
+          <li>Private inquiry form</li>
+          <li>Discrete referral pathway</li>
+          <li>High-trust buyer context</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3: Site 1 Overview ─── -->
+  <div class="slide slide-start" id="s2">
+    <div class="eyebrow">Site 01 of 03</div>
+    <h2>everlastinghomesbg<br><span style="color:var(--muted); font-size:0.65em;">Main SCIP Marketing Site</span></h2>
+    <div class="rule"></div>
+    <p class="lead">The brand hub. Educates on SCIP technology, establishes credibility through awards and media, and funnels high-intent visitors into the consultation pipeline.</p>
+
+    <div class="feat-grid cols-3" style="margin-top:24px;">
+      <div class="feat-card gold-border">
+        <div class="fc-title">SCIP Technology Deep Dive</div>
+        <div class="fc-desc">EPS core · steel mesh · shotcrete shell. R-45 insulation, 250 MPH wind rating, 4-hour fire rating, 9.0+ seismic resistance — with technical specs and visual breakdowns.</div>
+      </div>
+      <div class="feat-card gold-border">
+        <div class="fc-title">Disaster Protection Modules</div>
+        <div class="fc-desc">Dedicated sections for fire, earthquake, wind, and flood resilience. Each module explains the mechanism and quantifies the protection.</div>
+      </div>
+      <div class="feat-card gold-border">
+        <div class="fc-title">Interactive Risk Calculator</div>
+        <div class="fc-desc">Prospects enter their location and risk profile. Output shows their exposure level and how SCIP addresses it — highest-engagement tool on the site.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Scrollytelling Engine</div>
+        <div class="fc-desc">GSAP + Lenis smooth scroll with parallax reveals. Narrative pacing that mirrors how a luxury buyer absorbs information — unhurried, sequential, visual.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Portfolio + Team</div>
+        <div class="fc-desc">Three featured projects (Meyerland rebuild, West University estate, Coastal Fortress). Founders Franck Boursier, George Mock, Julie Mock — with full bios.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Consultation Modal + Media</div>
+        <div class="fc-desc">Formspree-backed consultation form. Press coverage from FOX 26, Bloomberg TV, CW39, Green Builder Magazine. 8 award seals including DOE and Energy Star.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 4: SEO Landing Pages ─── -->
+  <div class="slide slide-start" id="s3">
+    <div class="eyebrow">Site 01 — SEO Landing Pages</div>
+    <h2>Three pages built to rank<br>before buyers know what SCIP is.</h2>
+    <div class="rule"></div>
+    <p class="lead">Each page targets a distinct search intent — geography, disaster type, and buyer stage. They capture problem-aware traffic and convert it into SCIP-aware buyers.</p>
+
+    <div class="page-card" style="margin-top:22px;">
+      <div class="pc-left">
+        <div class="pc-label">Texas</div>
+        <div class="pc-name">LuxuryHomesTexas.jsx</div>
+        <div class="pc-url">/luxury-homes-texas</div>
+      </div>
+      <div class="pc-right">
+        <div class="pc-desc">Geo-targeted for Texas Hill Country, Houston, and DFW buyers. Addresses heat, wind, and flood risk specific to Texas geography. 420 lines · full conversion architecture with CTA to consultation.</div>
+        <div class="pc-tags"><span class="pc-tag">Geo-targeted</span><span class="pc-tag">Luxury buyer</span><span class="pc-tag">Texas wind + flood</span></div>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="pc-left">
+        <div class="pc-label">Disaster Resilience</div>
+        <div class="pc-name">DisasterResistantHomes.jsx</div>
+        <div class="pc-url">/disaster-resistant-homes</div>
+      </div>
+      <div class="pc-right">
+        <div class="pc-desc">Targets problem-aware buyers searching for "disaster resistant home construction" and related terms. Covers all four hazard types and bridges the search intent to SCIP. 379 lines.</div>
+        <div class="pc-tags"><span class="pc-tag">Problem-aware</span><span class="pc-tag">All hazards</span><span class="pc-tag">1K–3K searches/mo</span></div>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="pc-left">
+        <div class="pc-label">California / West</div>
+        <div class="pc-name">WildfireRebuild.jsx</div>
+        <div class="pc-url">/wildfire-rebuild</div>
+      </div>
+      <div class="pc-right">
+        <div class="pc-desc">Post-disaster rebuild specialization. Targets homeowners in California fire zones who lost their home and are making a permanent, resilient rebuild decision. 335 lines · highest emotional intent of the three.</div>
+        <div class="pc-tags"><span class="pc-tag">California fire zone</span><span class="pc-tag">Post-disaster</span><span class="pc-tag">Rebuild intent</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 5: Site 2 — Confidential ─── -->
+  <div class="slide slide-start" id="s4">
+    <div class="eyebrow">Site 02 of 03</div>
+    <h2>ehbgconfidential<br><span style="color:var(--muted); font-size:0.65em;">Private Advisor &amp; Athlete Relocation Channel</span></h2>
+    <div class="rule"></div>
+    <p class="lead">A separate, private site for a distinct buyer profile — high-net-worth athletes and the advisors, agents, and wealth managers who refer them. Designed for discretion, trust, and high-value inquiry.</p>
+
+    <div class="feat-grid cols-2" style="margin-top:24px;">
+      <div class="feat-card gold-border">
+        <div class="fc-title">Confidential Inquiry Form</div>
+        <div class="fc-desc">352-line custom form built for a high-trust, low-friction advisor referral flow. Structured to capture estate context upfront — not a generic contact form.</div>
+        <div class="fc-tag">Primary conversion point</div>
+      </div>
+      <div class="feat-card gold-border">
+        <div class="fc-title">Houston Risk Profile</div>
+        <div class="fc-desc">Localized risk data for Houston — the primary athlete relocation market. Covers flood zone exposure, wind risk, and the gap in traditional construction response.</div>
+        <div class="fc-tag">Location-specific</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">SCIP vs. Traditional Shortfall</div>
+        <div class="fc-desc">Side-by-side comparison of conventional construction failure modes vs. SCIP performance. Designed to shift advisors who recommend standard luxury builders.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Build Pathway + Estate Concepts</div>
+        <div class="fc-desc">Visual step sequence from initial contact to finished estate. Estate Concepts section presents style options that match the athlete buyer aesthetic — not generic spec homes.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Referral Partner Section</div>
+        <div class="fc-desc">Dedicated section for advisors, agents, and wealth managers. Explains the referral relationship, what a qualified introduction looks like, and what the partner receives.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Full Design System</div>
+        <div class="fc-desc">16 custom UI primitives built for this site — RiskCard, SolutionCard, EvidenceStrip, SCIPComparisonTable, FadeInView, GoldDivider and more. Reusable across future confidential builds.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 6: Site 3 — AI Estate Designer ─── -->
+  <div class="slide slide-start" id="s5">
+    <div class="eyebrow">Site 03 of 03</div>
+    <h2>myeverlastinghome<br><span style="color:var(--muted); font-size:0.65em;">AI-Powered Estate Designer</span></h2>
+    <div class="rule"></div>
+    <p class="lead">The most technically sophisticated asset in the ecosystem. A TypeScript React application that takes a prospect through a 5-step personalization quiz and generates a custom estate concept brief — then delivers it to EHBG as a qualified lead.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="sb-title">Estate Style</div>
+          <div class="sb-desc">Modern Luxury · Texas Hill Country · Contemporary Ranch · Traditional Estate · Coastal Retreat · Entirely Custom. Sets the visual and architectural direction.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="sb-title">Acreage</div>
+          <div class="sb-desc">Under 1 acre through 20+ acres, or not yet determined. Scopes the land requirement and informs site complexity.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="sb-title">Priorities</div>
+          <div class="sb-desc">Multi-select: Wildfire Protection · Seismic Resilience · Flood &amp; Hurricane Defense · Energy Efficiency · Privacy &amp; Security · Generational Legacy. Drives the personalized output.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="sb-title">Timeline</div>
+          <div class="sb-desc">Within 6 months through Still Exploring. Segments the lead by urgency — critical for follow-up sequencing.</div>
+        </div>
+      </div>
+      <div class="step-item highlight">
+        <div class="step-num" style="border-color:var(--gold); background:rgba(201,168,76,0.08);">5</div>
+        <div class="step-body">
+          <div class="sb-title">Contact Capture + Concept Generation</div>
+          <div class="sb-desc">Name, email, state. On submit: a personalized estate concept brief is generated based on the prospect's priority selections — and sent to EHBG as a structured lead with full estate context attached.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 7: Site 3 — Features ─── -->
+  <div class="slide slide-start" id="s6">
+    <div class="eyebrow">Site 03 — Full Feature Set</div>
+    <h2>Beyond the quiz.<br>A complete estate design platform.</h2>
+    <div class="rule"></div>
+
+    <div class="feat-grid cols-3">
+      <div class="feat-card gold-border">
+        <div class="fc-title">Estate Blueprint Board</div>
+        <div class="fc-desc">Visual concept board generated from quiz answers. Combines style, priorities, and acreage into a shareable estate brief the prospect can send directly to EHBG.</div>
+        <div class="fc-tag">273 lines</div>
+      </div>
+      <div class="feat-card gold-border">
+        <div class="fc-title">Aesthetic Result Engine</div>
+        <div class="fc-desc">Priority-driven content generation — each selected priority triggers specific SCIP performance copy ("rated to 2,200°F," "R-45 insulation," "9.0+ seismic"). No two outputs are the same.</div>
+        <div class="fc-tag">243 lines · AI-driven</div>
+      </div>
+      <div class="feat-card gold-border">
+        <div class="fc-title">Board Studio + Preview</div>
+        <div class="fc-desc">Full board editing and preview environment. Prospects can refine their concept before sharing. BoardStudio (277 lines) and BoardPreview (317 lines) work as a visual pair.</div>
+        <div class="fc-tag">594 lines combined</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Image Provider Switcher</div>
+        <div class="fc-desc">Modular image source system — swap between AI-generated, stock, and real project photography as the asset library grows. Built for flexibility without code changes.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">Paywall Screen</div>
+        <div class="fc-desc">Conversion gate between concept generation and full board access. Creates a natural moment to capture deeper commitment before revealing the full brief.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-title">TypeScript Data Layer</div>
+        <div class="fc-desc">boardGenerator.ts (177 lines) + boardTypes.ts (208 lines). Typed data structures for every estate concept variant — scales to hundreds of combinations without degrading output quality.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 8: SEO Keyword Strategy ─── -->
+  <div class="slide slide-start" id="s7">
+    <div class="eyebrow">Strategic Layer — SEO</div>
+    <h2>Keyword architecture across<br>four tiers of buyer awareness.</h2>
+    <div class="rule"></div>
+    <p class="lead">The site structure maps directly to how buyers move from problem-aware to SCIP-aware. Each tier feeds the next.</p>
+
+    <div class="two-col" style="margin-top:24px;">
+      <div class="col-card" style="border-color:var(--border);">
+        <div class="cc-title" style="color:var(--gold);">Tier 1 — High Intent / Buyer</div>
+        <ul>
+          <li>SCIP homes · SCIP home builders near me</li>
+          <li>SCIP construction cost · custom SCIP builder</li>
+          <li>SCIP vs ICF · prefab SCIP homes</li>
+          <li style="color:var(--muted);">Est. 50–500 searches/mo · KD 0–15 · very easy to rank</li>
+        </ul>
+      </div>
+      <div class="col-card" style="border-color:rgba(39,174,96,0.25);">
+        <div class="cc-title" style="color:var(--green);">Tier 2 — Problem-Aware</div>
+        <ul>
+          <li>Hurricane proof home construction</li>
+          <li>Wildfire resistant home materials</li>
+          <li>Energy efficient home building systems</li>
+          <li style="color:var(--muted);">Est. 500–5K searches/mo · where the volume lives</li>
+        </ul>
+      </div>
+      <div class="col-card" style="border-color:rgba(79,195,247,0.2);">
+        <div class="cc-title" style="color:var(--blue);">Tier 3 — Education</div>
+        <ul>
+          <li>What are SCIP panels · How are SCIP homes built</li>
+          <li>SCIP home pros and cons · Are SCIP homes worth it</li>
+          <li>SCIP home insurance savings</li>
+          <li style="color:var(--muted);">Featured snippet + PAA potential · KD near 0</li>
+        </ul>
+      </div>
+      <div class="col-card" style="border-color:rgba(206,147,216,0.2);">
+        <div class="cc-title" style="color:#CE93D8;">Tier 4 — Location</div>
+        <ul>
+          <li>SCIP homes Florida · SCIP homes Texas</li>
+          <li>Hurricane resistant homes [city]</li>
+          <li>Wildfire proof home builder California</li>
+          <li style="color:var(--muted);">Geo pages already built · schema markup = unlock</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>The three SEO landing pages (/luxury-homes-texas, /disaster-resistant-homes, /wildfire-rebuild) are already built and indexed. They target Tier 2 and Tier 4 simultaneously — adding schema markup and backlinks is the unlock.</p>
+    </div>
+  </div>
+
+  <!-- ─── 9: Conversion Status ─── -->
+  <div class="slide slide-start" id="s8">
+    <div class="eyebrow">Conversion Layer</div>
+    <h2>Where each asset stands<br>and what activates it.</h2>
+    <div class="rule"></div>
+
+    <div class="step-list" style="gap:10px; margin-top:20px;">
+      <div class="step-item" style="background:rgba(223,183,108,0.04); border-color:var(--border);">
+        <div class="step-num" style="border-color:var(--gold);">→</div>
+        <div class="step-body" style="flex:1;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+            <div class="sb-title" style="margin:0;">Main Site — Consultation Forms</div>
+            <span class="badge badge-gold">Partial</span>
+          </div>
+          <div class="sb-desc">Formspree integration is fully coded in App.jsx and ConsultationModal.jsx. Currently falls back to mailto — no lead is lost, but none are captured to a dashboard. <strong style="color:var(--text);">Fix: set VITE_FORMSPREE_ID in Netlify env vars. One step, no code changes.</strong></div>
+        </div>
+      </div>
+      <div class="step-item" style="background:rgba(192,57,43,0.04); border-color:rgba(192,57,43,0.2);">
+        <div class="step-num" style="border-color:#E74C3C; color:#E74C3C;">→</div>
+        <div class="step-body" style="flex:1;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+            <div class="sb-title" style="margin:0;">Estate Designer — Quiz Completion</div>
+            <span class="badge" style="background:rgba(192,57,43,0.12); color:#E74C3C; border:1px solid rgba(192,57,43,0.3);">0% captured</span>
+          </div>
+          <div class="sb-desc">The 5-step quiz is fully built and linked. Name + email are collected on step 5. But no submission handler fires on completion — every completed quiz is a lost lead. <strong style="color:var(--text);">Fix: add Formspree POST on the Generate button in MyEverlastingHome.jsx.</strong></div>
+        </div>
+      </div>
+      <div class="step-item" style="background:rgba(192,57,43,0.04); border-color:rgba(192,57,43,0.2);">
+        <div class="step-num" style="border-color:#E74C3C; color:#E74C3C;">→</div>
+        <div class="step-body" style="flex:1;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+            <div class="sb-title" style="margin:0;">Confidential Outreach Deck — Slide 8</div>
+            <span class="badge" style="background:rgba(192,57,43,0.12); color:#E74C3C; border:1px solid rgba(192,57,43,0.3);">~1–3% effective</span>
+          </div>
+          <div class="sb-desc">Advisor open rate is strong (~60–70% in warm context). But there is no next-step mechanism — advisors who want to act have no discreet path to do so. <strong style="color:var(--text);">Fix: private intake link or dedicated phone line on slide 8.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:16px;">
+      <p>All three blockers are configuration or single-file fixes — not rebuilds. The infrastructure is complete. Activation is the only remaining phase.</p>
+    </div>
+  </div>
+
+  <!-- ─── 10: Investment ─── -->
+  <div class="slide slide-start" id="s9">
+    <div class="eyebrow">Development Investment</div>
+    <h2>10,469 lines of production code<br>across three deployed sites.</h2>
+    <div class="rule"></div>
+
+    <div class="stat-row" style="margin-top:20px;">
+      <div class="stat-card">
+        <div class="sc-label">everlastinghomesbg</div>
+        <div class="sc-val">$9,625</div>
+        <div class="sc-sub">3,919 lines · 77 hrs · incl. 3 SEO pages</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">ehbgconfidential</div>
+        <div class="sc-val">$7,750</div>
+        <div class="sc-sub">2,533 lines · 62 hrs · full design system</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">myeverlastinghome</div>
+        <div class="sc-val">$12,163</div>
+        <div class="sc-sub">4,017 lines · 97 hrs · TypeScript + AI tooling</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="sc-label">Total at $125/hr</div>
+        <div class="sc-val">$29,538</div>
+        <div class="sc-sub">236 hours · conservative freelance rate</div>
+      </div>
+    </div>
+
+    <div class="rate-grid">
+      <div class="rate-card">
+        <div class="rc-label">Billed Rate</div>
+        <div class="rc-rate">$125<span style="font-size:15px; color:var(--muted);">/hr</span></div>
+        <div class="rc-total">$29,538</div>
+        <div class="rc-note">Mid-market freelance. Used as the basis for this breakdown.</div>
+      </div>
+      <div class="rate-card hl">
+        <div class="rc-label">Standard Agency Rate</div>
+        <div class="rc-rate">$175<span style="font-size:15px; color:rgba(201,168,76,0.5);">/hr</span></div>
+        <div class="rc-total">$41,300</div>
+        <div class="rc-note">Luxury real estate + AI tooling agencies. This scope bills here.</div>
+      </div>
+      <div class="rate-card">
+        <div class="rc-label">Premium Agency Rate</div>
+        <div class="rc-rate">$200<span style="font-size:15px; color:var(--muted);">/hr</span></div>
+        <div class="rc-total">$47,200</div>
+        <div class="rc-note">Boutique agency rate for integrated AI + luxury brand work.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 11: What's Next ─── -->
+  <div class="slide slide-start" id="s10">
+    <div class="eyebrow">Activation</div>
+    <h2>The build is done.<br>Three steps to turn it on.</h2>
+    <div class="rule"></div>
+
+    <div class="next-grid">
+      <div class="next-card priority">
+        <div class="nc-num">01</div>
+        <div class="nc-title">Set VITE_FORMSPREE_ID in Netlify</div>
+        <div class="nc-desc">Create a Formspree account, copy the form ID into Netlify's environment variables, and redeploy. All consultation form submissions will route to the Formspree dashboard — no code changes needed.</div>
+        <div class="nc-impact">→ Unlocks 4–6% lead capture rate on main site</div>
+      </div>
+      <div class="next-card priority">
+        <div class="nc-num">02</div>
+        <div class="nc-title">Wire Estate Designer submission</div>
+        <div class="nc-desc">Add a Formspree POST on the "Generate My Estate Concept" button in MyEverlastingHome.jsx. Send name, email, state, style, priorities, and timeline — every quiz completion becomes a structured lead.</div>
+        <div class="nc-impact">→ Unlocks 25–40% quiz-to-consultation rate</div>
+      </div>
+      <div class="next-card priority">
+        <div class="nc-num">03</div>
+        <div class="nc-title">Add intake link to Outreach Deck — Slide 8</div>
+        <div class="nc-desc">A private advisor intake URL or dedicated phone number on the final slide. Advisors who want to make an introduction currently have no discreet path — this creates one.</div>
+        <div class="nc-impact">→ Potential 3–4× improvement in advisor introduction rate</div>
+      </div>
+      <div class="next-card">
+        <div class="nc-num">04</div>
+        <div class="nc-title">Schema markup on geo pages</div>
+        <div class="nc-desc">Add LocalBusiness + Service schema to /luxury-homes-texas, /disaster-resistant-homes, and /wildfire-rebuild. Unlocks local map pack and rich result eligibility — no new content required.</div>
+        <div class="nc-impact">→ Tier 4 location keyword rankings</div>
+      </div>
+      <div class="next-card">
+        <div class="nc-num">05</div>
+        <div class="nc-title">Google Business Profile</div>
+        <div class="nc-desc">Set up and optimize with completed SCIP build photos. Unlocks "near me" and local map pack results — the highest-intent traffic source available for a local custom builder.</div>
+        <div class="nc-impact">→ "SCIP home builders near me" intent captured</div>
+      </div>
+      <div class="next-card">
+        <div class="nc-num">06</div>
+        <div class="nc-title">Publish pillar content + NASIP listing</div>
+        <div class="nc-desc">"What Is a SCIP Home?" blog post targets zero-competition informational keywords. NASIP Association listing provides the highest-value backlink in the SCIP space — available now.</div>
+        <div class="nc-impact">→ Tier 3 education keywords + domain authority lift</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 12: Close ─── -->
+  <div class="slide slide-cover" id="s11">
+    <div class="cover-accent"></div>
+    <div class="eyebrow">Everlasting Home Builders Group</div>
+    <h1 style="font-size:clamp(28px,4.2vw,56px); max-width:720px; text-align:center; line-height:1.12;">Three sites. One ecosystem.<br>Built for the $1M+ buyer<br>at every stage of their journey.</h1>
+    <div class="rule" style="margin:28px auto;"></div>
+    <p style="text-align:center; max-width:580px; color:var(--muted); font-family:'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.7;">10,469 lines of production code. Three deployed sites. A complete digital infrastructure for a category that most custom builders don't even know exists yet.<br><br>The window is open. The system is ready.</p>
+  </div>
+
+</div>
+
+<!-- ─── Nav ─── -->
+<div id="nav">
+  <button class="nav-btn" id="prev" onclick="go(-1)" disabled>← Prev</button>
+  <span id="slide-counter">1 / 12</span>
+  <button class="nav-btn" id="next" onclick="go(1)">Next →</button>
+</div>
+<div id="dots"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let current  = 0;
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current].classList.remove('exit'), 450);
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === total - 1;
+  }
+
+  function go(dir) { const n = current + dir; if (n >= 0 && n < total) goTo(n); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     go(-1);
+  });
+</script>
+</body>
+</html>
