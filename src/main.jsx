@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
-import MyEverlastingHome from './pages/MyEverlastingHome.jsx';
-import Media from './pages/Media.jsx';
-import WildfireRebuild from './pages/WildfireRebuild.jsx';
-import DisasterResistantHomes from './pages/DisasterResistantHomes.jsx';
-import LuxuryHomesTexas from './pages/LuxuryHomesTexas.jsx';
+
+const MyEverlastingHome = lazy(() => import('./pages/MyEverlastingHome.jsx'));
+const Media = lazy(() => import('./pages/Media.jsx'));
+const WildfireRebuild = lazy(() => import('./pages/WildfireRebuild.jsx'));
+const DisasterResistantHomes = lazy(() => import('./pages/DisasterResistantHomes.jsx'));
+const LuxuryHomesTexas = lazy(() => import('./pages/LuxuryHomesTexas.jsx'));
 import './index.css';
 import { initToolbar } from '@21st-extension/toolbar';
 
@@ -21,14 +22,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/my-everlasting-home" element={<MyEverlastingHome />} />
-          <Route path="/media" element={<Media />} />
-          <Route path="/wildfire-rebuild" element={<WildfireRebuild />} />
-          <Route path="/disaster-resistant-homes" element={<DisasterResistantHomes />} />
-          <Route path="/luxury-homes-texas" element={<LuxuryHomesTexas />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/my-everlasting-home" element={<MyEverlastingHome />} />
+            <Route path="/media" element={<Media />} />
+            <Route path="/wildfire-rebuild" element={<WildfireRebuild />} />
+            <Route path="/disaster-resistant-homes" element={<DisasterResistantHomes />} />
+            <Route path="/luxury-homes-texas" element={<LuxuryHomesTexas />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>
