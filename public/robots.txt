@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://everlasting.build/sitemap.xml
+Sitemap: https://everlastinghomesbg.netlify.app/sitemap.xml
