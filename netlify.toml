@@ -4,9 +4,3 @@
 
 [build.environment]
   NODE_VERSION = "20"
-
-[[redirects]]
-  from = "/design/*"
-  to = "https://myeverlastinghome.netlify.app/:splat"
-  status = 200
-  force = true
