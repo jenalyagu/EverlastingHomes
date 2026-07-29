@@ -8,9 +8,9 @@ import ROICalculator from '../components/ROICalculator';
 import { useLandingPage } from '../hooks/useLandingPage';
 
 const TEXAS_RISKS = [
-  { icon: Droplets, color: '#4fc3f7', title: 'Hurricane & Flooding', stat: 250, statSuffix: '+ MPH', statLabel: 'Wind resistance', body: 'Harvey dumped 60 inches of rain on Houston. SCIP construction is impervious to moisture damage, rot, and repeated flood exposure that destroys wood-frame homes.' },
-  { icon: Wind, color: '#7ec8e3', title: 'Tornado Winds', stat: 250, statSuffix: '+ MPH', statLabel: 'Miami-Dade wind rating', body: "Texas tornado season is a reality. SCIP homes carry the world's most demanding wind resistance certification — the Miami-Dade County standard." },
-  { icon: Flame, color: '#ff6b35', title: 'Wildfire Exposure', stat: 2200, statSuffix: '°F', statLabel: 'Tested fire resistance', body: 'Drought and heat make Texas increasingly fire-prone. SCIP\'s 4-hour fire rating and shotcrete exterior provide barriers conventional construction simply cannot match.' },
+  { icon: Droplets, color: '#4fc3f7', title: 'Hurricane & Flooding', stat: 200, statSuffix: '+ MPH', statLabel: 'Wind resistance', body: 'Harvey dumped 60 inches of rain on Houston. SCIP construction is impervious to moisture damage, rot, and repeated flood exposure that destroys wood-frame homes.' },
+  { icon: Wind, color: '#7ec8e3', title: 'Tornado Winds', stat: 200, statSuffix: '+ MPH', statLabel: 'Miami-Dade wind rating', body: "Texas tornado season is a reality. SCIP homes carry the world's most demanding wind resistance certification — the Miami-Dade County standard." },
+  { icon: Flame, color: '#ff6b35', title: 'Wildfire Exposure', stat: 2200, statSuffix: '°F', statLabel: 'Tested fire resistance', body: 'Drought and heat make Texas increasingly fire-prone. SCIP\'s fire resistance up to 2,200°F continuously and shotcrete exterior provide barriers conventional construction simply cannot match.' },
   { icon: Shield, color: 'var(--gold)', title: 'Extreme Heat', stat: 45, statSuffix: ' R', statLabel: 'Insulation value', body: 'R-45 continuous insulation eliminates thermal bridging that drives energy bills. SCIP homes maintain comfort under extreme Texas heat at a fraction of the cost.' },
 ];
 

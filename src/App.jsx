@@ -59,7 +59,7 @@ const FAQ_DATA = [
   },
   {
     q: "7. Is SCIP construction worth the investment?",
-    a: "For families thinking long-term, it can be. SCIP construction is designed to help protect against fire, energy waste, moisture, pests, maintenance concerns, and structural wear over time."
+    a: "Absolutely, SCIP construction is not only designed to protect your family and assets but also provide long term cost savings in insurance, energy consumption and maintenance."
   },
   {
     q: "8. How much does it cost to build an Everlasting Home?",
@@ -229,6 +229,7 @@ function App() {
           <a href="#fire-protection" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Protection</a>
           <a href="#house-wireframe" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>About</a>
           <a href="#portfolio" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Projects</a>
+          <a href="/builders" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Builders &amp; Professionals</a>
           <a href="/media" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Media</a>
 
           {/* Social Media Icons */}
@@ -315,7 +316,7 @@ function App() {
                     <h3 style={{ fontSize: '1rem', color: 'var(--text)' }}>The Core</h3>
                   </div>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text)', textTransform: 'none', letterSpacing: '0', lineHeight: 1.4, display: 'block' }}>
-                    High-density EPS for R-45 thermal efficiency.
+                    High-Density EPS provides continuous insulation.
                   </span>
                 </div>
 
@@ -325,7 +326,7 @@ function App() {
                     <h3 style={{ fontSize: '1rem', color: 'var(--text)' }}>The Steel</h3>
                   </div>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text)', textTransform: 'none', letterSpacing: '0', lineHeight: 1.4, display: 'block' }}>
-                    Continuous mesh cage for 250MPH wind resistance.
+                    Continuous high-strength steel wire mesh for maximum resistance.
                   </span>
                 </div>
 
@@ -335,7 +336,7 @@ function App() {
                     <h3 style={{ fontSize: '1rem', color: 'var(--text)' }}>The Shell</h3>
                   </div>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text)', textTransform: 'none', letterSpacing: '0', lineHeight: 1.4, display: 'block' }}>
-                    High-PSI shotcrete with a 4-hour fire rating.
+                    High-PSI shotcrete provides monolithic behavior.
                   </span>
                 </div>
               </div>
@@ -403,9 +404,6 @@ function App() {
                 <span style={{ fontSize: '0.68rem', textTransform: 'none', marginTop: '0.2rem', color: 'var(--text)' }}>Bespoke luxury interior completion.</span>
               </div>
             </div>
-            <div style={{ marginTop: '1.5rem' }}>
-              <a href="#cta" className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Process</a>
-            </div>
           </div>
         </div>
       </section>
@@ -418,7 +416,7 @@ function App() {
             <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>The New <span style={{ color: 'var(--gold)' }}>Industry</span> Standard</h2>
             <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>Safe & Sustainable, For Generations to Come</h3>
             <p style={{ fontSize: '1.15rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.8)' }}>
-              We use the innovative RSG 3-D light-weight, structural concrete insulated panel technology, achieving a zero-energy R20 insulation rating, to ensure our homes offer protection against natural disasters like hurricanes, tornadoes, earthquakes and fires.
+              We use the innovative light-weight structural concrete insulated panel technology to ensure our homes offer protection against natural disasters like hurricanes, tornadoes, earthquakes and fires. These structures can also achieve Zero-energy or passive home standards.
             </p>
             <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '1.25rem', textAlign: 'left' }}>
@@ -452,7 +450,7 @@ function App() {
         <div className="content-wrapper">
           <div className="glow-content reveal" style={{ maxWidth: '680px' }}>
             <span className="section-subtitle">Fire Protection</span>
-            <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>Fire Resistant up to <span style={{ color: '#ff6b35' }}>2200F</span></h2>
+            <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>Fire Resistant up to <span style={{ color: '#ff6b35' }}>2200°F</span> Continuously</h2>
             <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>5x more durable than concrete</h3>
             <p style={{ fontSize: '1.15rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.8)', marginBottom: '1.1rem' }}>
               SCIP homes are built differently.
@@ -505,7 +503,7 @@ function App() {
         <div className="content-wrapper">
           <div className="glow-content reveal" style={{ maxWidth: '680px' }}>
             <span className="section-subtitle">Extreme Wind Defense Against</span>
-            <h2 style={{ fontSize: '2.94rem', marginBottom: '1.1rem' }}><span style={{ color: 'var(--gold)' }}>250+ MPH</span> winds and projectile impacts.</h2>
+            <h2 style={{ fontSize: '2.94rem', marginBottom: '1.1rem' }}><span style={{ color: 'var(--gold)' }}>200+ MPH</span> winds and projectile impacts.</h2>
             <ul style={{ listStyle: 'none', display: 'grid', gap: '0.6rem' }}>
               <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', fontSize: '0.82rem' }}>
                 <Wind size={14} color="var(--gold)" /> 
@@ -628,7 +626,7 @@ function App() {
         <div className="content-wrapper">
           <div className="glow-content reveal" style={{ maxWidth: '680px' }}>
             <span className="section-subtitle">Our Capabilities</span>
-            <h2 style={{ fontSize: '2.94rem', marginBottom: '1.25rem' }}>Turnkey Luxury & <span style={{ color: 'var(--gold)' }}>Resilience</span></h2>
+            <h2 style={{ fontSize: '2.35rem', marginBottom: '1.25rem' }}>Turnkey Luxury <span style={{ color: 'var(--gold)' }}>or</span> We Work With Your <span style={{ color: 'var(--gold)' }}>Builder / Architect</span></h2>
             <div style={{ display: 'grid', gap: '1.1rem' }}>
               <div>
                 <h3 style={{ fontSize: '1.27rem', color: 'var(--gold)' }}>Planning & Design Coordination</h3>
@@ -703,7 +701,7 @@ function App() {
               </div>
               <div style={{ border: '1px solid var(--border)', padding: '1.1rem 1.25rem', textAlign: 'left', borderRadius: '8px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
                 <h3 style={{ fontSize: '1.15rem', color: 'var(--gold)' }}>West University</h3>
-                <p style={{ fontSize: '0.72rem', marginTop: '0.3rem', color: 'var(--text)', lineHeight: 1.35 }}>Houston, TX — A high-efficiency luxury estate built for a 100-year design life.</p>
+                <p style={{ fontSize: '0.72rem', marginTop: '0.3rem', color: 'var(--text)', lineHeight: 1.35 }}>Houston, TX — A high-efficiency luxury estate built for a 100+ year design life.</p>
               </div>
               <div style={{ border: '1px solid var(--border)', padding: '1.1rem 1.25rem', textAlign: 'left', borderRadius: '8px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
                 <h3 style={{ fontSize: '1.15rem', color: 'var(--gold)' }}>Coastal Fortress</h3>
@@ -811,7 +809,7 @@ function App() {
               Wherever you are in the world, our team will design a disaster-resistant fortress of luxury tailored precisely to your site, your climate, and your vision.
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
-              <button onClick={() => setShowModal(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Schedule Private Consultation</button>
+              <button onClick={() => setShowModal(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Private Consultation</button>
               <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
               <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Design Your Resilient Home</a>
             </div>

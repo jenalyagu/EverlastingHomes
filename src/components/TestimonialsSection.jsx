@@ -3,33 +3,28 @@ import { Quote } from 'lucide-react';
 const TESTIMONIALS = [
   {
     quote: "The homes that you build are outstanding achievements and examples of how we can move the building industry to zero.",
-    name: "Jaime Van Mourik",
+    name: "Professional",
     title: "Department of Energy Ready Home Program Director"
   },
   {
     quote: "We were happy with his crew and the quality of work done — still happy with the house more than 6 years later.",
-    name: "Ayo Bello",
-    title: "Homeowner"
+    name: "Homeowner"
   },
   {
     quote: "The concrete home is so solid, strong, and very energy efficient. The best house you can have in Houston.",
-    name: "Hugues Thevoux",
-    title: "Homeowner"
+    name: "Homeowner"
   },
   {
     quote: "We were very impressed with the professionalism and project management skills. We highly recommend Everlasting Homes.",
-    name: "Floyd & Gabriel",
-    title: "Homeowners"
+    name: "Homeowner"
   },
   {
     quote: "If you're looking to build a high quality and truly custom home, I highly recommend you consider this group.",
-    name: "Michelle Hong",
-    title: "Homeowner"
+    name: "Homeowner"
   },
   {
     quote: "Our new house is more than high tech — it feels safe, comfortable and healthy. We recommend Everlasting without hesitation.",
-    name: "Eric Chan",
-    title: "Homeowner"
+    name: "Homeowner"
   }
 ];
 

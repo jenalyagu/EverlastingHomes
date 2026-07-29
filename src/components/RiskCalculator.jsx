@@ -73,10 +73,10 @@ const SITUATIONS = [
 ];
 
 const SCIP_STATS = {
-  fire:  { rating: '2,200°F Fire Rated',      detail: '4-hour fire rating — 5× more durable than standard concrete' },
+  fire:  { rating: '2,200°F Fire Rated',      detail: 'Fire resistance up to 2,200°F continuously — 5× more durable than standard concrete' },
   quake: { rating: '9.0 Magnitude Rated',     detail: 'Continuous steel mesh cage distributes seismic energy across the full shell' },
   flood: { rating: 'Flood & Moisture Proof',  detail: 'Concrete shell resists water absorption, rot, mold, and flood saturation' },
-  wind:  { rating: '250+ MPH Wind Rated',     detail: 'Miami-Dade approved — engineered to resist extreme uplift and wind-borne projectiles' },
+  wind:  { rating: '200+ MPH Wind Rated',     detail: 'Miami-Dade approved — engineered to resist extreme uplift and wind-borne projectiles' },
 };
 
 function getRiskLevel(score) {

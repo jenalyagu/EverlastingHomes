@@ -8,9 +8,9 @@ import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { useLandingPage } from '../hooks/useLandingPage';
 
 const HAZARDS = [
-  { icon: Flame, color: '#ff6b35', title: 'Wildfire & Fire', stat: 2200, statSuffix: '°F', statLabel: 'Fire resistance tested', body: "SCIP's shotcrete shell holds a 4-hour fire rating. No wood framing means no combustible structure. Homes have survived direct wildfire contact across 20 countries." },
+  { icon: Flame, color: '#ff6b35', title: 'Wildfire & Fire', stat: 2200, statSuffix: '°F', statLabel: 'Fire resistance tested', body: "SCIP's shotcrete shell resists fire up to 2,200°F continuously. No wood framing means no combustible structure. Homes have survived direct wildfire contact across 20 countries." },
   { icon: Activity, color: '#dfb76c', title: 'Earthquakes', stat: 9, statSuffix: '.0 M', statLabel: 'Seismic resistance designed to', body: 'The continuous steel mesh cage and monolithic concrete shell resist cracking, separation, and collapse that destroys conventional structures under seismic loading.' },
-  { icon: Wind, color: '#7ec8e3', title: 'Hurricanes & Wind', stat: 250, statSuffix: '+ MPH', statLabel: 'Wind resistance rating', body: 'Approved by Miami-Dade County Building Code — the world benchmark for hurricane resistance. Withstands Category 5 wind loads and projectile impacts.' },
+  { icon: Wind, color: '#7ec8e3', title: 'Hurricanes & Wind', stat: 200, statSuffix: '+ MPH', statLabel: 'Wind resistance rating', body: 'Approved by Miami-Dade County Building Code — the world benchmark for hurricane resistance. Withstands Category 5 wind loads and projectile impacts.' },
   { icon: Droplets, color: '#4fc3f7', title: 'Flooding & Moisture', stat: 0, statSuffix: '%', statLabel: 'Water absorption in concrete shell', body: 'Concrete-based construction does not rot, swell, or harbor mold. SCIP homes in coastal and flood-prone zones have resisted moisture damage and repeat flooding events.' },
 ];
 
@@ -170,7 +170,7 @@ export default function DisasterResistantHomes() {
               { target: 30, suffix: '+', label: 'Years Proven' },
               { target: 20, suffix: '', label: 'Countries Built' },
               { target: 0, suffix: '', label: 'Disaster Damage Events' },
-              { target: 4, suffix: '-Hour', label: 'Fire Rating' },
+              { target: 2200, suffix: '°F', label: 'Fire Resistance' },
             ].map(({ target, suffix, label }) => (
               <div key={label}>
                 <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--gold)', fontFamily: 'var(--font-accent)', lineHeight: 1.1 }}>
@@ -222,7 +222,7 @@ export default function DisasterResistantHomes() {
           <div className="land-reveal" style={{ maxWidth: '760px', margin: '0 auto' }}>
             <div style={{ borderLeft: '3px solid var(--gold)', background: 'rgba(223,183,108,0.04)', borderRadius: '0 10px 10px 0', padding: '2rem 2rem 2rem 2.5rem' }}>
               <p style={{ fontSize: '1.1rem', fontStyle: 'italic', lineHeight: 1.65, color: 'rgba(255,255,255,0.82)', marginBottom: '1rem' }}>
-                "We considered standard construction, hurricane straps, impact windows — the usual approach. Then we found SCIP. The decision wasn't even close. Our home now has a 4-hour fire rating, 250 MPH wind resistance, and concrete walls. One system solves everything."
+                "We considered standard construction, hurricane straps, impact windows — the usual approach. Then we found SCIP. The decision wasn't even close. Our home now has fire resistance up to 2,200°F continuously, 200+ MPH wind resistance, and concrete walls. One system solves everything."
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(223,183,108,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', color: 'var(--gold)', fontWeight: 700, flexShrink: 0 }}>D</div>
@@ -263,8 +263,8 @@ export default function DisasterResistantHomes() {
             <div className="land-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
               {[
                 { icon: Zap, label: 'The Core', desc: 'High-density EPS foam — R-45 thermal performance and self-extinguishing fire behavior.' },
-                { icon: Shield, label: 'The Steel', desc: 'Continuous welded steel mesh — 250 MPH wind resistance and seismic ductility.' },
-                { icon: Activity, label: 'The Shell', desc: 'High-PSI shotcrete on both faces — 4-hour fire rating, flood and moisture barrier.' },
+                { icon: Shield, label: 'The Steel', desc: 'Continuous welded steel mesh — 200+ MPH wind resistance and seismic ductility.' },
+                { icon: Activity, label: 'The Shell', desc: 'High-PSI shotcrete on both faces — fire resistance up to 2,200°F continuously, flood and moisture barrier.' },
               ].map(({ icon: Icon, label, desc }) => (
                 <div key={label} style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '1.25rem', transition: 'border-color 0.3s' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = '#fff'}

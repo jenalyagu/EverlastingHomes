@@ -9,7 +9,7 @@ import { useLandingPage } from '../hooks/useLandingPage';
 
 const FAQS = [
   { q: "Can I rebuild my exact floor plan but with SCIP?", a: "Yes. SCIP panels can match virtually any architectural layout. Your architect can work with the same footprint, and Everlasting Homes can build the SCIP shell around your existing vision." },
-  { q: "How does SCIP compare to wood-frame for fire resistance?", a: "Standard wood framing offers no meaningful fire resistance. SCIP's shotcrete shell carries a 4-hour fire rating and has survived wildfires exceeding 2,200°F — temperatures that incinerate conventional homes entirely." },
+  { q: "How does SCIP compare to wood-frame for fire resistance?", a: "Standard wood framing offers no meaningful fire resistance. SCIP's shotcrete shell resists fire up to 2,200°F continuously and has survived wildfires exceeding those temperatures — temperatures that incinerate conventional homes entirely." },
   { q: "Will my insurance rates be lower with a SCIP home?", a: "Many homeowners in high-risk fire zones report significant insurance savings after rebuilding with SCIP. Your insurer will need to assess your specific policy." },
   { q: "How long does a SCIP wildfire rebuild take?", a: "Timeline depends on your lot, permit jurisdiction, and design complexity. A consultation is the best place to establish a realistic schedule." },
   { q: "Do you work in California?", a: "Yes. Everlasting Homes builds nationally. We work alongside your local architect and contractor teams, or can provide full turnkey delivery." },
@@ -27,18 +27,18 @@ export default function WildfireRebuild() {
     <>
       <Helmet>
         <title>Wildfire Home Rebuild | Fire-Resistant SCIP Homes | Everlasting Homes</title>
-        <meta name="description" content="Rebuild after wildfire with SCIP luxury homes. 4-hour fire rating, tested to 2,200°F — engineered to survive the next wildfire. Serving CA, TX & nationwide." />
+        <meta name="description" content="Rebuild after wildfire with SCIP luxury homes. Fire resistance up to 2,200°F continuously — engineered to survive the next wildfire. Serving CA, TX & nationwide." />
         <meta name="keywords" content="wildfire home rebuild, fire resistant home builder, rebuild after wildfire, fireproof home construction, SCIP fire resistant homes, wildfire rebuild California" />
         <link rel="canonical" href="https://everlasting.build/wildfire-rebuild" />
         <meta property="og:title" content="Wildfire Home Rebuild | Fire-Resistant SCIP Homes | Everlasting Homes" />
-        <meta property="og:description" content="Rebuild after wildfire with a home engineered to survive the next one. 4-hour fire rating, 2,200°F tested." />
+        <meta property="og:description" content="Rebuild after wildfire with a home engineered to survive the next one. Fire resistance up to 2,200°F continuously." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://everlasting.build/wildfire-rebuild" />
         <meta property="og:image" content="https://everlasting.build/assets/WildfireRebuild.png" />
         <meta property="og:site_name" content="Everlasting Homes Building Group" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Wildfire Home Rebuild | Fire-Resistant SCIP Homes" />
-        <meta name="twitter:description" content="Rebuild after wildfire with a home engineered to survive the next one. 4-hour fire rating, 2,200°F tested." />
+        <meta name="twitter:description" content="Rebuild after wildfire with a home engineered to survive the next one. Fire resistance up to 2,200°F continuously." />
         <meta name="twitter:image" content="https://everlasting.build/assets/WildfireRebuild.png" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -54,7 +54,7 @@ export default function WildfireRebuild() {
           "@type": "Service",
           "name": "Wildfire Home Rebuild — SCIP Construction",
           "provider": { "@type": "Organization", "name": "Everlasting Homes Building Group", "url": "https://everlasting.build" },
-          "description": "Luxury SCIP home construction for wildfire rebuilds. 4-hour fire rating, tested to 2,200°F.",
+          "description": "Luxury SCIP home construction for wildfire rebuilds. Fire resistance up to 2,200°F continuously.",
           "areaServed": ["California", "Texas", "United States"],
           "serviceType": "Custom Home Construction"
         })}</script>
@@ -103,7 +103,7 @@ export default function WildfireRebuild() {
             </h1>
 
             <p className="land-reveal" style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)', lineHeight: 1.65, color: 'rgba(255,255,255,0.72)', maxWidth: '640px', margin: '0 auto 2.25rem' }}>
-              Rebuilding is a rare chance to build a home that can survive the next wildfire. Everlasting Homes constructs SCIP luxury homes with a certified 4-hour fire rating — tested to temperatures exceeding 2,200°F, where conventional wood-frame homes are ash.
+              Rebuilding is a rare chance to build a home that can survive the next wildfire. Everlasting Homes constructs SCIP luxury homes with fire resistance up to 2,200°F continuously — temperatures where conventional wood-frame homes are ash.
             </p>
 
             <div className="land-reveal" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
@@ -145,7 +145,7 @@ export default function WildfireRebuild() {
           <div className="land-stagger" style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(2rem, 6vw, 5rem)', flexWrap: 'wrap', maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
             {[
               { target: 2200, suffix: '°F', label: 'Fire Resistance Tested' },
-              { target: 4, suffix: '-Hour', label: 'Certified Fire Rating' },
+              { target: 200, suffix: '+ MPH', label: 'Wind Resistance' },
               { target: 5, suffix: '×', label: 'Stronger Than Concrete' },
               { target: 30, suffix: '+', label: 'Years Zero Fire Damage' },
             ].map(({ target, suffix, label }) => (
@@ -172,7 +172,7 @@ export default function WildfireRebuild() {
             <div className="land-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' }}>
               {[
                 { icon: Flame, color: '#ff6b35', title: 'Tested to 2,200°F', body: 'SCIP homes have survived direct wildfire contact at temperatures exceeding what burns conventional structures to the ground.' },
-                { icon: Shield, color: 'var(--gold)', title: '4-Hour Fire Rating', body: "The shotcrete shell provides a certified 4-hour fire barrier — protecting structure and family when it matters most." },
+                { icon: Shield, color: 'var(--gold)', title: 'Fire Resistance to 2,200°F', body: "The shotcrete shell resists fire up to 2,200°F continuously — protecting structure and family when it matters most." },
                 { icon: Activity, color: 'var(--gold)', title: '5× Stronger Than Concrete', body: 'High-PSI shotcrete bonded to a continuous steel mesh cage creates a building envelope that resists fire, cracking, and failure.' },
                 { icon: Layers, color: 'var(--gold)', title: 'No Combustible Frame', body: 'SCIP eliminates the wood framing that fuels most home fires. Concrete, steel, and EPS foam — nothing to burn.' },
               ].map(({ icon: Icon, color, title, body }) => (

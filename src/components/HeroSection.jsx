@@ -4,10 +4,10 @@ import gsap from 'gsap';
 import { ArrowRight, Zap } from 'lucide-react';
 
 const STATS = [
-  { value: '250', unit: 'MPH', label: 'Wind Resistance' },
-  { value: '4',   unit: 'HR',  label: 'Fire Rating'    },
-  { value: '60',  unit: '%',   label: 'Energy Savings'  },
-  { value: '100', unit: 'YR',  label: 'Design Life'     },
+  { value: '200+',  unit: 'MPH', label: 'Wind Resistance' },
+  { value: '2200',  unit: '°F',  label: 'Fire Resistance', prefix: 'up to' },
+  { value: '80',    unit: '%',   label: 'Energy Savings',  prefix: 'up to' },
+  { value: '100+',  unit: 'YR',  label: 'Design Life'      },
 ];
 
 export default function HeroSection({ onOpenCalculator }) {
@@ -84,7 +84,7 @@ export default function HeroSection({ onOpenCalculator }) {
             fontWeight: 600,
             textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
           }}>
-            Everlasting Homes
+            Resilient Luxury Homebuilding
           </span>
           <ArrowRight size={11} color="var(--gold)" />
         </div>
@@ -98,14 +98,14 @@ export default function HeroSection({ onOpenCalculator }) {
           overflow: 'hidden',
         }}>
           <span className="hero-line" style={{ display: 'block' }}>
-            Resilient Luxury Homebuilding
+            Built for Strength
           </span>
           <span className="hero-line" style={{
             display: 'block',
             color: 'var(--gold)',
             textShadow: '0 2px 16px rgba(0,0,0,0.95), 0 4px 32px rgba(0,0,0,0.85), 0 0 40px rgba(223,183,108,0.45)',
           }}>
-            Built for Strength
+            And Long Term Savings
           </span>
         </h1>
 
@@ -130,7 +130,7 @@ export default function HeroSection({ onOpenCalculator }) {
           flexWrap: 'wrap',
           marginBottom: '3.5rem',
         }}>
-          <a href="#cta" className="cta-btn" style={{
+          <a href="https://everlastinghomesbg.netlify.app/#cta" className="cta-btn" style={{
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
           }}>Schedule Consultation</a>
@@ -172,6 +172,11 @@ export default function HeroSection({ onOpenCalculator }) {
                 letterSpacing: '-0.02em',
                 textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 4px 24px rgba(0,0,0,0.8)',
               }}>
+                {stat.prefix && (
+                  <span style={{ fontSize: '0.38em', opacity: 0.75, marginRight: '4px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {stat.prefix}
+                  </span>
+                )}
                 {stat.value}
                 <span style={{ fontSize: '0.45em', opacity: 0.75, marginLeft: '2px' }}>
                   {stat.unit}
