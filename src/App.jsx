@@ -250,7 +250,10 @@ function App() {
       <ScrollytellingEngine />
 
       {/* SECTION 01 — Hero */}
-      <HeroSection onOpenCalculator={() => setShowCalculator(true)} />
+      <HeroSection
+        onOpenCalculator={() => setShowCalculator(true)}
+        onOpenConsultation={() => setShowModal(true)}
+      />
 
       {/* SECTION 02 — SCIP Intro */}
       <section id="scip-core">
@@ -809,7 +812,7 @@ function App() {
               Wherever you are in the world, our team will design a disaster-resistant fortress of luxury tailored precisely to your site, your climate, and your vision.
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
-              <button onClick={() => setShowModal(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Private Consultation</button>
+              <button onClick={() => setShowModal(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Schedule Consultation</button>
               <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
               <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Design Your Resilient Home</a>
             </div>

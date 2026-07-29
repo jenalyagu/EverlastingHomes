@@ -10,7 +10,7 @@ const STATS = [
   { value: '100+',  unit: 'YR',  label: 'Design Life'      },
 ];
 
-export default function HeroSection({ onOpenCalculator }) {
+export default function HeroSection({ onOpenCalculator, onOpenConsultation }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -130,10 +130,10 @@ export default function HeroSection({ onOpenCalculator }) {
           flexWrap: 'wrap',
           marginBottom: '3.5rem',
         }}>
-          <a href="https://everlastinghomesbg.netlify.app/#cta" className="cta-btn" style={{
+          <button onClick={onOpenConsultation} className="cta-btn" style={{
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95), 0 4px 20px rgba(0,0,0,0.8)',
-          }}>Schedule Consultation</a>
+          }}>Schedule Consultation</button>
           <button onClick={onOpenCalculator} className="cta-btn" style={{
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95)',
