@@ -227,9 +227,8 @@ function App() {
         <div className="menu-links" style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
           <a href="#scip-core" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Technology</a>
           <a href="#fire-protection" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Protection</a>
-          <a href="#house-wireframe" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>About</a>
+          <a href="#house-wireframe" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Builders &amp; Professionals</a>
           <a href="#portfolio" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Projects</a>
-          <a href="/builders" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Builders &amp; Professionals</a>
           <a href="/media" className="nav-text-link" style={{ textDecoration: 'none', color: 'var(--text)', fontSize: '0.75rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Media</a>
 
           {/* Social Media Icons */}
