@@ -58,6 +58,19 @@ const STATE_RISKS = {
 
 const DEFAULT_RISKS = { fire: 50, quake: 40, flood: 55, wind: 55 };
 
+// County ratings extracted from FEMA's National Risk Index county table
+// (Very Low=10 ... Very High=90 per hazard; wind = max of hurricane/
+// tornado/strong wind, flood = max of inland/coastal flooding).
+// Keyed by 5-digit county FIPS: [fire, wind, flood, quake, countyName]
+let nriCountiesPromise = null;
+const loadNriCounties = () => {
+  nriCountiesPromise ??= fetch('/data/nri-counties.json').then(r => {
+    if (!r.ok) throw new Error('nri data unavailable');
+    return r.json();
+  }).catch(err => { nriCountiesPromise = null; throw err; });
+  return nriCountiesPromise;
+};
+
 // Display order and labels follow the four hazard families tracked by
 // FEMA's National Risk Index (wildfire; hurricane/tornado/strong wind;
 // riverine & coastal flooding; earthquake).
@@ -106,11 +119,35 @@ export default function RiskCalculator({ onClose, onConsult }) {
       const data = await res.json();
       const place = data.places[0];
       const stateAbbr = place['state abbreviation'];
+
+      // Resolve the ZIP's county via FCC census lookup, then read that
+      // county's FEMA NRI ratings. Falls back to state-level averages.
+      let county = null;
+      let risks = STATE_RISKS[stateAbbr] ?? DEFAULT_RISKS;
+      try {
+        const [fccRes, counties] = await Promise.all([
+          fetch(`https://geo.fcc.gov/api/census/area?lat=${place.latitude}&lon=${place.longitude}&censusYear=2020&format=json`),
+          loadNriCounties(),
+        ]);
+        if (fccRes.ok) {
+          const fcc = await fccRes.json();
+          const fips = fcc.results?.[0]?.county_fips;
+          const row = fips && counties[fips];
+          if (row) {
+            risks = { fire: row[0], wind: row[1], flood: row[2], quake: row[3] };
+            county = row[4];
+          }
+        }
+      } catch {
+        // keep state-level fallback
+      }
+
       setLocation({
         city:      place['place name'],
         state:     place['state'],
         stateAbbr,
-        risks:     STATE_RISKS[stateAbbr] ?? DEFAULT_RISKS,
+        county,
+        risks,
       });
     } catch {
       setZipError('ZIP code not found. Please check and try again.');
@@ -248,7 +285,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
                   <MapPin size={12} color="rgba(255,255,255,0.4)" />
                   <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.45)', textTransform: 'none', letterSpacing: 0 }}>
-                    {location.city}, {location.state}
+                    {location.county ? `${location.county} — ${location.city}, ${location.stateAbbr}` : `${location.city}, ${location.state}`}
                   </span>
                 </div>
                 <div style={{ fontSize: '0.58rem', letterSpacing: '3px', textTransform: 'uppercase', color: risk.color, marginBottom: '0.5rem', fontWeight: 600 }}>
@@ -289,7 +326,9 @@ export default function RiskCalculator({ onClose, onConsult }) {
 
               {/* Methodology note */}
               <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.32)', textTransform: 'none', letterSpacing: 0, lineHeight: 1.5, marginBottom: '1.2rem' }}>
-                Scores run 0–100 per category, calibrated to state-level FEMA National Risk Index, USGS seismic, and NOAA storm data.
+                {location.county
+                  ? `Category levels are FEMA National Risk Index ratings for ${location.county} (Very Low through Very High, shown on a 0–100 scale). Wind combines hurricane, tornado, and strong-wind ratings; Flood combines inland and coastal flooding.`
+                  : 'Category scores are state-level estimates calibrated to FEMA National Risk Index, USGS seismic, and NOAA storm data.'}{' '}
                 Your overall level is the average of the four categories: Low &lt;35, Moderate 35–54, High 55–74, Critical 75+.
               </p>
 
