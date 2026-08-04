@@ -633,7 +633,7 @@ function App() {
               </div>
 
               {/* Center — SCIP vs Wood diagram */}
-              <div className="scip-diff-img">
+              <div className="scip-diff-img" style={{ position: 'relative' }}>
                 <img
                   src="/assets/scip-vs-wood.webp"
                   alt="SCIP wall panel compared to traditional wood framing"
@@ -645,6 +645,21 @@ function App() {
                     borderRadius: '6px',
                   }}
                 />
+                <span style={{
+                  position:      'absolute',
+                  top:           '50%',
+                  left:          '50%',
+                  transform:     'translate(-50%, -50%)',
+                  fontFamily:    'var(--font-accent)',
+                  fontWeight:    800,
+                  fontSize:      '1.5rem',
+                  letterSpacing: '1px',
+                  color:         'var(--gold)',
+                  textShadow:    '0 2px 12px rgba(0,0,0,0.95), 0 0 24px rgba(0,0,0,0.8)',
+                  pointerEvents: 'none',
+                }}>
+                  VS
+                </span>
               </div>
 
               {/* Wood callouts — right of the diagram (below-right on small screens) */}
