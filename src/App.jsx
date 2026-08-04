@@ -574,14 +574,18 @@ function App() {
                 <span style={{ lineHeight: 1.4 }}>VRF heat pumps for HVAC, Allergen Free, Zero Energy Ready Homes.</span>
               </li>
             </ul>
-            <div style={{ marginTop: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', rowGap: '1.5rem', columnGap: '1rem', alignItems: 'center', justifyItems: 'center', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.5rem' }}>
-              {CERT_LOGOS.map(logo => (
-                <img
-                  key={logo.alt}
-                  src={logo.src}
-                  alt={logo.alt}
-                  style={{ height: '58px', width: 'auto', maxWidth: '100%', objectFit: 'contain', opacity: 0.85 }}
-                />
+            <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.5rem' }}>
+              {[CERT_LOGOS.slice(0, 4), CERT_LOGOS.slice(4)].map((row, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2.25rem', flexWrap: 'wrap' }}>
+                  {row.map(logo => (
+                    <img
+                      key={logo.alt}
+                      src={logo.src}
+                      alt={logo.alt}
+                      style={{ height: '58px', width: 'auto', maxWidth: '20%', objectFit: 'contain', opacity: 0.85 }}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           </div>
