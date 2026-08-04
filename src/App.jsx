@@ -104,7 +104,7 @@ const CERT_LOGOS = [
   { src: '/Certs/resnet.jpg',       alt: 'RESNET' },
   { src: '/Certs/energy-star.png',  alt: 'Energy Star' },
   { src: '/Certs/nahb.webp',        alt: 'NAHB' },
-  { src: '/Certs/rsg.png',          alt: 'RSG' },
+  { src: '/Certs/rsg.svg',          alt: 'RSG' },
   { src: '/Certs/zero-home.jpg',    alt: 'Zero Energy Home' },
   { src: '/Certs/passive-home-designer.png', alt: 'Passive Home Designer' },
 ];
