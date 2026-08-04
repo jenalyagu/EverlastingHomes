@@ -58,17 +58,19 @@ const STATE_RISKS = {
 
 const DEFAULT_RISKS = { fire: 50, quake: 40, flood: 55, wind: 55 };
 
-// County ratings extracted from FEMA's National Risk Index county table
-// (Very Low=10 ... Very High=90 per hazard; wind = max of hurricane/
-// tornado/strong wind, flood = max of inland/coastal flooding).
-// Keyed by 5-digit county FIPS: [fire, wind, flood, quake, countyName]
-let nriCountiesPromise = null;
-const loadNriCounties = () => {
-  nriCountiesPromise ??= fetch('/data/nri-counties.json').then(r => {
+// Ratings extracted from FEMA's National Risk Index (Very Low=10 ...
+// Very High=90 per hazard; wind = max of hurricane/tornado/strong wind,
+// flood = max of inland/coastal flooding).
+// Census-tract data is sharded per state (keyed by 11-digit tract FIPS:
+// [fire, wind, flood, quake]); the county table (keyed by 5-digit FIPS,
+// with a trailing county name) is the fallback.
+const nriCache = {};
+const loadNriJson = (path) => {
+  nriCache[path] ??= fetch(path).then(r => {
     if (!r.ok) throw new Error('nri data unavailable');
     return r.json();
-  }).catch(err => { nriCountiesPromise = null; throw err; });
-  return nriCountiesPromise;
+  }).catch(err => { delete nriCache[path]; throw err; });
+  return nriCache[path];
 };
 
 // Display order and labels follow the four hazard families tracked by
@@ -121,22 +123,42 @@ export default function RiskCalculator({ onClose, onConsult }) {
       const place = data.places[0];
       const stateAbbr = place['state abbreviation'];
 
-      // Resolve the ZIP's county via FCC census lookup, then read that
-      // county's FEMA NRI ratings. Falls back to state-level averages.
+      // Resolve the ZIP's census tract via FCC lookup, then read that
+      // tract's FEMA NRI ratings. Falls back to county ratings, then to
+      // state-level averages.
       let county = null;
+      let precision = 'state';
       let risks = STATE_RISKS[stateAbbr] ?? DEFAULT_RISKS;
       try {
-        const [fccRes, counties] = await Promise.all([
-          fetch(`https://geo.fcc.gov/api/census/area?lat=${place.latitude}&lon=${place.longitude}&censusYear=2020&format=json`),
-          loadNriCounties(),
-        ]);
+        const fccRes = await fetch(`https://geo.fcc.gov/api/census/area?lat=${place.latitude}&lon=${place.longitude}&censusYear=2020&format=json`);
         if (fccRes.ok) {
           const fcc = await fccRes.json();
-          const fips = fcc.results?.[0]?.county_fips;
-          const row = fips && counties[fips];
-          if (row) {
-            risks = { fire: row[0], wind: row[1], flood: row[2], quake: row[3] };
-            county = row[4];
+          const result = fcc.results?.[0];
+          const blockFips = result?.block_fips;
+          county = result?.county_name ?? null;
+          if (blockFips) {
+            const tractFips  = blockFips.slice(0, 11);
+            const countyFips = blockFips.slice(0, 5);
+            const stateFips  = blockFips.slice(0, 2);
+            try {
+              const tracts = await loadNriJson(`/data/nri-tracts/${stateFips}.json`);
+              const row = tracts[tractFips];
+              if (row) {
+                risks = { fire: row[0], wind: row[1], flood: row[2], quake: row[3] };
+                precision = 'tract';
+              }
+            } catch {
+              // shard unavailable — try county below
+            }
+            if (precision !== 'tract') {
+              const counties = await loadNriJson('/data/nri-counties.json');
+              const row = counties[countyFips];
+              if (row) {
+                risks = { fire: row[0], wind: row[1], flood: row[2], quake: row[3] };
+                county = row[4] ?? county;
+                precision = 'county';
+              }
+            }
           }
         }
       } catch {
@@ -148,6 +170,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
         state:     place['state'],
         stateAbbr,
         county,
+        precision,
         risks,
       });
     } catch {
@@ -327,7 +350,9 @@ export default function RiskCalculator({ onClose, onConsult }) {
 
               {/* Methodology note */}
               <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.32)', textTransform: 'none', letterSpacing: 0, lineHeight: 1.5, marginBottom: '1.2rem' }}>
-                {location.county
+                {location.precision === 'tract'
+                  ? `Category levels are FEMA National Risk Index ratings for your Census tract in ${location.county ?? location.state} (Very Low through Very High, shown on a 0–100 scale). Wind combines hurricane, tornado, and strong-wind ratings; Flood combines inland and coastal flooding.`
+                  : location.precision === 'county'
                   ? `Category levels are FEMA National Risk Index ratings for ${location.county} (Very Low through Very High, shown on a 0–100 scale). Wind combines hurricane, tornado, and strong-wind ratings; Flood combines inland and coastal flooding.`
                   : 'Category scores are state-level estimates calibrated to FEMA National Risk Index, USGS seismic, and NOAA storm data.'}{' '}
                 Your overall level is the average of the four categories: Low &lt;40, Moderate 40–59, Elevated 60–79, High 80–89, Critical 90+.
