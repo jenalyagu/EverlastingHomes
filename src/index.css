@@ -451,8 +451,8 @@ textarea.form-input {
 .scip-diff-col {
   flex: 0 0 auto;
   width: 160px;
-  /* nudge titles down so they align with the top of the walls in the diagram */
-  padding-top: 1.8rem;
+  /* first callout item aligns with the top of the walls in the diagram */
+  padding-top: 0;
 }
 
 .scip-diff-img {

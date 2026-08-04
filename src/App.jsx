@@ -574,13 +574,13 @@ function App() {
                 <span style={{ lineHeight: 1.4 }}>VRF heat pumps for HVAC, Allergen Free, Zero Energy Ready Homes.</span>
               </li>
             </ul>
-            <div style={{ marginTop: '1.5rem', display: 'flex', flexWrap: 'nowrap', gap: '0.9rem', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.25rem' }}>
+            <div style={{ marginTop: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', rowGap: '1.5rem', columnGap: '1rem', alignItems: 'center', justifyItems: 'center', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.5rem' }}>
               {CERT_LOGOS.map(logo => (
                 <img
                   key={logo.alt}
                   src={logo.src}
                   alt={logo.alt}
-                  style={{ height: '34px', width: 'auto', maxWidth: '13%', objectFit: 'contain', opacity: 0.85, flexShrink: 1 }}
+                  style={{ height: '58px', width: 'auto', maxWidth: '100%', objectFit: 'contain', opacity: 0.85 }}
                 />
               ))}
             </div>
@@ -662,8 +662,9 @@ function App() {
 
             </div>
 
-            <div style={{ marginTop: '1.5rem' }}>
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
               <a href="/builders" className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Builders &amp; Professionals</a>
+              <a href="/scip-performance" className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem', background: 'transparent', color: 'var(--gold)' }}>SCIP Performance</a>
             </div>
           </div>
         </div>
