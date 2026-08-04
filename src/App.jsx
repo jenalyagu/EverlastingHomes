@@ -600,7 +600,7 @@ function App() {
             <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>The <span style={{ color: 'var(--gold)' }}>SCIP</span> Difference</h2>
             <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>SCIP vs Traditional Wood</h3>
             <p style={{ fontSize: '1.0rem', lineHeight: 1.5, color: '#fff', maxWidth: '720px', margin: '0 auto 1rem' }}>
-              Everlasting Homes Building Group is partnering with Builders, Designers and Architects. We will engineer and build the SCIP greyshell — foundation and structure with a 10 year warranty. Our partners take over from there and deliver luxury custom finishes, ready for move-in. Get certified and become an EHBG partner. We build the structure, you keep the client, the brand and the margin.
+              Everlasting Homes Building Group is partnering with builders, designers and architects. We will engineer and build the SCIP greyshell — foundation and structure backed with a 10 year warranty, and our partners take over from there to deliver luxury custom finishes, ready for move-in. Get certified and become an EHBG partner. We build the structure, you keep the client, the brand and the margin.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
               <Award size={22} color="var(--gold)" />
