@@ -9,6 +9,7 @@ const Media = lazy(() => import('./pages/Media.jsx'));
 const WildfireRebuild = lazy(() => import('./pages/WildfireRebuild.jsx'));
 const DisasterResistantHomes = lazy(() => import('./pages/DisasterResistantHomes.jsx'));
 const LuxuryHomesTexas = lazy(() => import('./pages/LuxuryHomesTexas.jsx'));
+const Team = lazy(() => import('./pages/Team.jsx'));
 import './index.css';
 import { initToolbar } from '@21st-extension/toolbar';
 
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/wildfire-rebuild" element={<WildfireRebuild />} />
             <Route path="/disaster-resistant-homes" element={<DisasterResistantHomes />} />
             <Route path="/luxury-homes-texas" element={<LuxuryHomesTexas />} />
+            <Route path="/team" element={<Team />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

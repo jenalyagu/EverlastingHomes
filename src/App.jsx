@@ -106,6 +106,7 @@ const CERT_LOGOS = [
   { src: '/Certs/nahb.webp',        alt: 'NAHB' },
   { src: '/Certs/rsg.png',          alt: 'RSG' },
   { src: '/Certs/zero-home.jpg',    alt: 'Zero Energy Home' },
+  { src: '/Certs/passive home designer logo.png', alt: 'Passive Home Designer' },
 ];
 
 function App() {
@@ -573,13 +574,13 @@ function App() {
                 <span style={{ lineHeight: 1.4 }}>VRF heat pumps for HVAC, Allergen Free, Zero Energy Ready Homes.</span>
               </li>
             </ul>
-            <div style={{ marginTop: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', justifyContent: 'flex-start', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.25rem' }}>
+            <div style={{ marginTop: '1.5rem', display: 'flex', flexWrap: 'nowrap', gap: '0.9rem', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.25rem' }}>
               {CERT_LOGOS.map(logo => (
                 <img
                   key={logo.alt}
                   src={logo.src}
                   alt={logo.alt}
-                  style={{ height: '38px', width: 'auto', objectFit: 'contain', opacity: 0.85 }}
+                  style={{ height: '34px', width: 'auto', maxWidth: '13%', objectFit: 'contain', opacity: 0.85, flexShrink: 1 }}
                 />
               ))}
             </div>
@@ -599,21 +600,16 @@ function App() {
               <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>Global Leader in Resilient Architecture</span>
             </div>
 
-            {/* Diagram flanked by callouts */}
-            <div style={{
-              display:      'flex',
-              flexWrap:     'wrap',
-              gap:          '1.25rem',
-              alignItems:   'center',
-              justifyContent: 'center',
+            {/* Diagram flanked by callouts; columns drop below the image on small screens */}
+            <div className="scip-diff-grid" style={{
               borderRadius: '8px',
               background:   'rgba(0,0,0,0.16)',
               boxShadow:    'inset 0 0 24px rgba(0,0,0,0.25)',
               padding:      '1.25rem',
             }}>
 
-              {/* Left — SCIP callouts */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: '0 0 auto', width: '190px', textAlign: 'left' }}>
+              {/* SCIP callouts — left of the diagram (below-left on small screens) */}
+              <div className="scip-diff-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', textAlign: 'left' }}>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>SCIP</h3>
                 {[
                   { icon: Layers,         label: 'Fewer Materials'     },
@@ -630,9 +626,9 @@ function App() {
               </div>
 
               {/* Center — SCIP vs Wood diagram */}
-              <div style={{ flex: '1 1 320px', minWidth: '280px' }}>
+              <div className="scip-diff-img">
                 <img
-                  src="/assets/SCIP vs Wood images.png"
+                  src="/assets/scip-vs-wood.webp"
                   alt="SCIP wall panel compared to traditional wood framing"
                   style={{
                     width:        '100%',
@@ -644,8 +640,8 @@ function App() {
                 />
               </div>
 
-              {/* Right — Wood callouts */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: '0 0 auto', width: '190px', textAlign: 'left' }}>
+              {/* Wood callouts — right of the diagram (below-right on small screens) */}
+              <div className="scip-diff-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', textAlign: 'left' }}>
                 <h3 style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', letterSpacing: '1px' }}>Wood</h3>
                 {[
                   { icon: Layers,        label: 'More Materials'   },

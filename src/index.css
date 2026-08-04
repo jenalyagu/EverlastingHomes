@@ -438,3 +438,36 @@ textarea.form-input {
   51% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
   100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
 }
+
+/* ── SCIP vs Wood comparison grid (Builders & Professionals section) ── */
+.scip-diff-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.scip-diff-col {
+  flex: 0 0 auto;
+  width: 190px;
+}
+
+.scip-diff-img {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+
+/* Tablet / mobile: diagram on top, SCIP callouts below-left, Wood below-right */
+@media (max-width: 900px) {
+  .scip-diff-img {
+    order: -1;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .scip-diff-col {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 140px;
+  }
+}
