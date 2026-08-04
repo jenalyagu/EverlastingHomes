@@ -106,7 +106,7 @@ const CERT_LOGOS = [
   { src: '/Certs/nahb.webp',        alt: 'NAHB' },
   { src: '/Certs/rsg.png',          alt: 'RSG' },
   { src: '/Certs/zero-home.jpg',    alt: 'Zero Energy Home' },
-  { src: '/Certs/passive home designer logo.png', alt: 'Passive Home Designer' },
+  { src: '/Certs/passive-home-designer.png', alt: 'Passive Home Designer' },
 ];
 
 function App() {
@@ -595,13 +595,13 @@ function App() {
             <span className="section-subtitle">Builders &amp; Professionals</span>
             <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>The <span style={{ color: 'var(--gold)' }}>SCIP</span> Difference</h2>
             <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>SCIP vs Traditional Wood</h3>
+            <p style={{ fontSize: '1.0rem', lineHeight: 1.5, color: '#fff', maxWidth: '720px', margin: '0 auto 1rem' }}>
+              Everlasting Homes Building Group is partnering with Builders, Designers and Architects. We will engineer and build the SCIP greyshell — foundation and structure with a 10 year warranty. Our partners take over from there and deliver luxury custom finishes, ready for move-in. Get certified and become an EHBG partner. We build the structure, you keep the client, the brand and the margin.
+            </p>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
               <Award size={22} color="var(--gold)" />
               <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>Global Leader in Resilient Architecture</span>
             </div>
-            <p style={{ fontSize: '1.0rem', lineHeight: 1.5, color: '#fff', maxWidth: '720px', margin: '0 auto 1.25rem' }}>
-              Partner with Everlasting Homes Building Group to engineer and build the SCIP greyshell — foundation and structure. Our partners take over from there and deliver luxury custom finishes, ready for move-in. Get certified and become a EHBG partner. We build the structure, you keep the client, the brand and the margin.
-            </p>
 
             {/* Diagram flanked by callouts; columns drop below the image on small screens */}
             <div className="scip-diff-grid" style={{
