@@ -89,9 +89,10 @@ const SCIP_STATS = {
 };
 
 function getRiskLevel(score) {
-  if (score >= 75) return { label: 'CRITICAL', color: '#ff4444', bg: 'rgba(255,68,68,0.1)'   };
-  if (score >= 55) return { label: 'HIGH',     color: '#ff8c00', bg: 'rgba(255,140,0,0.1)'   };
-  if (score >= 35) return { label: 'MODERATE', color: '#dfb76c', bg: 'rgba(223,183,108,0.1)' };
+  if (score >= 90) return { label: 'CRITICAL', color: '#ff4444', bg: 'rgba(255,68,68,0.1)'   };
+  if (score >= 80) return { label: 'HIGH',     color: '#ff8c00', bg: 'rgba(255,140,0,0.1)'   };
+  if (score >= 60) return { label: 'ELEVATED', color: '#ffb74d', bg: 'rgba(255,183,77,0.1)'  };
+  if (score >= 40) return { label: 'MODERATE', color: '#dfb76c', bg: 'rgba(223,183,108,0.1)' };
   return                    { label: 'LOW',     color: '#66bb6a', bg: 'rgba(102,187,106,0.1)' };
 }
 
@@ -329,7 +330,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
                 {location.county
                   ? `Category levels are FEMA National Risk Index ratings for ${location.county} (Very Low through Very High, shown on a 0–100 scale). Wind combines hurricane, tornado, and strong-wind ratings; Flood combines inland and coastal flooding.`
                   : 'Category scores are state-level estimates calibrated to FEMA National Risk Index, USGS seismic, and NOAA storm data.'}{' '}
-                Your overall level is the average of the four categories: Low &lt;35, Moderate 35–54, High 55–74, Critical 75+.
+                Your overall level is the average of the four categories: Low &lt;40, Moderate 40–59, Elevated 60–79, High 80–89, Critical 90+.
               </p>
 
               {/* SCIP protection */}
