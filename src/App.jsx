@@ -23,8 +23,13 @@ import {
   Mail, 
   Droplets, 
   Infinity, 
-  CheckCircle2, 
+  CheckCircle2,
   Globe,
+  HardHat,
+  ClipboardCheck,
+  Wrench,
+  Clock,
+  AlertTriangle,
   Facebook,
   Instagram,
   Youtube
@@ -582,42 +587,84 @@ function App() {
         </div>
       </section>
 
-      {/* SECTION 11 — About */}
+      {/* SECTION 11 — Builders & Professionals: The SCIP Difference */}
       <section id="house-wireframe">
-        <div className="content-wrapper" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <div className="glow-content reveal" style={{ maxWidth: '680px', textAlign: 'right' }}>
-            <span className="section-subtitle">Everlasting Homes</span>
-            <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>Our Story</h2>
-            <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>Built on <span style={{ color: 'var(--gold)' }}>Precision</span> & Integrity</h3>
-            <p style={{ fontSize: '1.15rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.8)', marginBottom: '1.1rem' }}>
-              Everlasting Homes Building Group was founded by experienced builders and engineering-minded leaders with backgrounds in complex construction, luxury homes, and large-scale energy-sector projects. Led by Franck Boursier and George Mock, former ExxonMobil executives, they’ve reimagined construction using the revolutionary SCIP technology—setting a new standard for strength, safety, and sustainability. Together, Franck and George build more than homes; they craft legacies.
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-              <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>Global Leader in Resilient Architecture</span>
+        <div className="content-wrapper" style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="glow-content reveal" style={{ maxWidth: '980px', width: '100%', textAlign: 'center' }}>
+            <span className="section-subtitle">Builders &amp; Professionals</span>
+            <h2 style={{ fontSize: '2.94rem', marginBottom: '0.58rem' }}>The <span style={{ color: 'var(--gold)' }}>SCIP</span> Difference</h2>
+            <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.6rem' }}>SCIP vs Traditional Wood</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
               <Award size={22} color="var(--gold)" />
+              <span style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>Global Leader in Resilient Architecture</span>
             </div>
-            <p style={{ fontStyle: 'italic', fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem' }}>Engineering-Led. Family-Focused. Built for the Future.</p>
-            
-            {/* The Team Grid */}
-            <div style={{ marginTop: '1.5rem', textAlign: 'left' }}>
-              <h3 style={{ fontSize: '1.2rem', color: 'var(--gold)', marginBottom: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>The Team</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/Headshots/Franck_headshot.webp" alt="Franck Boursier" style={{ width: '100%', height: 'auto', borderRadius: '6px', border: '1px solid var(--border)', marginBottom: '0.3rem' }} />
-                  <h4 style={{ fontSize: '0.8rem', color: '#fff', margin: 0, fontWeight: 700 }}>Franck Boursier</h4>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', margin: 0 }}>Partner & CEO</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/Headshots/GeorgeM_headshot.webp" alt="George Mock" style={{ width: '100%', height: 'auto', borderRadius: '6px', border: '1px solid var(--border)', marginBottom: '0.3rem' }} />
-                  <h4 style={{ fontSize: '0.8rem', color: '#fff', margin: 0, fontWeight: 700 }}>George Mock</h4>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', margin: 0 }}>Partner & General Manager</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <img src="/Headshots/JullieM_headshot.webp" alt="Julie Mock" style={{ width: '100%', height: 'auto', borderRadius: '6px', border: '1px solid var(--border)', marginBottom: '0.3rem' }} />
-                  <h4 style={{ fontSize: '0.8rem', color: '#fff', margin: 0, fontWeight: 700 }}>Julie Mock</h4>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', margin: 0 }}>Partner & Business Manager</p>
-                </div>
+
+            {/* Diagram flanked by callouts */}
+            <div style={{
+              display:      'flex',
+              flexWrap:     'wrap',
+              gap:          '1.25rem',
+              alignItems:   'center',
+              justifyContent: 'center',
+              borderRadius: '8px',
+              background:   'rgba(0,0,0,0.16)',
+              boxShadow:    'inset 0 0 24px rgba(0,0,0,0.25)',
+              padding:      '1.25rem',
+            }}>
+
+              {/* Left — SCIP callouts */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: '0 0 auto', width: '190px', textAlign: 'left' }}>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '1px' }}>SCIP</h3>
+                {[
+                  { icon: Layers,         label: 'Fewer Materials'     },
+                  { icon: HardHat,        label: 'Fewer Trades'        },
+                  { icon: ClipboardCheck, label: 'Fewer Inspections'   },
+                  { icon: Shield,         label: 'Superior Durability' },
+                  { icon: Wrench,         label: 'Lower Maintenance'   },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icon size={15} color="var(--gold)" style={{ flexShrink: 0 }} />
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text)', lineHeight: 1.3 }}>{label}</span>
+                  </div>
+                ))}
               </div>
+
+              {/* Center — SCIP vs Wood diagram */}
+              <div style={{ flex: '1 1 320px', minWidth: '280px' }}>
+                <img
+                  src="/assets/SCIP vs Wood images.png"
+                  alt="SCIP wall panel compared to traditional wood framing"
+                  style={{
+                    width:        '100%',
+                    maxHeight:    '420px',
+                    objectFit:    'contain',
+                    display:      'block',
+                    borderRadius: '6px',
+                  }}
+                />
+              </div>
+
+              {/* Right — Wood callouts */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: '0 0 auto', width: '190px', textAlign: 'left' }}>
+                <h3 style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', letterSpacing: '1px' }}>Wood</h3>
+                {[
+                  { icon: Layers,        label: 'More Materials'   },
+                  { icon: Users,         label: 'More Labor'       },
+                  { icon: Clock,         label: 'More Time'        },
+                  { icon: Wrench,        label: 'More Maintenance' },
+                  { icon: AlertTriangle, label: 'More Risk'        },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} style={{ borderLeft: '2px solid rgba(255,255,255,0.3)', paddingLeft: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icon size={15} color="rgba(255,255,255,0.55)" style={{ flexShrink: 0 }} />
+                    <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.3 }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
+            <div style={{ marginTop: '1.5rem' }}>
+              <a href="/builders" className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem' }}>Builders &amp; Professionals</a>
             </div>
           </div>
         </div>
