@@ -138,7 +138,7 @@ export default function HeroSection({ onOpenCalculator, onOpenConsultation }) {
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',
             textShadow: '0 2px 10px rgba(0,0,0,0.95)',
           }}>
-            Calculate Your Risk
+            Calculate Your Disaster Risk
           </button>
           <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{
             filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.75))',

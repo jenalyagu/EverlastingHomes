@@ -248,7 +248,7 @@ function App() {
             <Youtube size={12} />
           </a>
           
-          <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem', background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
+          <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ padding: '0.6rem 1.1rem', fontSize: '0.75rem', background: 'transparent', color: 'var(--gold)' }}>Calculate Your Disaster Risk</button>
         </div>
       </nav>
 
@@ -878,7 +878,7 @@ function App() {
             </p>
             <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
               <button onClick={() => setShowModal(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Schedule Consultation</button>
-              <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Calculate Your Risk</button>
+              <button onClick={() => setShowCalculator(true)} className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Calculate Your Disaster Risk</button>
               <a href="https://myeverlastinghome.netlify.app" target="_blank" rel="noopener noreferrer" className="cta-btn" style={{ background: 'transparent', color: 'var(--gold)' }}>Design Your Resilient Home</a>
             </div>
           </div>

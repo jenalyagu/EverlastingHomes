@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Flame, Activity, Droplets, Wind, Shield, ChevronLeft, MapPin } from 'lucide-react';
+import { X, Flame, Activity, Droplets, Wind, Shield, MapPin } from 'lucide-react';
 
 // State-level risk scores (0–100) calibrated to FEMA / USGS / NOAA hazard data
 const STATE_RISKS = {
@@ -58,25 +58,21 @@ const STATE_RISKS = {
 
 const DEFAULT_RISKS = { fire: 50, quake: 40, flood: 55, wind: 55 };
 
-const CONCERNS = [
-  { id: 'fire',  label: 'Wildfire',             Icon: Flame,    color: '#ff6b35', bg: 'rgba(255,107,53,0.1)'   },
-  { id: 'quake', label: 'Earthquake',           Icon: Activity, color: '#dfb76c', bg: 'rgba(223,183,108,0.1)'  },
-  { id: 'flood', label: 'Hurricane & Flood',    Icon: Droplets, color: '#4fc3f7', bg: 'rgba(79,195,247,0.1)'   },
-  { id: 'wind',  label: 'Tornado & High Winds', Icon: Wind,     color: '#a5d6a7', bg: 'rgba(165,214,167,0.1)'  },
-];
-
-const SITUATIONS = [
-  { id: 'disaster', label: 'Rebuilding after a disaster',  boost: 20 },
-  { id: 'new',      label: 'Building a new custom home',   boost: 0  },
-  { id: 'upgrade',  label: 'Upgrading an existing home',   boost: 10 },
-  { id: 'research', label: 'Just researching options',     boost: 0  },
+// Display order and labels follow the four hazard families tracked by
+// FEMA's National Risk Index (wildfire; hurricane/tornado/strong wind;
+// riverine & coastal flooding; earthquake).
+const CATEGORIES = [
+  { id: 'fire',  label: 'Fire & Wildfire',           Icon: Flame,    color: '#ff6b35' },
+  { id: 'wind',  label: 'Wind — Hurricane & Tornado', Icon: Wind,     color: '#a5d6a7' },
+  { id: 'flood', label: 'Flood',                     Icon: Droplets, color: '#4fc3f7' },
+  { id: 'quake', label: 'Earthquake',                Icon: Activity, color: '#dfb76c' },
 ];
 
 const SCIP_STATS = {
-  fire:  { rating: '2,200°F Fire Rated',      detail: 'Fire resistance up to 2,200°F continuously — 5× more durable than standard concrete' },
-  quake: { rating: '9.0 Magnitude Rated',     detail: 'Continuous steel mesh cage distributes seismic energy across the full shell' },
-  flood: { rating: 'Flood & Moisture Proof',  detail: 'Concrete shell resists water absorption, rot, mold, and flood saturation' },
-  wind:  { rating: '200+ MPH Wind Rated',     detail: 'Miami-Dade approved — engineered to resist extreme uplift and wind-borne projectiles' },
+  fire:  { rating: 'Fire Resistance up to 2,200°F',   detail: 'The shotcrete shell resists fire up to 2,200°F continuously — no combustible framing anywhere in the structure' },
+  quake: { rating: 'Engineered for Seismic Zones',        detail: 'Continuous steel mesh cage distributes seismic energy across the full shell' },
+  flood: { rating: 'Flood & Moisture Resilient',          detail: 'Concrete shell resists water absorption, rot, mold, and flood saturation' },
+  wind:  { rating: 'Up to 200+ MPH Wind Resistance',      detail: 'Engineered to resist extreme uplift and wind-borne projectiles, designed to Miami-Dade standards' },
 };
 
 function getRiskLevel(score) {
@@ -86,23 +82,14 @@ function getRiskLevel(score) {
   return                    { label: 'LOW',     color: '#66bb6a', bg: 'rgba(102,187,106,0.1)' };
 }
 
-const STEP_LABELS = ['Location', 'Concerns', 'Situation'];
-
 export default function RiskCalculator({ onClose, onConsult }) {
-  const [step, setStep]           = useState(1);
-  const [zip, setZip]             = useState('');
+  const [zip, setZip]               = useState('');
   const [zipLoading, setZipLoading] = useState(false);
-  const [zipError, setZipError]   = useState(null);
-  const [location, setLocation]   = useState(null); // { city, state, stateAbbr, risks }
-  const [concerns, setConcerns]   = useState([]);
-  const [situation, setSituation] = useState(null);
-
-  const toggleConcern = (id) =>
-    setConcerns(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]);
+  const [zipError, setZipError]     = useState(null);
+  const [location, setLocation]     = useState(null); // { city, state, stateAbbr, risks }
 
   const reset = () => {
-    setStep(1); setZip(''); setZipError(null);
-    setLocation(null); setConcerns([]); setSituation(null);
+    setZip(''); setZipError(null); setLocation(null);
   };
 
   const lookupZip = async () => {
@@ -125,7 +112,6 @@ export default function RiskCalculator({ onClose, onConsult }) {
         stateAbbr,
         risks:     STATE_RISKS[stateAbbr] ?? DEFAULT_RISKS,
       });
-      setStep(2);
     } catch {
       setZipError('ZIP code not found. Please check and try again.');
     } finally {
@@ -133,26 +119,16 @@ export default function RiskCalculator({ onClose, onConsult }) {
     }
   };
 
-  const score = (() => {
-    if (!location || !situation) return null;
-    const r = location.risks;
-    const boost = SITUATIONS.find(s => s.id === situation)?.boost ?? 0;
-    const weights = CONCERNS.map(c => concerns.includes(c.id) ? 2 : 0.5);
-    const weighted = CONCERNS.reduce((sum, c, i) => sum + r[c.id] * weights[i], 0);
-    return Math.min(100, Math.round(weighted / weights.reduce((a, b) => a + b, 0) + boost));
-  })();
+  // Overall risk = simple average of the four category scores (0–100).
+  const score = location
+    ? Math.round(CATEGORIES.reduce((sum, c) => sum + location.risks[c.id], 0) / CATEGORIES.length)
+    : null;
 
   const risk = score !== null ? getRiskLevel(score) : null;
 
-  const topConcerns = location
-    ? [...CONCERNS]
-        .sort((a, b) => {
-          const aChosen = concerns.includes(a.id) ? 1 : 0;
-          const bChosen = concerns.includes(b.id) ? 1 : 0;
-          if (bChosen !== aChosen) return bChosen - aChosen;
-          return location.risks[b.id] - location.risks[a.id];
-        })
-        .slice(0, 2)
+  // Highlight SCIP protection for the two highest-scoring hazards
+  const topRisks = location
+    ? [...CATEGORIES].sort((a, b) => location.risks[b.id] - location.risks[a.id]).slice(0, 2)
     : [];
 
   return (
@@ -187,7 +163,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
               Risk Assessment
             </span>
             <h3 style={{ fontSize: '1.3rem', color: '#fff', marginTop: '0.2rem', textTransform: 'none', letterSpacing: 0, fontWeight: 700 }}>
-              {step < 4 ? 'Calculate Your Home Risk Rate' : 'Your Risk Assessment'}
+              {location ? 'Your Disaster Risk Report' : 'Calculate Your Disaster Risk'}
             </h3>
           </div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', padding: '0.25rem', marginLeft: '1rem', flexShrink: 0, lineHeight: 1 }}>
@@ -195,45 +171,14 @@ export default function RiskCalculator({ onClose, onConsult }) {
           </button>
         </div>
 
-        {/* ── Step indicator ── */}
-        {step < 4 && (
-          <div style={{ padding: '1rem 1.75rem 0', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-            {STEP_LABELS.map((label, i) => {
-              const n = i + 1;
-              const done   = n < step;
-              const active = n === step;
-              return (
-                <div key={n} style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', opacity: active || done ? 1 : 0.3 }}>
-                    <div style={{
-                      width: '22px', height: '22px', borderRadius: '50%', flexShrink: 0,
-                      background: done ? 'var(--gold)' : active ? 'rgba(223,183,108,0.12)' : 'transparent',
-                      border: `1px solid ${done || active ? 'var(--gold)' : 'rgba(255,255,255,0.2)'}`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '0.58rem', fontWeight: 700,
-                      color: done ? '#050505' : 'var(--gold)',
-                    }}>{done ? '✓' : n}</div>
-                    <span style={{ fontSize: '0.6rem', letterSpacing: '1.5px', textTransform: 'uppercase', color: active ? 'var(--gold)' : done ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.25)' }}>
-                      {label}
-                    </span>
-                  </div>
-                  {i < STEP_LABELS.length - 1 && (
-                    <div style={{ width: '20px', height: '1px', background: done ? 'rgba(223,183,108,0.5)' : 'rgba(255,255,255,0.08)', flexShrink: 0 }} />
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )}
-
         {/* ── Body ── */}
         <div style={{ padding: '1.25rem 1.75rem 1.75rem' }}>
 
-          {/* STEP 1 — ZIP lookup */}
-          {step === 1 && (
+          {/* ZIP lookup */}
+          {!location && (
             <>
               <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginBottom: '1.25rem', textTransform: 'none', letterSpacing: 0 }}>
-                Enter your ZIP code for a localized risk report.
+                Enter your ZIP code for an instant localized risk report.
               </p>
               <div style={{ display: 'flex', gap: '0.65rem', marginBottom: '0.75rem' }}>
                 <div style={{ flex: 1, position: 'relative' }}>
@@ -290,94 +235,8 @@ export default function RiskCalculator({ onClose, onConsult }) {
             </>
           )}
 
-          {/* STEP 2 — Concerns */}
-          {step === 2 && (
-            <>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1rem', background: 'rgba(223,183,108,0.06)', border: '1px solid rgba(223,183,108,0.15)', borderRadius: '8px', padding: '0.55rem 0.85rem' }}>
-                <MapPin size={12} color="var(--gold)" />
-                <span style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'none', letterSpacing: 0 }}>
-                  {location?.city}, {location?.stateAbbr}
-                </span>
-              </div>
-              <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginBottom: '1rem', textTransform: 'none', letterSpacing: 0 }}>
-                What are your biggest concerns?{' '}
-                <span style={{ color: 'rgba(255,255,255,0.28)' }}>Select all that apply</span>
-              </p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', marginBottom: '1.2rem' }}>
-                {CONCERNS.map(c => {
-                  const on = concerns.includes(c.id);
-                  return (
-                    <button key={c.id} onClick={() => toggleConcern(c.id)} style={{
-                      background: on ? c.bg : 'rgba(255,255,255,0.03)',
-                      border: `1px solid ${on ? c.color : 'rgba(255,255,255,0.08)'}`,
-                      borderRadius: '10px', padding: '1rem',
-                      textAlign: 'left', cursor: 'pointer', transition: 'all 0.18s ease',
-                      display: 'flex', alignItems: 'center', gap: '0.6rem',
-                    }}>
-                      <c.Icon size={17} color={on ? c.color : 'rgba(255,255,255,0.28)'} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: on ? '#fff' : 'rgba(255,255,255,0.5)', textTransform: 'none', letterSpacing: 0, fontFamily: 'var(--font-accent)' }}>
-                        {c.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-              <div style={{ display: 'flex', gap: '0.65rem', justifyContent: 'space-between' }}>
-                <button onClick={() => setStep(1)} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '8px', padding: '0.6rem 1rem', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <ChevronLeft size={13} /> Back
-                </button>
-                <button onClick={() => setStep(3)} disabled={concerns.length === 0} style={{
-                  background: 'transparent',
-                  border: `1px solid ${concerns.length > 0 ? 'var(--gold)' : 'rgba(255,255,255,0.09)'}`,
-                  borderRadius: '8px', padding: '0.6rem 1.5rem',
-                  color: concerns.length > 0 ? 'var(--gold)' : 'rgba(255,255,255,0.18)',
-                  cursor: concerns.length > 0 ? 'pointer' : 'not-allowed',
-                  fontSize: '0.7rem', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700,
-                  transition: 'all 0.18s ease',
-                }}>
-                  Continue
-                </button>
-              </div>
-            </>
-          )}
-
-          {/* STEP 3 — Situation */}
-          {step === 3 && (
-            <>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1rem', background: 'rgba(223,183,108,0.06)', border: '1px solid rgba(223,183,108,0.15)', borderRadius: '8px', padding: '0.55rem 0.85rem' }}>
-                <MapPin size={12} color="var(--gold)" />
-                <span style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'none', letterSpacing: 0 }}>
-                  {location?.city}, {location?.stateAbbr}
-                </span>
-              </div>
-              <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', marginBottom: '1rem', textTransform: 'none', letterSpacing: 0 }}>
-                What best describes your situation?
-              </p>
-              <div style={{ display: 'grid', gap: '0.6rem', marginBottom: '1.2rem' }}>
-                {SITUATIONS.map(s => (
-                  <button key={s.id} onClick={() => { setSituation(s.id); setStep(4); }} style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    borderRadius: '10px', padding: '0.9rem 1.1rem',
-                    textAlign: 'left', cursor: 'pointer', transition: 'all 0.18s ease',
-                    color: '#fff', fontSize: '0.82rem', fontWeight: 600,
-                    textTransform: 'none', letterSpacing: 0, fontFamily: 'var(--font-accent)',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(223,183,108,0.4)'; e.currentTarget.style.background = 'rgba(223,183,108,0.05)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-              <button onClick={() => setStep(2)} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '8px', padding: '0.6rem 1rem', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <ChevronLeft size={13} /> Back
-              </button>
-            </>
-          )}
-
-          {/* STEP 4 — Results */}
-          {step === 4 && score !== null && risk !== null && (
+          {/* Results */}
+          {location && score !== null && risk !== null && (
             <>
               {/* Score card */}
               <div style={{
@@ -389,7 +248,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
                   <MapPin size={12} color="rgba(255,255,255,0.4)" />
                   <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.45)', textTransform: 'none', letterSpacing: 0 }}>
-                    {location?.city}, {location?.state}
+                    {location.city}, {location.state}
                   </span>
                 </div>
                 <div style={{ fontSize: '0.58rem', letterSpacing: '3px', textTransform: 'uppercase', color: risk.color, marginBottom: '0.5rem', fontWeight: 600 }}>
@@ -404,14 +263,13 @@ export default function RiskCalculator({ onClose, onConsult }) {
               </div>
 
               {/* Risk breakdown bars */}
-              <div style={{ marginBottom: '1.2rem' }}>
+              <div style={{ marginBottom: '1rem' }}>
                 <div style={{ fontSize: '0.58rem', letterSpacing: '2.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '0.7rem', fontWeight: 600 }}>
                   Risk Breakdown
                 </div>
-                {CONCERNS.map(c => {
-                  const base    = location?.risks[c.id] ?? 0;
-                  const boosted = concerns.includes(c.id) ? Math.min(100, base + 12) : base;
-                  const lvl     = getRiskLevel(boosted);
+                {CATEGORIES.map(c => {
+                  const value = location.risks[c.id] ?? 0;
+                  const lvl   = getRiskLevel(value);
                   return (
                     <div key={c.id} style={{ marginBottom: '0.6rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.22rem' }}>
@@ -422,12 +280,18 @@ export default function RiskCalculator({ onClose, onConsult }) {
                         <span style={{ fontSize: '0.62rem', fontWeight: 700, color: lvl.color, letterSpacing: '1px', textTransform: 'uppercase' }}>{lvl.label}</span>
                       </div>
                       <div style={{ height: '3px', background: 'rgba(255,255,255,0.06)', borderRadius: '2px', overflow: 'hidden' }}>
-                        <div style={{ height: '100%', width: `${boosted}%`, background: lvl.color, borderRadius: '2px' }} />
+                        <div style={{ height: '100%', width: `${value}%`, background: lvl.color, borderRadius: '2px' }} />
                       </div>
                     </div>
                   );
                 })}
               </div>
+
+              {/* Methodology note */}
+              <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.32)', textTransform: 'none', letterSpacing: 0, lineHeight: 1.5, marginBottom: '1.2rem' }}>
+                Scores run 0–100 per category, calibrated to state-level FEMA National Risk Index, USGS seismic, and NOAA storm data.
+                Your overall level is the average of the four categories: Low &lt;35, Moderate 35–54, High 55–74, Critical 75+.
+              </p>
 
               {/* SCIP protection */}
               <div style={{ marginBottom: '1.5rem', background: 'rgba(223,183,108,0.04)', border: '1px solid rgba(223,183,108,0.1)', borderRadius: '10px', padding: '1rem 1.1rem' }}>
@@ -437,8 +301,8 @@ export default function RiskCalculator({ onClose, onConsult }) {
                     How SCIP Protects You
                   </span>
                 </div>
-                {topConcerns.map((c, i) => (
-                  <div key={c.id} style={{ marginBottom: i < topConcerns.length - 1 ? '0.65rem' : 0, paddingBottom: i < topConcerns.length - 1 ? '0.65rem' : 0, borderBottom: i < topConcerns.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                {topRisks.map((c, i) => (
+                  <div key={c.id} style={{ marginBottom: i < topRisks.length - 1 ? '0.65rem' : 0, paddingBottom: i < topRisks.length - 1 ? '0.65rem' : 0, borderBottom: i < topRisks.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
                     <div style={{ fontSize: '0.77rem', fontWeight: 700, color: '#fff', marginBottom: '0.12rem', textTransform: 'none', letterSpacing: 0 }}>
                       {SCIP_STATS[c.id].rating}
                     </div>
@@ -453,7 +317,7 @@ export default function RiskCalculator({ onClose, onConsult }) {
                 Schedule Your Consultation
               </button>
               <button onClick={reset} style={{ width: '100%', background: 'none', border: 'none', color: 'rgba(255,255,255,0.25)', cursor: 'pointer', fontSize: '0.62rem', marginTop: '0.75rem', padding: '0.4rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontFamily: 'var(--font-primary)' }}>
-                Retake Assessment
+                Check Another ZIP Code
               </button>
             </>
           )}
